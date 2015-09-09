@@ -84,7 +84,15 @@
       </GuiSettings>
       <Properties>
         <Configuration>
-          <RScript><![CDATA[
+          <RScript><![CDATA[library(AlteryxRhelper)
+input <- list(
+  breaks = numericInput('%Question.breaks%' , 5),
+  color = textInput('%Question.color%' , 'steelblue'),
+  debug = checkboxInput('%Question.debug%' , FALSE)
+)
+options(alteryx.wd = '%Engine.WorkflowDirectory%')
+options(alteryx.debug = input$debug)
+
 # read data
 d <- read.Alteryx2("#1", default = data.frame(x = 1:10))
 
@@ -293,7 +301,7 @@ AlteryxGraph2({
     </Constants>
     <MetaInfo>
       <NameIsFileName value="True" />
-      <Name>template1</Name>
+      <Name>sample1</Name>
       <Description />
       <RootToolName />
       <ToolVersion />
