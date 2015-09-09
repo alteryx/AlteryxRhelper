@@ -38,7 +38,7 @@ insertRcode('mymacro.yxmc', 'mymacro1.R`)
 ```
 
 
-### Writing Portable Code {#portable}
+### Writing Portable Code
 
 Often times, you might find yourself in a situation where you want to run some R code from an Alteryx workflow in RStudio. You could copy-paste the code from the workflow or alternately, use `extractRCode` to extract and save it to file. 
 
@@ -110,7 +110,7 @@ input <- list(
 input$dist <- findTrueInput(input, 'dist')
 ```
 
-## Auto Extract Question Inputs
+### Auto Extract Question Inputs
 
 This is an experimental feature that allows automatic extraction of question inputs from an Alteryx workflow and inserting it into the R Code. To test this feature, let us edit `mymacro1.R` so as to remove the lines that contain the question inputs.
 
@@ -136,7 +136,7 @@ insertRcode('mymacro1.yxmc', 'mymacro1.R')
 Now, let us run the `extractMacro` function. This time around, we pass it an extra argument named `extractInput`, which extracts all question inputs, and generates the necessary code that would convert them into R objects and assign them to a list object with the specified name.
 
 ```r
-extractRcode('rmacro.yxmc', extractInput = 'Q')
+extractRcode('rmacro.yxmc', extractInput = 'input')
 ```
 
 You will notice that the following lines automatically got appended to the extracted `rmacro1.R`.
@@ -144,13 +144,13 @@ You will notice that the following lines automatically got appended to the extra
 ```r
 ## DO NOT MODIFY: Auto Inserted by AlteryxRhelper ----
 library(AlteryxRhelper)
-Q <- list(
+input <- list(
   breaks = numericInput('%Question.breaks%' , 5),
   color = textInput('%Question.color%' , 'steelblue'),
   debug = checkboxInput('%Question.debug%' , FALSE)
 )
 options(alteryx.wd = '%Engine.WorkflowDirectory%')
-options(alteryx.debug = Q$debug)
+options(alteryx.debug = input$debug)
 ##----
 ```
 
