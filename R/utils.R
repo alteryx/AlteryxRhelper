@@ -69,17 +69,19 @@ scaffoldWorkflow <- function(name = 'mymacro', outDir  = ".",
 }
 
 
-
-dump_and_quit <- function() {
+#' Dump and quit on error
+#' 
+#' @export
+dumpAndQuit <- function() {
   wd = getOption('alteryx.wd')
   # Save debugging info to file last.dump.rda
   f <- file.path(wd, 'last.dump.rda')
   AlteryxRDataX::AlteryxMessage(paste0('Saving dump to ', f))
   AlteryxRDataX::AlteryxMessage("You can debug the R code by loading the rda file and
-                                running
-                                ")
+    running load('last.dump.rda');debugger();
+  ")
   dump.frames(to.file = TRUE)
-  file.copy('last.dump.rda', f)
+  file.copy('last.dump.rda', f, overwrite = TRUE)
   # Quit R with error status
   q(status = 1)
 }
