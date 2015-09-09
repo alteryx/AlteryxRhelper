@@ -88,7 +88,7 @@
 input <- list(
   breaks = numericInput('%Question.breaks%' , 5),
   color = textInput('%Question.color%' , 'steelblue'),
-  debug = checkboxInput('%Question.debug%' , FALSE)
+  debug = checkboxInput('%Question.debug%' , TRUE)
 )
 options(alteryx.wd = '%Engine.WorkflowDirectory%')
 options(alteryx.debug = input$debug)
@@ -378,7 +378,7 @@ AlteryxGraph2({
               <Name>debug</Name>
               <ToolId value="11" />
               <Questions />
-              <Default value="False" />
+              <Default value="True" />
               <Collapsable value="False" />
             </Question>
           </Questions>
