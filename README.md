@@ -6,10 +6,13 @@ This package provides functions that allows Alteryx users to write, test and man
   <img src= "assets/alteryxrhelper.gif" width='60%'></img>
 </div>
 
-You can install the package from github.
+You can install the package binary from github, or build it from source using `install_github`.
 
 ```r
-devtools::install_github("AlteryxLabs/AlteryxRhelper")
+install.packages("AlteryxRhelper_0.1.0.zip", 
+  repos = 'http://AlteryxLabs.github.io/AlteryxRhelper'
+)
+# devtools::install_github("AlteryxLabs/AlteryxRhelper")
 ```
 
 ## Quick Start
