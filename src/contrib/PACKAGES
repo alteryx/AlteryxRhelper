@@ -1,15 +1,14 @@
+Package: AlteryxRhelper
+Version: 0.1.0
+Imports: XML
+License: MIT + file LICENSE
+MD5sum: 1d8e57661fa13124ec8880c6296a897d
+NeedsCompilation: no
+
 Package: drat
 Version: 0.0.4
 Suggests: git2r, knitr
 License: GPL (>= 2)
 MD5sum: 96a3a1f4d859b60fc83066f66e9d4761
-NeedsCompilation: no
-
-Package: slidify
-Version: 0.5
-Depends: R (>= 2.15.0)
-Imports: knitr (>= 1.0.0), markdown, stringr (>= 1.0.0), yaml, whisker
-License: MIT
-MD5sum: 8f5e823c974226395d449404bb2fe7b5
 NeedsCompilation: no
 
