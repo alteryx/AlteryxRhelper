@@ -6,17 +6,16 @@ This package provides functions that allows Alteryx users to write, test and man
   <img src= "assets/alteryxrhelper.gif" width='60%'></img>
 </div>
 
-## Quick Start
-
-Let us start by installing the package, scaffolding a sample workflow, making edits to the R code in RStudio, and updating the underlying workflow, all without leaving the confines of your favorite IDE.
-
-You can install the `AlteryxRhelper` package from github.
+You can install the package from github.
 
 ```r
 devtools::install_github("AlteryxLabs/AlteryxRhelper")
 ```
 
-We can scaffold an Alteryx workflow using the `scaffoldWorkflow` function.
+## Quick Start
+
+Let us start by scaffolding a sample workflow, extracting the embedded R code, editing it in an IDE, and updating the workflow, all without leaving the confines of your favorite IDE.
+
 
 ```r
 library(AlteryxRhelper)
@@ -26,11 +25,11 @@ scaffoldWorkflow(outDir = 'test')
 This function
 
 1. creates a directory named `test`
-2. copies a default macro template from `AlteryxRhelper` into `test/rmacro.yxmc`
+2. copies a default macro template from `AlteryxRhelper` into `test/mymacro.yxmc`
 3. extracts R code from the macro and saves it as `test/rmacro1.R`.
 4. opens `test/rmacro1.R` for editing.
 
-The R code in `test/rmacro1.R` has been written carefully so that it will run without any errors even outside of Alteryx. You can read more about this in the section on [Writing Portable Code](#portable)
+The R code in `test/mymacro1.R` has been written carefully so that it will run without any errors even outside of Alteryx. You can read more about this in the section on [Writing Portable Code](#portable)
 
 You can now go ahead and edit the contents of `test/mymacro1.R`. When you are done editing, you can update the macro by running
 
@@ -69,14 +68,91 @@ If you always run the workflow prior to executing the R code in an R console, yo
 
 ### Question Inputs
 
+This package provides helper functions that let you read different types of questions inputs, and assign them to an R object.
+
 ```r
 input <- list(
-  breaks = numericInput("%Question.breaks%", 5),
-  color = textInput("%Question.color%", "red"),
+  breaks = numericInput("%Question.breaks%", default = 5),
+  color = textInput("%Question.color%", default = "steelblue")
 )
 ```
 
-<div style='text-align:center'>
-  <img src= "assets/template1.png" width='60%'></img>
-</div>
+1. numericInput
+2. textInput
+3. dropdownInput
+4. listInput
+5. checkboxInput
+6. radioInput
+7. selectInput
+
+### Question Input Example
+
+Some additional inputs have been added to handle common design patterns. Suppose, you have a radio input that lets users choose between three distributions.
+
+```r
+if ("%Question.dist.normal%" == "True"){
+  # do something
+} else if ("%Question.dist.uniform%" == "True"){
+  # do something
+} else if ("%Question.dist.exp%" == "True"){
+  # do something
+}
+```
+
+With this package, you can use the `findTrueInput` function
+
+```r
+input <- list(
+  dist.normal = radioInput("%Question.normal%", TRUE),
+  dist.uniform = radioInput("%Question.uniform%"),
+  dist.exponential = radioInput("%Question.exp%")
+)
+input$dist <- findTrueInput(input, 'dist')
+```
+
+## Auto Extract Question Inputs
+
+This is an experimental feature that allows automatic extraction of question inputs from an Alteryx workflow and inserting it into the R Code. To test this feature, let us edit `mymacro1.R` so as to remove the lines that contain the question inputs.
+
+Your `mymacro1.R` file should now be
+
+```r
+# read data
+d <- read.Alteryx2("#1", default = data.frame(x = 1:10))
+# write data to output 1
+write.Alteryx2(d, 1)
+
+# write graph to output 3
+AlteryxGraph2({hist(d$x, breaks = input$breaks, col = input$color)}, 3)
+```
+
+Let us insert this R code back into the macro
+
+```r
+insertRcode('mymacro1.yxmc', 'mymacro1.R')
+```
+
+
+Now, let us run the `extractMacro` function. This time around, we pass it an extra argument named `extractInput`, which extracts all question inputs, and generates the necessary code that would convert them into R objects and assign them to a list object with the specified name.
+
+```r
+extractRcode('rmacro.yxmc', extractInput = 'Q')
+```
+
+You will notice that the following lines automatically got appended to the extracted `rmacro1.R`.
+
+```r
+## DO NOT MODIFY: Auto Inserted by AlteryxRhelper ----
+library(AlteryxRhelper)
+Q <- list(
+  breaks = numericInput('%Question.breaks%' , 5),
+  color = textInput('%Question.color%' , 'steelblue'),
+  debug = checkboxInput('%Question.debug%' , FALSE)
+)
+options(alteryx.wd = '%Engine.WorkflowDirectory%')
+options(alteryx.debug = Q$debug)
+##----
+```
+
+
 
