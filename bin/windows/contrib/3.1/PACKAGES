@@ -1,0 +1,5 @@
+Package: AlteryxRhelper
+Version: 0.1.0
+Imports: XML
+License: MIT + file LICENSE
+
