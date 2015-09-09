@@ -40,5 +40,5 @@ makeInput <- function(template, input){
   l <- lapply(g, xmlToList)
   l <- l[sort(sapply(l, function(x){x$Name}), index.return = TRUE)$ix]
   x = paste(Filter(Negate(is.null), lapply(l, makeCall)), collapse = ',\n')
-  x2 = paste0('## DO NOT MODIFY: Auto Inserted by AlteryxRhelper ----\nlibrary(AlteryxRhelper)\n', input, ' <- list(\n', x, "\n)", "\noptions(alteryx.wd = '%Engine.WorkflowDirectory%')\noptions(alteryx.debug = Q$debug)\n##----")
+  x2 = paste0('## DO NOT MODIFY: Auto Inserted by AlteryxRhelper ----\nlibrary(AlteryxRhelper)\n', input, ' <- list(\n', x, "\n)", "\noptions(alteryx.wd = '%Engine.WorkflowDirectory%')\noptions(alteryx.debug = ", input, "$debug)\n##----")
 }
