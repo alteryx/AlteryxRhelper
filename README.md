@@ -29,8 +29,8 @@ This function
 
 1. creates a directory named `test`
 2. copies a default macro template from `AlteryxRhelper` into `test/mymacro.yxmc`
-3. extracts R code from the macro and saves it as `test/rmacro1.R`.
-4. opens `test/rmacro1.R` for editing.
+3. extracts R code from the macro and saves it as `test/mymacro1.R`.
+4. opens `test/mymacro1.R` for editing.
 
 The R code in `test/mymacro1.R` has been written carefully so that it will run without any errors even outside of Alteryx. You can read more about this in the section on [Writing Portable Code](#portable)
 
