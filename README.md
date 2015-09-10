@@ -9,7 +9,7 @@ This package provides functions that allows Alteryx users to write, test and man
 You can install the package binary from github, or build it from source using `install_github`.
 
 ```r
-install.packages("AlteryxRhelper_0.1.0.zip", 
+install.packages("AlteryxRhelper", 
   repos = 'http://AlteryxLabs.github.io/AlteryxRhelper'
 )
 # devtools::install_github("AlteryxLabs/AlteryxRhelper")
