@@ -91,3 +91,22 @@ updateHtml = function(macro){
   }
 }
 
+#' Run an Alteryx workflow
+#'
+#' @param file parameter to pass on to AlteryxEngineCmd
+#' @export
+runWorkflow = function(file){
+  alteryx = getOption("alteryx.path")
+  cwd = getwd()
+  engine_dir = normalizePath(file.path(alteryx, "bin"))
+  param = normalizePath(file, mustWork = TRUE)
+  setwd(engine_dir)
+  cmd = paste("AlteryxEngineCmd.exe", shQuote(file))
+  out = system(cmd, intern = TRUE)
+  on.exit({
+    message("Exiting function...")
+    setwd(cwd)
+  })
+  return(out)
+}
+
