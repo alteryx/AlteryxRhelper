@@ -5,6 +5,10 @@ inAlteryx <- function(){
   'package:AlteryxRDataX' %in% search()
 }
 
+listPredictiveMacros <- function(){
+  alteryx = getOption('alteryx.path')
+  p <- file.path(alteryx, 'R-3.1.2/plugin/Macros/Predictive Tools')
+}
 
 #' Copy predictive macro
 #'
@@ -85,6 +89,33 @@ dumpAndQuit <- function() {
   # Quit R with error status
   q(status = 1)
 }
+
+listMacros <- function(repo = 'install'){
+  paths = c(
+    install = 'C:\\Program Files\\Alteryx\\R-3.1.3\\plugin\\Macros\\Predictive Tools',
+    svn = 'C:\\Users\\ramnath\\Desktop\\R_Packages\\PredictiveMacros'
+  )
+  list.files(paths[repo], pattern = '.yxmc')
+}
+
+findMacro <- function(macro, repo = 'install'){
+  paths = c(
+    install = 'C:\\Program Files\\Alteryx\\R-3.1.3\\plugin\\Macros\\Predictive Tools',
+    svn = 'C:\\Users\\ramnath\\Desktop\\R_Packages\\PredictiveMacros'
+  )
+  macro = file.path(paths[repo], paste0(macro, '.yxmc'))
+  if (file.exists(macro)){
+    return(macro)
+  } else {
+    message('Sorry. I could not find ', macro)
+  }
+}
+
+copyMacro <- function(macro, todir = '.', repo = 'svn', ...){
+  from = findMacro(macro)
+  file.copy(from, todir, ...)
+}
+
 
 
 
