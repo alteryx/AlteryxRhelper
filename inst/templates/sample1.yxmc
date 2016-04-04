@@ -93,6 +93,8 @@ input <- list(
 options(alteryx.wd = '%Engine.WorkflowDirectory%')
 options(alteryx.debug = input$debug)
 
+print('%Question.dropDown%')
+
 # read data
 d <- read.Alteryx2("#1", default = data.frame(x = 1:10))
 
@@ -111,16 +113,6 @@ AlteryxGraph2({
           <DefaultAnnotationText />
           <Left value="False" />
         </Annotation>
-        <MetaInfo connection="Output3">
-          <RecordInfo>
-            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString" />
-          </RecordInfo>
-        </MetaInfo>
-        <MetaInfo connection="Output1">
-          <RecordInfo>
-            <Field name="x" source="R-DATA:" type="Int32" />
-          </RecordInfo>
-        </MetaInfo>
       </Properties>
       <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR" />
     </Node>
@@ -179,6 +171,19 @@ AlteryxGraph2({
         <Configuration />
         <Annotation DisplayMode="0">
           <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="13">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+        <Position x="474" y="78" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name>dropDown</Name>
           <DefaultAnnotationText />
           <Left value="False" />
         </Annotation>
@@ -298,6 +303,12 @@ AlteryxGraph2({
         <Value />
         <IsNumeric value="False" />
       </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>dropDown</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
     </Constants>
     <MetaInfo>
       <NameIsFileName value="True" />
@@ -363,6 +374,19 @@ AlteryxGraph2({
               <Password value="False" />
               <Multiline value="False" />
               <Hidden value="False" />
+            </Question>
+            <Question>
+              <Type>ListBox</Type>
+              <Description>Select one option</Description>
+              <Name>dropDown</Name>
+              <ToolId value="13" />
+              <Multiple value="False" />
+              <Default>A</Default>
+              <Mode>Manual</Mode>
+              <Manual_Values><![CDATA[A:Option A
+B:Option B
+C:Option C
+]]></Manual_Values>
             </Question>
           </Questions>
         </Question>
