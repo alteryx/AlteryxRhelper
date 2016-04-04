@@ -9,5 +9,6 @@ Description: Helper functions for Alteryx
 License: MIT + file LICENSE
 LazyData: TRUE
 Imports:
-    XML
+    XML,
+    htmltools
 RoxygenNote: 5.0.1
