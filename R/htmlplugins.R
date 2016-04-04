@@ -38,37 +38,34 @@ createYXI <- function(pluginName,
 
 
 #' @export
-updateHtmlPlugin <- function(pluginName, build = getOption('nwb.build', FALSE),
-    fromRoot = '~/Desktop/SNIPPETS/dev/',
-    toRoot = '/Volumes/C-1/Program Files/Alteryx/bin/'){
-  from = file.path(fromRoot, pluginName)
+updateHtmlPlugin <- function(pluginDir, alteryxDir = getOption('alteryx.path'), build = FALSE){
+  pluginName = tools::file_path_sans_ext(basename(normalizePath(pluginDir)))
   with_dir <- function (new, code){
     old <- setwd(dir = new)
     on.exit(setwd(old))
     force(code)
   }
   
-  cwd = getwd(); setwd(from); on.exit(setwd(cwd));
-  from = "."
+  cwd = getwd(); setwd(pluginDir); on.exit(setwd(cwd));
   if (build){
     with_dir('App', system("nwb build-umd"))
-    file.copy(file.path(from, 'App', 'umd', 'app.min.js'), from, overwrite = TRUE)
+    file.copy(file.path('App', 'umd', 'app.min.js'), ".", overwrite = TRUE)
   }
-  to = file.path(toRoot, 'HtmlPlugins', pluginName)
+  to = file.path(alteryxDir, 'bin', 'HtmlPlugins', pluginName)
   if (!(file.exists(to))) {
     dir.create(to, recursive = TRUE)
   }
   
-  files = list.files(from, full.names = T, recursive = TRUE)
-  files = files[!grepl('Supporting_Macros|App', files)]
+  files = list.files(full.names = T, recursive = TRUE)
+  files = files[!grepl('Supporting_Macros|App|docs', files)]
   file.copy(files, to, recursive = TRUE)
 
   # Copy Supporting Macro
-  supporting_macro <- list.files(file.path(from, 'Supporting_Macros'), full.names = TRUE)
+  supporting_macro <- list.files(file.path(".", 'Supporting_Macros'), full.names = TRUE)
   if (length(supporting_macro) > 0){
     file.copy(
       supporting_macro,
-      file.path(toRoot, 'RuntimeData', 'Macros', 'Supporting_Macros'),
+      file.path(alteryxDir, 'bin', 'RuntimeData', 'Macros', 'Supporting_Macros'),
       overwrite = TRUE
     )
   }
