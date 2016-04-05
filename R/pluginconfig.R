@@ -50,7 +50,12 @@ getIO <- function(template){
   list(
     inputs = getMacroIO('MacroInput'),
     outputs = getMacroIO('MacroOutput'),
-    pluginName = tools::file_path_sans_ext(basename(template))
+    pluginName = tools::file_path_sans_ext(basename(template)),
+    #properties = getNodeSet(r, '//Properties//MetaInfo[not(@connection)]')
+    properties = Filter(
+        Negate(is.null),
+        xmlToList(getNodeSet(r, "//Properties//MetaInfo[not(@connection)]")[[1]])
+    )
   )
 }
 
@@ -106,9 +111,12 @@ makePluginConfig <- function(inputs, outputs, pluginName, properties = NULL){
   d$closeNode()
   if (!is.null(properties)){
     d$addNode("Properties", close = F)
-    d$addNode("MetaInfo", .children = sapply(names(properties), function(k){
-      d$addNode(k, properties[[k]])
-    }))
+    d$addNode(
+      "MetaInfo", 
+      .children = sapply(names(properties), function(k){
+        d$addNode(k, properties[[k]])
+      })
+    )
   }
   d$closeNode()
   d$value() 
