@@ -123,7 +123,13 @@ makePluginConfig <- function(inputs, outputs, pluginName, properties = NULL){
 }
 
 #' @export
-yxmc2PluginConfig <- function(yxmcFile){
+yxmc2PluginConfig <- function(yxmcFile, saveToFile = NULL){
   x <- getIO(yxmcFile)
-  do.call(makePluginConfig, x)
+  y <- do.call(makePluginConfig, x)
+  if (!is.null(saveToFile)){
+    saveXML(y, file = saveToFile)
+    return(saveToFile)
+  } else {
+    return(y)
+  }
 }
