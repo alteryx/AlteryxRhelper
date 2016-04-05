@@ -11,6 +11,10 @@ toYaml.FileBrowse = function(type, g){
   )
 }
 
+bool_map <- function(x){
+  c(True = TRUE, False = FALSE)[[x]]
+}
+
 toYaml.TextBox = function(type, g){
   x = xmlToList(g)
   list(
@@ -26,7 +30,8 @@ toYaml.BooleanGroup = function(type, g){
   list(
     dataName = x$Name,
     type = "CheckBox",
-    text = x$Description
+    text = x$Description,
+    default = bool_map(x$Default[['value']])
   )
 }
 
@@ -45,18 +50,20 @@ toYaml.NumericUpDown = function(type, g){
 
 toYaml.ListBox = function(type, g){
   x = xmlToList(g)
-  if (x$Multiple[['value']] == "True"){
-    type = 'ListBox'
-  } else {
-    type = 'DropDown'
-  }
   out <- list(
     label = x$Description,
-    dataName = x$Name,
-    type = type
+    dataName = x$Name
   )
   cg <- xmlChildren(g)
   if ("Manual_Values" %in% names(cg)){
+    if (x$Multiple[['value']] == "True"){
+      out <- append(out, list(
+        type = 'MultiSelectListBox',
+        dataType = 'MultiStringSelector'
+      ))
+    } else {
+      out <- append(out, list(type = 'DropDown'))
+    }
     values = toKeyValuePairs(xmlValue(cg$Manual_Values))
     value = x$Default
     append(out, list(    
@@ -65,18 +72,34 @@ toYaml.ListBox = function(type, g){
     ))
   } else {
     append(out, list(
-      dataType = if (x$Multiple[['value']] == "True") "MultiFieldSelector" else "FieldSelector",
+      type = "DropDown",
+      dataType = if (x$Multiple[['value']] == "True") {
+        "FieldSelectorMulti" 
+      } else {
+        "FieldSelector"
+      },
       inputNumber = "0",
-      connectionNumber = "0"
+      connectionNumber = "0",
+      fieldType = "All"
     ))
   }
+}
+
+toYaml.Date <- function(type, g){
+  x = xmlToList(g)
+  list(
+    label = x$Description,
+    dataName = x$Name,
+    type = "DateTimeField",
+    dateFormat = "YYYY-MM-DD"
+  )
 }
 
 toKeyValuePairs <- function(x){
   y <- strsplit(x, "\n")[[1]]
   if (grepl(":", y[1])){
     y <- strsplit(y, ":\\s*")
-    as.list(setNames(sapply(y, '[[', 2), sapply(y, '[[', 1)))
+    as.list(setNames(sapply(y, '[[', 1), sapply(y, '[[', 2)))
   } else {
     as.list(setNames(y, y))
   }
@@ -84,7 +107,7 @@ toKeyValuePairs <- function(x){
 
 renderToYaml <- function(g){
   x = xmlToList(g)
-  types = c("FileBrowse", "TextBox", "BooleanGroup", "ListBox", "NumericUpDown")
+  types = c("FileBrowse", "TextBox", "BooleanGroup", "ListBox", "NumericUpDown", "Date")
   if (x$Type %in% types){
     toYaml(structure(x$Type, class = x$Type), g)
   } else {
