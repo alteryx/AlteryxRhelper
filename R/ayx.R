@@ -82,3 +82,11 @@ makeGuiHtml <- function(widgets, pluginName, template = '../GuiTemplate.html'){
   #writeLines(as.character(gui), sprintf("%sGui.html", pluginName))
   return(gui)
 }
+
+#' @export
+writeGuiHtml <- function(yxmcFile, htmlFile){
+  x1 <- yxmc2yaml(yxmcFile)
+  x2 <- makePage(x1)
+  x3 <- makeGuiHtml(x2, pluginName = tools::file_path_sans_ext(basename(yxmcFile)))
+  cat(as.character(x3), file = htmlFile)
+}
