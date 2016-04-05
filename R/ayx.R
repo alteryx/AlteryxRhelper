@@ -46,3 +46,39 @@ renderAyxWidgets <- function(config){
   })
   do.call(tagList, lapply(d2, ayxPluginWidget))
 }
+
+#' @export
+makePage <- function(config, layout = NULL){
+  #config <- yaml::yaml.load_file(config)
+  config <- lapply(seq_along(config), function(i){
+    config[[i]]$id = names(config)[i]
+    config[[i]]$dataName = names(config)[i]; 
+    config[[i]]
+  })
+  makeFieldSet <- function(x, id){
+    tags$fieldset(id = id,
+      tags$legend(id),
+      do.call(tagList, lapply(x, function(x){
+        d_ <- config[[x]]; d_$dataName = x;
+        ayxPluginWidget(d_)
+      }))             
+    )
+  }
+  if (!is.null(layout)){
+    layout <- yaml::yaml.load(layout)
+    do.call(tagList, lapply(names(layout), function(k){
+      makeFieldSet(layout[[k]], k)
+    }))
+  } else {
+    tags$fieldset(
+      do.call(tagList, lapply(config, ayxPluginWidget))
+    ) 
+  }
+}
+
+#' @export
+makeGuiHtml <- function(widgets, pluginName, template = '../GuiTemplate.html'){
+  gui <- htmltools::htmlTemplate(template, widgets = widgets, title = pluginName)
+  #writeLines(as.character(gui), sprintf("%sGui.html", pluginName))
+  return(gui)
+}
