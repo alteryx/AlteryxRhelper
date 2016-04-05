@@ -121,3 +121,9 @@ makePluginConfig <- function(inputs, outputs, pluginName, properties = NULL){
   d$closeNode()
   d$value() 
 }
+
+#' @export
+yxmc2PluginConfig <- function(yxmcFile){
+  x <- getIO(yxmcFile)
+  do.call(makePluginConfig, x)
+}
