@@ -1,3 +1,5 @@
+#' Make a circular or square icon and save it as a png file
+#'
 #' @export
 #' 
 #' @import grid
