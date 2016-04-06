@@ -42,7 +42,7 @@ getIO <- function(template){
       if (is.null(x$Abbrev)){
         x$Abbrev = ""
       } else {
-        x$Abbrev = gsub("\n|\\s+", "", inputs[[1]]$Abbrev)
+        x$Abbrev = gsub("\n|\\s+", "", x$Abbrev)
       }
       return(x)
     })
