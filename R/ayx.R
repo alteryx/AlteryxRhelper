@@ -77,7 +77,10 @@ makePage <- function(config, layout = NULL){
 }
 
 #' @export
-makeGuiHtml <- function(widgets, pluginName, template = '../GuiTemplate.html'){
+makeGuiHtml <- function(widgets, pluginName = "", template = NULL){
+  if (is.null(template)) {
+    template <- system.file('templates', 'GuiTemplate.html', package = 'AlteryxRhelper')
+  }
   gui <- htmltools::htmlTemplate(template, widgets = widgets, title = pluginName)
   #writeLines(as.character(gui), sprintf("%sGui.html", pluginName))
   return(gui)
@@ -89,4 +92,14 @@ writeGuiHtml <- function(yxmcFile, htmlFile){
   x2 <- makePage(x1)
   x3 <- makeGuiHtml(x2, pluginName = tools::file_path_sans_ext(basename(yxmcFile)))
   cat(as.character(x3), file = htmlFile)
+}
+
+#' @export
+createPluginFromMacro <- function(yxmcFile){
+  pluginName <- tools::file_path_sans_ext(basename(yxmcFile))
+  writeGuiHtml(yxmcFile, paste0(pluginName, "Gui.html"))
+  yxmc2PluginConfig(yxmcFile, saveTo = paste0(pluginName, "Config.xml"))
+  if (!file.exists(icon <- paste0(pluginName, "Icon.png"))){
+    makeIcon(icon)
+  }
 }
