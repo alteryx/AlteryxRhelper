@@ -87,17 +87,23 @@ makeGuiHtml <- function(widgets, pluginName = "", template = NULL){
 }
 
 #' @export
-writeGuiHtml <- function(yxmcFile, htmlFile){
+writeGuiHtml <- function(yxmcFile, htmlFile, overrides = NULL){
   x1 <- yxmc2yaml(yxmcFile)
+  if (file.exists(ov <- file.path(dirname(yxmcFile), 'overrides.yaml'))){
+    overrides <- yaml::yaml.load_file(ov)
+  }
+  if (!is.null(overrides)){
+    x1 <- modifyList(x1, overrides)
+  }
   x2 <- makePage(x1)
   x3 <- makeGuiHtml(x2, pluginName = tools::file_path_sans_ext(basename(yxmcFile)))
   cat(as.character(x3), file = htmlFile)
 }
 
 #' @export
-createPluginFromMacro <- function(yxmcFile){
+createPluginFromMacro <- function(yxmcFile, overrides = NULL){
   pluginName <- tools::file_path_sans_ext(basename(yxmcFile))
-  writeGuiHtml(yxmcFile, paste0(pluginName, "Gui.html"))
+  writeGuiHtml(yxmcFile, paste0(pluginName, "Gui.html"), overrides = overrides)
   yxmc2PluginConfig(yxmcFile, saveTo = paste0(pluginName, "Config.xml"))
   if (!file.exists(icon <- paste0(pluginName, "Icon.png"))){
     makeIcon(icon)
