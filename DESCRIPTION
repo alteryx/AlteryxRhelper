@@ -10,5 +10,5 @@ License: MIT + file LICENSE
 LazyData: TRUE
 Imports:
     XML,
-    htmltools
+    htmltools (>= 0.3.5)
 RoxygenNote: 5.0.1
