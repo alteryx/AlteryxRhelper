@@ -34,7 +34,7 @@ getIO <- function(template){
       if (d$Type == type) d$ToolId[['value']]
     })))
     inputs <- lapply(toolIds, function(i){
-      query = sprintf('//Node[@ToolID="%s"]//Properties//Configuration', i)
+      query = sprintf('//Node[@ToolID="%s"]//Properties//Configuration[UseFileInput]', i)
       node = getNodeSet(r, query)
       xmlToList(node[[1]])[c('Name', 'Abbrev')]
     })
