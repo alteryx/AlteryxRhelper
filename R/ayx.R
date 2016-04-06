@@ -101,11 +101,37 @@ writeGuiHtml <- function(yxmcFile, htmlFile, overrides = NULL){
 }
 
 #' @export
-createPluginFromMacro <- function(yxmcFile, overrides = NULL){
+createPluginFromMacro <- function(yxmcFile, overrides = NULL, layout = NULL){
   pluginName <- tools::file_path_sans_ext(basename(yxmcFile))
-  writeGuiHtml(yxmcFile, paste0(pluginName, "Gui.html"), overrides = overrides)
+  if (is.null(layout)){
+    writeGuiHtml(yxmcFile, paste0(pluginName, "Gui.html"), overrides = overrides)
+  } else {
+    writeGuiHtmlFromLayout(yxmcFile, paste0(pluginName, "Gui.html"), overrides = overrides) 
+  }
   yxmc2PluginConfig(yxmcFile, saveTo = paste0(pluginName, "Config.xml"))
   if (!file.exists(icon <- paste0(pluginName, "Icon.png"))){
     makeIcon(icon)
   }
+}
+
+
+#' @export
+writeGuiHtmlFromLayout <- function(yxmcFile, htmlFile, overrides = NULL){
+  mylayout <- paste(readLines(file.path(dirname(yxmcFile), 'layout.html')), collapse = '\n')
+  x1 <- yxmc2yaml(yxmcFile)
+  if (file.exists(ov <- file.path(dirname(yxmcFile), 'overrides.yaml'))){
+    overrides <- yaml::yaml.load_file(ov)
+  }
+  if (!is.null(overrides)){
+    x1 <- modifyList(x1, overrides)
+  }
+  w = renderAyxWidgets(x1)
+  names(w) = names(x1)
+  
+  htmlTextTemplate = function(...){
+    htmlTemplate(text_ = mylayout, ...)
+  }
+  x2 <- do.call(htmlTextTemplate, w)
+  x3 <- makeGuiHtml(x2, pluginName = tools::file_path_sans_ext(basename(yxmcFile)))
+  cat(as.character(x3), file = htmlFile)
 }
