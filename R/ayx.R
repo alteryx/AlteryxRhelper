@@ -87,22 +87,30 @@ makeGuiHtml <- function(widgets, pluginName = "", template = NULL){
 }
 
 #' @export
-writeGuiHtml <- function(yxmcFile, htmlFile, overrides = NULL){
+writeGuiHtml <- function(pluginDir, htmlFile = NULL, overrides = NULL){
+  pluginDir <- normalizePath(pluginDir)
+  pluginName <- basename(pluginDir)
+  if (is.null(htmlFile)){
+    htmlFile <- file.path(pluginDir, sprintf("%sGui.html", pluginName))
+  }
+  yxmcFile <- file.path(pluginDir, 'Supporting_Macros', sprintf("%s.yxmc", pluginName))
   x1 <- yxmc2yaml(yxmcFile)
-  if (file.exists(ov <- file.path(dirname(yxmcFile), 'overrides.yaml'))){
+  if (file.exists(ov <- file.path(pluginDir, 'overrides.yaml'))){
     overrides <- yaml::yaml.load_file(ov)
   }
   if (!is.null(overrides)){
     x1 <- modifyList(x1, overrides)
   }
   x2 <- makePage(x1)
-  x3 <- makeGuiHtml(x2, pluginName = tools::file_path_sans_ext(basename(yxmcFile)))
+  x3 <- makeGuiHtml(x2, pluginName = pluginName)
   cat(as.character(x3), file = htmlFile)
 }
 
 #' @export
-createPluginFromMacro <- function(yxmcFile, overrides = NULL, layout = NULL){
-  pluginName <- tools::file_path_sans_ext(basename(yxmcFile))
+createPluginFromMacro <- function(pluginDir, overrides = NULL, layout = NULL){
+  pluginDir = normalizePath(pluginDir)
+  pluginName <- basename(pluginDir)
+  yxmcFile <- file.path(pluginDir, 'Supporting_Macros', sprintf("%s.yxmc", pluginName))
   if (is.null(layout)){
     writeGuiHtml(yxmcFile, paste0(pluginName, "Gui.html"), overrides = overrides)
   } else {
@@ -116,10 +124,16 @@ createPluginFromMacro <- function(yxmcFile, overrides = NULL, layout = NULL){
 
 
 #' @export
-writeGuiHtmlFromLayout <- function(yxmcFile, htmlFile, overrides = NULL){
-  mylayout <- paste(readLines(file.path(dirname(yxmcFile), 'layout.html')), collapse = '\n')
+writeGuiHtmlFromLayout <- function(pluginDir, htmlFile = NULL, overrides = NULL){
+  pluginDir <- normalizePath(pluginDir)
+  pluginName <- basename(pluginDir)
+  if (is.null(htmlFile)){
+    htmlFile <- file.path(pluginDir, sprintf("%sGui.html", pluginName))
+  }
+  mylayout <- paste(readLines(file.path(pluginDir, 'layout.html')), collapse = '\n')
+  yxmcFile <- file.path(pluginDir, 'Supporting_Macros', sprintf("%s.yxmc", pluginName))
   x1 <- yxmc2yaml(yxmcFile)
-  if (file.exists(ov <- file.path(dirname(yxmcFile), 'overrides.yaml'))){
+  if (file.exists(ov <- file.path(pluginDir, 'overrides.yaml'))){
     overrides <- yaml::yaml.load_file(ov)
   }
   if (!is.null(overrides)){
@@ -132,6 +146,6 @@ writeGuiHtmlFromLayout <- function(yxmcFile, htmlFile, overrides = NULL){
     htmlTemplate(text_ = mylayout, ...)
   }
   x2 <- do.call(htmlTextTemplate, w)
-  x3 <- makeGuiHtml(x2, pluginName = tools::file_path_sans_ext(basename(yxmcFile)))
+  x3 <- makeGuiHtml(x2, pluginName = pluginName)
   cat(as.character(x3), file = htmlFile)
 }
