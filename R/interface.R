@@ -46,7 +46,8 @@ listInput = function(x, default = '[""]'){
   if (x == ""  ||  grepl('^%Question\\.(.*)%$', x)){
     default
   } else {
-    as.list(jsonlite::fromJSON(as.character(x)))
+    #as.list(jsonlite::fromJSON(as.character(x)))
+    if (grepl(",", x)) strsplit(x, ",")[[1]] else x
   }
 }
 
