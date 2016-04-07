@@ -51,6 +51,9 @@ updateHtmlPlugin <- function(pluginDir, alteryxDir = getOption('alteryx.path'), 
     with_dir('App', system("nwb build-umd"))
     file.copy(file.path('App', 'umd', 'app.min.js'), ".", overwrite = TRUE)
   }
+  if (!dir.exists(alteryxDir)){
+    stop("The directory to copy the plugin to ", alteryxDir, " does not exist")
+  }
   to = file.path(alteryxDir, 'bin', 'HtmlPlugins', pluginName)
   if (!(file.exists(to))) {
     dir.create(to, recursive = TRUE)
