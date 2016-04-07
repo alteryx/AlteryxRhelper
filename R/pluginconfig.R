@@ -36,7 +36,7 @@ getIO <- function(template){
     inputs <- lapply(toolIds, function(i){
       query = sprintf('//Node[@ToolID="%s"]//Properties//Configuration', i)
       node = getNodeSet(r, query)
-      xmlToList(node[[1]])[c('Name', 'Abbrev')]
+      xmlToList(node[[1]])[c('Name', 'Abbrev', 'Optional')]
     })
     lapply(inputs, function(x){
       if (is.null(x$Abbrev)){
@@ -94,7 +94,7 @@ makePluginConfig <- function(inputs, outputs, pluginName, properties = NULL){
     d$addNode("Connection", attrs = list(
       Name = x$Name,
       AllowMultiple = "False",
-      Optional = "True",
+      Optional = x$Optional,
       Type = "Connection",
       Label = x$Abbrev
     ))
