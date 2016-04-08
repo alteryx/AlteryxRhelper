@@ -95,7 +95,7 @@ writeGuiHtml <- function(pluginDir, htmlFile = NULL, overrides = NULL){
   }
   yxmcFile <- file.path(pluginDir, 'Supporting_Macros', sprintf("%s.yxmc", pluginName))
   x1 <- yxmc2yaml(yxmcFile)
-  if (file.exists(ov <- file.path(pluginDir, 'overrides.yaml'))){
+  if (file.exists(ov <- file.path(pluginDir, 'Gui', 'overrides.yaml'))){
     overrides <- yaml::yaml.load_file(ov)
   }
   if (!is.null(overrides)){
@@ -107,14 +107,14 @@ writeGuiHtml <- function(pluginDir, htmlFile = NULL, overrides = NULL){
 }
 
 #' @export
-createPluginFromMacro <- function(pluginDir, overrides = NULL, layout = NULL){
+createPluginFromMacro <- function(pluginDir = ".", overrides = NULL, layout = NULL){
   pluginDir = normalizePath(pluginDir)
   pluginName <- basename(pluginDir)
   yxmcFile <- file.path(pluginDir, 'Supporting_Macros', sprintf("%s.yxmc", pluginName))
   if (is.null(layout)){
-    writeGuiHtml(yxmcFile, paste0(pluginName, "Gui.html"), overrides = overrides)
+    writeGuiHtml(pluginDir, overrides = overrides)
   } else {
-    writeGuiHtmlFromLayout(yxmcFile, paste0(pluginName, "Gui.html"), overrides = overrides) 
+    writeGuiHtmlFromLayout(pluginDir, overrides = overrides) 
   }
   yxmc2PluginConfig(yxmcFile, saveTo = paste0(pluginName, "Config.xml"))
   if (!file.exists(icon <- paste0(pluginName, "Icon.png"))){
@@ -130,10 +130,10 @@ writeGuiHtmlFromLayout <- function(pluginDir, htmlFile = NULL, overrides = NULL)
   if (is.null(htmlFile)){
     htmlFile <- file.path(pluginDir, sprintf("%sGui.html", pluginName))
   }
-  mylayout <- paste(readLines(file.path(pluginDir, 'layout.html')), collapse = '\n')
+  mylayout <- paste(readLines(file.path(pluginDir, 'Gui', 'layout.html')), collapse = '\n')
   yxmcFile <- file.path(pluginDir, 'Supporting_Macros', sprintf("%s.yxmc", pluginName))
   x1 <- yxmc2yaml(yxmcFile)
-  if (file.exists(ov <- file.path(pluginDir, 'overrides.yaml'))){
+  if (file.exists(ov <- file.path(pluginDir, "Gui", "overrides.yaml"))){
     overrides <- yaml::yaml.load_file(ov)
   }
   if (!is.null(overrides)){
