@@ -38,7 +38,8 @@ createYXI <- function(pluginName,
 
 
 #' @export
-updateHtmlPlugin <- function(pluginDir, alteryxDir = getOption('alteryx.path'), build = FALSE){
+updateHtmlPlugin <- function(pluginDir = ".", alteryxDir = getOption('alteryx.path'), 
+    build = FALSE){
   pluginName = tools::file_path_sans_ext(basename(normalizePath(pluginDir)))
   with_dir <- function (new, code){
     old <- setwd(dir = new)
