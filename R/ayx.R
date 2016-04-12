@@ -139,8 +139,13 @@ writeGuiHtmlFromLayout <- function(pluginDir, htmlFile = NULL, overrides = NULL)
   if (!is.null(overrides)){
     x1 <- modifyList(x1, overrides)
   }
-  w = renderAyxWidgets(x1)
-  names(w) = names(x1)
+  x1b <- lapply(seq_along(x1), function(i){
+    x1[[i]]$id = names(x1)[i]
+    x1[[i]]
+  })
+  names(x1b) <- names(x1)
+  w = renderAyxWidgets(x1b)
+  names(w) = names(x1b)
   
   htmlTextTemplate = function(...){
     htmlTemplate(text_ = mylayout, ...)
