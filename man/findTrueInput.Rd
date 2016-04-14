@@ -6,6 +6,11 @@
 \usage{
 findTrueInput(input, root)
 }
+\arguments{
+\item{input}{input}
+
+\item{root}{root}
+}
 \description{
 Find inputs that start with a root and have the value TRUE
 }

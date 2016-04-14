@@ -6,6 +6,9 @@
 \usage{
 updateHtml(macro)
 }
+\arguments{
+\item{macro}{path to macro}
+}
 \description{
 Function to update html from sample
 }

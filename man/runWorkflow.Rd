@@ -5,17 +5,11 @@
 \title{Run an Alteryx workflow}
 \usage{
 runWorkflow(file)
-
-runWorkflow(file)
 }
 \arguments{
 \item{file}{parameter to pass on to AlteryxEngineCmd}
-
-\item{yxmd}{path to alteryx workflow}
 }
 \description{
-Run an Alteryx workflow
-
 Run an Alteryx workflow
 }
 

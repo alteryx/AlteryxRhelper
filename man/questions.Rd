@@ -24,6 +24,13 @@ dropdownInput(x, default = "")
 
 selectInput(...)
 }
+\arguments{
+\item{x}{x}
+
+\item{default}{default}
+
+\item{...}{arguments to pass to selectInput}
+}
 \description{
 Question Inputs
 }

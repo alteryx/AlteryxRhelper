@@ -6,6 +6,15 @@
 \usage{
 read.Alteryx2(name, mode = "data.frame", bIncludeRowNames = FALSE, default)
 }
+\arguments{
+\item{name}{name}
+
+\item{mode}{mode}
+
+\item{bIncludeRowNames}{include row names}
+
+\item{default}{default}
+}
 \description{
 This function reads data from an Alteryx input stream. Every time a
 macro/workflow runs this function, the input data gets saved as an rds file

@@ -6,6 +6,17 @@
 \usage{
 AlteryxGraph2(expr, nOutput = 1, width = 576, height = 576, ...)
 }
+\arguments{
+\item{expr}{expression to generate graph}
+
+\item{nOutput}{output connection number}
+
+\item{width}{width}
+
+\item{height}{height}
+
+\item{...}{additional arguments}
+}
 \description{
 Alteryx Graph Function
 }

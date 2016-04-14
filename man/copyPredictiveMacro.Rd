@@ -6,6 +6,11 @@
 \usage{
 copyPredictiveMacro(macro, to = ".")
 }
+\arguments{
+\item{macro}{macro}
+
+\item{to}{to}
+}
 \description{
 Copy predictive macro
 }

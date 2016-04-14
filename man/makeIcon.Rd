@@ -6,6 +6,13 @@
 \usage{
 makeIcon(iconPath, shape = "circle", fill = sample(colors(), 1))
 }
+\arguments{
+\item{iconPath}{path to save icon to}
+
+\item{shape}{shape of the icon (circle or rect)}
+
+\item{fill}{fill color}
+}
 \description{
 Make a circular or square icon and save it as a png file
 }

@@ -6,6 +6,15 @@
 \usage{
 write.Alteryx2(data, nOutput = 1, bIncludeRowNames = FALSE, source = "")
 }
+\arguments{
+\item{data}{data}
+
+\item{nOutput}{output connection number}
+
+\item{bIncludeRowNames}{include row names}
+
+\item{source}{source}
+}
 \description{
 Alteryx Write Function
 }

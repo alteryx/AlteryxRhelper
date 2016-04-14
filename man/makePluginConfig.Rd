@@ -6,6 +6,15 @@
 \usage{
 makePluginConfig(inputs, outputs, pluginName, properties = NULL)
 }
+\arguments{
+\item{inputs}{inputs}
+
+\item{outputs}{outputs}
+
+\item{pluginName}{pluginName}
+
+\item{properties}{properties}
+}
 \description{
 Make plugin configuration xml file
 }
