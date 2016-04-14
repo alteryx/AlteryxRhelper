@@ -94,7 +94,7 @@ makePluginConfig <- function(inputs, outputs, pluginName, properties = NULL){
     d$addNode("Connection", attrs = list(
       Name = x$Name,
       AllowMultiple = "False",
-      Optional = x$Optional,
+      Optional = if (is.null(x$Optional)) "False" else "True",
       Type = "Connection",
       Label = x$Abbrev
     ))
