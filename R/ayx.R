@@ -2,8 +2,11 @@ ayxOption <- function(x){
   tag('alteryx-option', x)
 }
 
-#' @export
+#' Alteryx Plugin Widget
+#' 
+#'
 #' @import htmltools
+#' @param x x
 ayxPluginWidget = function(x){
   if (!is.null(x$values)){
     values = lapply(seq_along(x$values), function(i){
@@ -33,9 +36,7 @@ ayxPluginWidget = function(x){
   )
 }
 
-#' @export
-#' 
-#' 
+
 # yxmcFile <- system.file('templates', 'sample1.yxmc', package = 'AlteryxRhelper')
 # config <- yxmc2yaml(yxmcFile)
 # renderAyxWidgets(config)
@@ -47,7 +48,6 @@ renderAyxWidgets <- function(config){
   do.call(tagList, lapply(d2, ayxPluginWidget))
 }
 
-#' @export
 makePage <- function(config, layout = NULL){
   #config <- yaml::yaml.load_file(config)
   config <- lapply(seq_along(config), function(i){
@@ -76,7 +76,6 @@ makePage <- function(config, layout = NULL){
   }
 }
 
-#' @export
 makeGuiHtml <- function(widgets, pluginName = "", template = NULL){
   if (is.null(template)) {
     template <- system.file('templates', 'GuiTemplate.html', package = 'AlteryxRhelper')
@@ -86,7 +85,7 @@ makeGuiHtml <- function(widgets, pluginName = "", template = NULL){
   return(gui)
 }
 
-#' @export
+
 writeGuiHtml <- function(pluginDir, htmlFile = NULL, overrides = NULL){
   pluginDir <- normalizePath(pluginDir)
   pluginName <- basename(pluginDir)
@@ -106,7 +105,14 @@ writeGuiHtml <- function(pluginDir, htmlFile = NULL, overrides = NULL){
   cat(as.character(x3), file = htmlFile)
 }
 
+#' Create Plugin from Macro
+#' 
+#' 
 #' @export
+#' @param pluginDir plugin directory
+#' @param overrides should an override file be used
+#' @param layout should a layout file be used
+#' @import yaml
 createPluginFromMacro <- function(pluginDir = ".", overrides = NULL, layout = NULL){
   pluginDir = normalizePath(pluginDir)
   pluginName <- basename(pluginDir)
@@ -116,14 +122,12 @@ createPluginFromMacro <- function(pluginDir = ".", overrides = NULL, layout = NU
   } else {
     writeGuiHtmlFromLayout(pluginDir, overrides = overrides) 
   }
-  yxmc2PluginConfig(yxmcFile, saveTo = paste0(pluginName, "Config.xml"))
+  yxmc2PluginConfig(yxmcFile, saveToFile = paste0(pluginName, "Config.xml"))
   if (!file.exists(icon <- paste0(pluginName, "Icon.png"))){
     makeIcon(icon)
   }
 }
 
-
-#' @export
 writeGuiHtmlFromLayout <- function(pluginDir, htmlFile = NULL, overrides = NULL){
   pluginDir <- normalizePath(pluginDir)
   pluginName <- basename(pluginDir)

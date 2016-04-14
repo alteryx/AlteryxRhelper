@@ -115,11 +115,6 @@ renderToYaml <- function(g){
   }
 }
 
-#' @export
-#' 
-#' 
-#' 
-#' 
 # template <- system.file("templates", "sample1.yxmc", package = 'AlteryxRhelper')
 # d <- yxmc2yaml(template)
 yxmc2yaml <- function(template, asYaml = F){

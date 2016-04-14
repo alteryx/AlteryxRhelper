@@ -12,7 +12,10 @@ listPredictiveMacros <- function(){
 
 #' Copy predictive macro
 #'
+#'
 #' @export
+#' @param macro macro
+#' @param to to
 copyPredictiveMacro <- function(macro, to = "."){
   alteryx = getOption('alteryx.path')
   p <- file.path(alteryx, 'R-3.1.2/plugin/Macros/Predictive Tools')
@@ -35,25 +38,35 @@ fieldSize = function(fieldType){
   x[fieldType]
 }
 
-writeMeta = function(nOutput, fields, fieldType = 'V_WString', source = "R-Data:"){
-  for (i in length(field)){
-    fType = names(fields)[i]
-    if (is.null(fType)) fType = fieldType
-    size = fieldSize(fType)
-    AlteryxRDataX::write.AlteryxMetaInfo(nOutput = nOutput, name = f, fieldType = fType,
-      size = size, source = source
-    )
-  }
-}
+# writeMeta = function(nOutput, fields, fieldType = 'V_WString', source = "R-Data:"){
+#   for (i in length(fields)){
+#     fType = names(fields)[i]
+#     if (is.null(fType)) fType = fieldType
+#     size = fieldSize(fType)
+#     AlteryxRDataX::write.AlteryxMetaInfo(nOutput = nOutput, name = f, fieldType = fType,
+#       size = size, source = source
+#     )
+#   }
+# }
 
+#' Template
+#' 
+#' 
 #' @export
+#' @param template template
 aTemplate = function(template){
   system.file('templates', template, package = 'AlteryxRhelper')
 }
 
 #' Scaffold a new workflow based on a template
 #' 
+#' 
 #' @export
+#' @param name name
+#' @param outDir output directory
+#' @param template template
+#' @param edit open file for editing
+#' @param ... additional arguments
 scaffoldWorkflow <- function(name = 'mymacro', outDir  = ".", 
     template =  aTemplate('empty.yxmc'), edit = TRUE, ...){
   if (!file.exists(outDir)){
@@ -74,6 +87,7 @@ scaffoldWorkflow <- function(name = 'mymacro', outDir  = ".",
 
 
 #' Dump and quit on error
+#' 
 #' 
 #' @export
 dumpAndQuit <- function() {

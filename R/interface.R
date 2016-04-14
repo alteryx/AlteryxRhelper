@@ -1,6 +1,8 @@
 #' Question Inputs
 #'
 #' @export
+#' @param x x
+#' @param default default
 #' @rdname questions
 numericInput = function(x, default){
   if (x == "" ||  grepl('^%Question\\.(.*)%$', x)){
@@ -64,6 +66,7 @@ dropdownInput = function(x, default = ""){
 
 #' @export
 #' @rdname questions
+#' @param ... arguments to pass to selectInput
 selectInput <- function(...){
   x = c(...)
   names(Filter(isTRUE, x))
@@ -71,7 +74,10 @@ selectInput <- function(...){
 
 #' Find inputs that start with a root and have the value TRUE
 #'
+#'
 #' @export
+#' @param input input
+#' @param root root
 findTrueInput = function(input, root){
   root = paste0('^', root)
   #x = do.call('selectInput', input[grep(root, names(input))])
@@ -82,6 +88,7 @@ findTrueInput = function(input, root){
 #' Find inputs that start with a root
 #'
 #' @export
+#' @inheritParams findTrueInput
 findInputs = function(input, root){
   x = input[grepl(paste0("^", root), names(input))]
   names(x) = sub("^(.*)\\.", '', names(x))

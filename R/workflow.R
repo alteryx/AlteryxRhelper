@@ -50,32 +50,31 @@ extractRcode <- function(template, outFile = NULL, extractInput = NULL){
   }))
 }
 
-#' Run an Alteryx workflow
-#'
-#' @param yxmd path to alteryx workflow
-runWorkflow = function(yxmd){
-  alteryx = getOption("alteryx.path")
-  cwd = getwd()
-  engine_dir = normalizePath(file.path(alteryx, "bin"))
-  yxmd = normalizePath(yxmd, mustWork = TRUE)
-  setwd(engine_dir)
-  cmd = paste("AlteryxEngineCmd.exe", yxmd)
-  out = system(cmd, intern = TRUE)
-  tfiles = paste0(tools::file_path_sans_ext(basename(yxmd)), "_files")
-  on.exit({
-    message("Exiting function...")
-    setwd(cwd)
-    if (file.exists(tfiles)){
-      message("Deleting temporary assets...")
-      unlink(tfiles, recursive = TRUE)
-    }
-  })
-  return(out)
-}
+# runWorkflow = function(yxmd){
+#   alteryx = getOption("alteryx.path")
+#   cwd = getwd()
+#   engine_dir = normalizePath(file.path(alteryx, "bin"))
+#   yxmd = normalizePath(yxmd, mustWork = TRUE)
+#   setwd(engine_dir)
+#   cmd = paste("AlteryxEngineCmd.exe", yxmd)
+#   out = system(cmd, intern = TRUE)
+#   tfiles = paste0(tools::file_path_sans_ext(basename(yxmd)), "_files")
+#   on.exit({
+#     message("Exiting function...")
+#     setwd(cwd)
+#     if (file.exists(tfiles)){
+#       message("Deleting temporary assets...")
+#       unlink(tfiles, recursive = TRUE)
+#     }
+#   })
+#   return(out)
+# }
 
 #' Function to update html from sample
 #'
+#'
 #' @export
+#' @param macro path to macro
 updateHtml = function(macro){
   rfile = paste0(macro, '.R')
   mcfile = paste0(macro, '.yxmc')

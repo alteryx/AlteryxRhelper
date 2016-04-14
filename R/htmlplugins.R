@@ -6,7 +6,6 @@ copy_dir <- function (from, to) {
   }
 }
 
-#' @export
 createNewPlugin <- function(plugin_name, template = 'TemplatePlugin'){
   copy_dir(template, plugin_name)
   cwd = getwd(); on.exit(setwd(cwd)); setwd(plugin_name)
@@ -22,22 +21,25 @@ createNewPlugin <- function(plugin_name, template = 'TemplatePlugin'){
 }
 
 
-
-#' @export
-createYXI <- function(pluginName, 
-    fromRoot = '~/Desktop/SNIPPETS/dev'){
+createYXI <- function(pluginName, fromRoot = '~/Desktop/SNIPPETS/dev'){
   files = list.files(file.path(fromRoot, pluginName), 
     full.names = TRUE,
     pattern = "^[^App]"
   )
   zip(
-    paste0(rootDir, "/", pluginName, '.yxi'),
+    paste0(fromRoot, "/", pluginName, '.yxi'),
     files
   )
 }
 
 
+#' Install HTML Plugin in Alteryx
+#' 
+#' 
 #' @export
+#' @param pluginDir plugin directory
+#' @param alteryxDir alteryx directory
+#' @param build whether or not to build js files
 updateHtmlPlugin <- function(pluginDir = ".", alteryxDir = getOption('alteryx.path'), 
     build = FALSE){
   pluginName = tools::file_path_sans_ext(basename(normalizePath(pluginDir)))
