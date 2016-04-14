@@ -60,8 +60,8 @@ updateHtmlPlugin <- function(pluginDir = ".", alteryxDir = getOption('alteryx.pa
     dir.create(to, recursive = TRUE)
   }
   
-  files = list.files(full.names = T, recursive = TRUE)
-  files = files[!grepl('^[Supporting_Macros|App|Gui]', files)]
+  files = list.files(full.names = F, recursive = TRUE)
+  files = files[!grepl('^(Supporting_Macros|App|Gui)', files)]
   file.copy(files, to, recursive = TRUE)
 
   # Copy Supporting Macro
