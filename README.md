@@ -3,7 +3,7 @@
 This package provides functions that allows Alteryx users to write, test and manage R code in their workflows, outside of Alteryx, in an IDE like RStudio. 
 
 <div style='text-align:center'>
-  <img src= "http://i.imgur.com/sliEOfU.gifv" width='60%'></img>
+  <img src= "http://i.imgur.com/sliEOfU.gif" width='60%'></img>
 </div>
 
 You can install the package binary from github, or build it from source using `install_github`.
