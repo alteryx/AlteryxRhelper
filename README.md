@@ -3,7 +3,7 @@
 This package provides functions that allows Alteryx users to write, test and manage R code in their workflows, outside of Alteryx, in an IDE like RStudio. 
 
 <div style='text-align:center'>
-  <img src= "assets/alteryxrhelper.gif" width='60%'></img>
+  <img src= "http://i.imgur.com/sliEOfU.gifv" width='60%'></img>
 </div>
 
 You can install the package binary from github, or build it from source using `install_github`.
@@ -66,7 +66,7 @@ The `read.Alteryx2` function operates differently depending on the compute conte
 If you always run the workflow prior to executing the R code in an R console, you can avoid providing a `default`, since the first run would create an `rds` file that can then be read by R during subsequent runs. However, I always find it useful to specify a `default`, even when this is the case.
 
 <div style='text-align:center'>
-  <img src= "assets/read.Alteryx2.png" width='60%'></img>
+  <img src= "http://i.imgur.com/RfEjw5B.png" width='60%'></img>
 </div>
 
 ### Question Inputs
