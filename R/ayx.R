@@ -118,6 +118,11 @@ createPluginFromMacro <- function(pluginDir = ".", overrides = NULL, layout = NU
   pluginName <- basename(pluginDir)
   yxmcFile <- file.path(pluginDir, 'Supporting_Macros', sprintf("%s.yxmc", pluginName))
   if (is.null(layout)){
+    if (file.exists(l <- file.path(pluginDir, 'Gui', 'layout.html'))){
+      layout = TRUE
+    }
+  }
+  if (is.null(layout)){
     writeGuiHtml(pluginDir, overrides = overrides)
   } else {
     writeGuiHtmlFromLayout(pluginDir, overrides = overrides) 
