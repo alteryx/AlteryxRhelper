@@ -81,8 +81,9 @@ getIO <- function(template){
 #' do.call(makePluginConfig, x)
 makePluginConfig <- function(inputs, outputs, pluginName, properties = NULL){
   # Create Config XML
-  d = XML::xmlTree()
-  d$addNode("AlteryxJavaScriptPlugin", close = FALSE)
+  #d = suppressWarnings(XML::xmlTree())
+  #d$addNode("AlteryxJavaScriptPlugin", close = FALSE)
+  d = suppressWarnings(XML::xmlTree("AlteryxJavaScriptPlugin"))
   d$addNode("EngineSettings", attrs= list(
     EngineDLL = "Macro",
     EngineDLLEntryPoint = sprintf("Supporting_Macros/%s.yxmc", pluginName),
@@ -97,7 +98,7 @@ makePluginConfig <- function(inputs, outputs, pluginName, properties = NULL){
     d$addNode("Connection", attrs = list(
       Name = x$Name,
       AllowMultiple = "False",
-      Optional = if (is.null(x$Optional)) "False" else "True",
+      Optional = if (is.null(x$Optional)) "False" else x$Optional,
       Type = "Connection",
       Label = x$Abbrev
     ))
