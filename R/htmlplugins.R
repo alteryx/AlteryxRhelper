@@ -20,15 +20,23 @@ createNewPlugin <- function(plugin_name, template = 'TemplatePlugin'){
   writeLines(d2_contents_new, d2)
 }
 
-
-createYXI <- function(pluginName, fromRoot = '~/Desktop/SNIPPETS/dev'){
-  files = list.files(file.path(fromRoot, pluginName), 
-    full.names = TRUE,
-    pattern = "^[^App]"
-  )
+#' Create a YXI installable
+#' 
+#' 
+#' @export
+#' @param pluginDir directory containing the plugin files
+#' @param toDir directory to write the yxi file to
+createYXI <- function(pluginDir = ".", toDir = "."){
+  pluginName = basename(normalizePath(pluginDir))
+  cwd = getwd(); setwd(pluginDir); on.exit(setwd(cwd));
+  files = list.files(pluginDir, full.names = F, recursive = TRUE)
+  files = files[!grepl('^(Supporting_Macros|App|Gui)', files)]
+  files = files[!grepl('(README|*.Rproj)', files)]
+  files2 = list.files("Supporting_Macros", recursive = TRUE, full.names = TRUE)
+  files2 = files2[!grepl("(\\.R|\\.bak|\\.md)", files2)]
   zip(
-    paste0(fromRoot, "/", pluginName, '.yxi'),
-    files
+    file.path(toDir, paste0(pluginName, '.yxi')),
+    c(files, files2)
   )
 }
 
