@@ -15,10 +15,12 @@ buildPlugin <- function(pluginDir = "."){
   configFile <- file.path(pluginDir, sprintf("%sConfig.xml", pluginName))
   rFile <- list.files(file.path(pluginDir, "Supporting_Macros"), pattern = ".R$", full.names = T)
   updated <- FALSE
-  if (isOlder2(guiFile, 'Gui/layout.html', 'Gui/overrides.yaml', yxmc)){
-    updated <- TRUE
-    message("Updating Gui.html and Config.xml")
-    createPluginFromMacro(pluginDir)
+  if (dir.exists('Gui')){
+    if (isOlder2(guiFile, 'Gui/layout.html', 'Gui/overrides.yaml', yxmc)){
+      updated <- TRUE
+      message("Updating Gui.html and Config.xml")
+      createPluginFromMacro(pluginDir)
+    }
   }
   if (isOlder2(yxmc, rFile)){
     updated <- TRUE
