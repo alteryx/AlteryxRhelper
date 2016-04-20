@@ -100,7 +100,7 @@ runWorkflow = function(file){
   engine_dir = normalizePath(file.path(alteryx, "bin"))
   param = normalizePath(file, mustWork = TRUE)
   setwd(engine_dir)
-  cmd = paste("AlteryxEngineCmd.exe", shQuote(file))
+  cmd = paste("AlteryxEngineCmd.exe", shQuote(param))
   out = system(cmd, intern = TRUE)
   on.exit({
     message("Exiting function...")
