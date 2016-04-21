@@ -1,6 +1,6 @@
 isOlder2 <- function(target, ...){
-  #if (!file.exists(target)){ return(TRUE) }
-  any(file.mtime(target) < file.mtime(...))
+  if (!file.exists(target)){ return(TRUE) }
+  any(Filter(Negate(is.na), file.mtime(target) < file.mtime(...)))
 }
 
 #' Build Plugin
