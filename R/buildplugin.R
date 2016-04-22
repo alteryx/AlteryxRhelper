@@ -8,7 +8,7 @@ isOlder2 <- function(target, ...){
 #' 
 #' @export
 #' @param pluginDir directory containing the plugin
-buildPlugin <- function(pluginDir = "."){
+buildPlugin <- function(pluginDir = ".", build = FALSE){
   yxmc <- list.files(file.path(pluginDir, "Supporting_Macros"), pattern = ".yxmc$", full.names = T)
   pluginName = tools::file_path_sans_ext(basename(yxmc))
   guiFile <- file.path(pluginDir, sprintf("%sGui.html", pluginName))
@@ -28,6 +28,14 @@ buildPlugin <- function(pluginDir = "."){
   if (isOlder2(yxmc, rFile)){
     updated <- TRUE
     insertRcode(yxmc, rFile)
+  }
+  if (build){
+    l <- as.list(append('App/dist.src.js', list.files("App/src", recursive = TRUE)))
+    if (do.call('isOlder2', l)){
+      withr::with_dir("App", system('npm run build-umd'))
+      file.copy('App/dist/src.js', 'app.min.js', overwrite = TRUE)
+      updated = TRUE
+    }
   }
   if (updated == FALSE){
     message("Nothing to update...")
