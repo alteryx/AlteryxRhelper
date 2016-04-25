@@ -21,7 +21,8 @@ toYaml.TextBox = function(type, g){
     label = x$Description,
     dataName = x$Name,
     type = 'TextBox',
-    password = tolower(x$Password[['value']])
+    password = tolower(x$Password[['value']]),
+    placeholder = x$Default
   )
 }
 
