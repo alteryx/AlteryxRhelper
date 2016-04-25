@@ -30,7 +30,7 @@ buildPlugin <- function(pluginDir = ".", build = FALSE){
     insertRcode(yxmc, rFile)
   }
   if (build){
-    l <- as.list(append('App/dist.src.js', list.files("App/src", recursive = TRUE)))
+    l <- as.list(append('app.min.js', list.files("App/src", recursive = TRUE)))
     if (do.call('isOlder2', l)){
       withr::with_dir("App", system('npm run build-umd'))
       file.copy('App/dist/src.js', 'app.min.js', overwrite = TRUE)
@@ -57,9 +57,12 @@ generateConfigurationTable <- function(yxmcFile){
     c(
       dataName = x, 
       label = ifelse(is.null(d_$label), "", d_$label),
-      default = ifelse(is.null(d_$default), "", d_$default),
+      default = ifelse(is.null(d_$default), 
+        ifelse(is.null(d_$placeholder), "",  d_$placeholder),
+        d_$default
+      ),
       values = ifelse(is.null(d_$values), "", 
-        jsonlite::toJSON(names(d_$values), auto_unbox = TRUE)
+        gsub(",", ", ", jsonlite::toJSON(names(d_$values), auto_unbox = TRUE))
       )
     )
   })
