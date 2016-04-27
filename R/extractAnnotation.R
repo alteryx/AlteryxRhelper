@@ -53,3 +53,15 @@ extractConfig <- function(pluginName){
   })
   cat(paste(d5, collapse = "\n"))
 }
+
+#' Add README.Rmd with Help
+#' 
+#' 
+#' @param out path to output help file to
+#' @export
+addHelpDoc <- function(out = 'Supporting_Macros/README.Rmd'){
+  helpFile = system.file("templates", "help_template.Rmd", package = 'AlteryxRhelper')
+  if (file.copy(helpFile, out)){
+    message("Copied help template to ", out)
+  }
+}

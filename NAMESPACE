@@ -2,6 +2,7 @@
 
 export(AlteryxGraph2)
 export(aTemplate)
+export(addHelpDoc)
 export(buildPlugin)
 export(checkboxInput)
 export(copyPredictiveMacro)
