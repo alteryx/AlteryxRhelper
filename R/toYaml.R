@@ -32,7 +32,7 @@ toYaml.BooleanGroup = function(type, g){
     dataName = x$Name,
     type = "CheckBox",
     text = x$Description,
-    default = bool_map(x$Default[['value']])
+    default = tolower(bool_map(x$Default[['value']]))
   )
 }
 
