@@ -4,7 +4,7 @@
 \alias{buildPlugin}
 \title{Build Plugin}
 \usage{
-buildPlugin(pluginDir = ".")
+buildPlugin(pluginDir = ".", build = FALSE)
 }
 \arguments{
 \item{pluginDir}{directory containing the plugin}
