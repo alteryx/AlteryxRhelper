@@ -26,7 +26,7 @@ extractInputOutput <- function(pluginName, type = "input"){
 #' @param pluginName path to yxmc file
 #' @export
 extractConfig <- function(pluginName){
-  xml <- xmlInternalTreeParse("Optimization.yxmc")
+  xml <- xmlInternalTreeParse(pluginName)
   r <- xmlRoot(xml)
   query <- "//Node[GuiSettings[contains(@Plugin, 'AlteryxGuiToolkit.Questions')]]"
   g <- getNodeSet(r, query)
@@ -38,7 +38,7 @@ extractConfig <- function(pluginName){
   annotation <- sapply(annotation_, '[[', 'AnnotationText')
   names(annotation) <- sapply(annotation_, '[[', 'Name')
   
-  d2 <- AlteryxRhelper:::yxmc2yaml('Optimization.yxmc')
+  d2 <- AlteryxRhelper:::yxmc2yaml(pluginName)
   d3 <- lapply(names(d2), function(x){
     if (x %in% names(annotation)){
       d2[[x]]$note <- annotation[[x]]
