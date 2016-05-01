@@ -67,3 +67,34 @@ generateConfigurationTable <- function(yxmcFile){
     )
   })
 }
+
+#' Run build process to update app.min.js and app.css
+#' 
+#' 
+#' @export
+npmBuild <- function(pluginDir = ".", type = 'nwb'){
+  with_dir_(pluginDir, {
+    l <- as.list(append('app.min.js', list.files("App/src", recursive = TRUE, full.names = TRUE)))
+    updated <- do.call(isOlder2, l)
+    if (updated){
+      if (type == 'nwb'){
+        message("Running nwb build-umd")
+        with_dir_("App", system('nwb build-umd'))
+        message("Copying built files to app.min.js and app.css")
+        jsFile = list.files("App/umd", pattern = "^.*\\.min.js$", full.names = TRUE)
+        file.copy(jsFile, "app.min.js", overwrite = TRUE)
+        cssFile = list.files("App/umd", pattern = "^.*\\.css$", full.names = TRUE)
+        file.copy(cssFile, "app.css", overwrite = TRUE)
+      }
+      else {
+        message("Running npm run build-umd")
+        with_dir_("App", system('npm run build-umd'))
+        message("Copying built files to app.min.js and app.css")
+        file.copy('App/dist/src.js', 'app.min.js', overwrite = TRUE)
+      }
+    } else {
+      message("Nothing to update")
+    } 
+  })
+  updated
+}
