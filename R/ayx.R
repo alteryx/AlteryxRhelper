@@ -30,9 +30,8 @@ ayxPluginWidget = function(x){
   x$label <- NULL
   tagList(
     HTML(paste("<!-- ", x$dataName, " -->")),
-    tags$label(label, htmlFor = x$id),
-    tag('alteryx-pluginwidget', x),
-    HTML("  ")
+    tags$label(label, `for` = x$id),
+    tag('alteryx-pluginwidget', x)
   )
 }
 
