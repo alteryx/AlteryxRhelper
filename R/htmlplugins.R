@@ -32,7 +32,7 @@ createYXI <- function(pluginDir = ".", toDir = "."){
   files = list.files(pluginDir, full.names = F, recursive = TRUE)
   files = files[!grepl('^(Supporting_Macros|App|Gui)', files)]
   files = files[!grepl('(README|*.Rproj)', files)]
-  files2 = list.files("Supporting_Macros", recursive = TRUE, full.names = TRUE)
+  files2 = list.files("Supporting_Macros", pattern = ".yxmc", full.names = TRUE)
   files2 = files2[!grepl("(\\.R|\\.bak|\\.md)", files2)]
   zip(
     file.path(toDir, paste0(pluginName, '.yxi')),
@@ -59,6 +59,7 @@ updateHtmlPlugin <- function(pluginDir = ".", alteryxDir = getOption('alteryx.pa
   
   cwd = getwd(); setwd(pluginDir); on.exit(setwd(cwd));
   if (build){
+    message("Building app.min.js ...")
     with_dir('App', system("nwb build-umd"))
     file.copy(file.path('App', 'umd', 'app.min.js'), ".", overwrite = TRUE)
   }
@@ -72,6 +73,8 @@ updateHtmlPlugin <- function(pluginDir = ".", alteryxDir = getOption('alteryx.pa
   
   files = list.files(full.names = F, recursive = TRUE)
   files = files[!grepl('^(Supporting_Macros|App|Gui)', files)]
+  files = files[file.mtime(files) > file.mtime(dir(to, full.names = TRUE))]
+  message('Copying ', length(files), ' to HtmlPlugins')
   file.copy(files, to, recursive = TRUE)
 
   # Copy Supporting Macro
@@ -79,9 +82,50 @@ updateHtmlPlugin <- function(pluginDir = ".", alteryxDir = getOption('alteryx.pa
     pattern = '^.*\\.yxmc$'                               
   )
   if (length(supporting_macro) > 0){
+    message('Copying macro to Supporting_Macros ...')
     file.copy(
       supporting_macro,
       file.path(alteryxDir, 'bin', 'RuntimeData', 'Macros', 'Supporting_Macros'),
+      overwrite = TRUE
+    )
+  }
+}
+
+#' @export
+updateSvnFolder <- function(pluginDir = ".", alteryxDir = "C://Desktop", 
+    build = FALSE){
+  pluginName = tools::file_path_sans_ext(basename(normalizePath(pluginDir)))
+  with_dir <- function (new, code){
+    old <- setwd(dir = new)
+    on.exit(setwd(old))
+    force(code)
+  }
+  
+  cwd = getwd(); setwd(pluginDir); on.exit(setwd(cwd));
+  if (build){
+    with_dir('App', system("nwb build-umd"))
+    file.copy(file.path('App', 'umd', 'app.min.js'), ".", overwrite = TRUE)
+  }
+  if (!dir.exists(alteryxDir)){
+    stop("The directory to copy the plugin to ", alteryxDir, " does not exist")
+  }
+  to = file.path(alteryxDir, 'HtmlPlugins', pluginName)
+  if (!(file.exists(to))) {
+    dir.create(to, recursive = TRUE)
+  }
+  
+  files = list.files(full.names = F, recursive = TRUE)
+  files = files[!grepl('^(Supporting_Macros|App|Gui)', files)]
+  file.copy(files, to, recursive = TRUE)
+  
+  # Copy Supporting Macro
+  supporting_macro <- list.files(file.path(".", 'Supporting_Macros'), full.names = TRUE,
+     pattern = '^.*\\.yxmc$'                               
+  )
+  if (length(supporting_macro) > 0){
+    file.copy(
+      supporting_macro,
+      file.path(alteryxDir, 'RuntimeData', 'Macros', 'Supporting_Macros'),
       overwrite = TRUE
     )
   }
