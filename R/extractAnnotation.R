@@ -11,11 +11,9 @@ extractInputOutput <- function(pluginName, type = "input"){
   }
   xml <- xmlInternalTreeParse(pluginName)
   r <- xmlRoot(xml)
-  query <- sprintf("//Node[GuiSettings[contains(@Plugin, '%s')]]", y)
+  query <- sprintf("//Node[GuiSettings[contains(@Plugin, '%s')]]//Properties//Annotation//AnnotationText", y)
   g <- getNodeSet(r, query)
-  annotation <- sapply(g, function(d){
-    x <- xmlToList(d)$Properties$Annotation$AnnotationText
-  })
+  annotation <- xmlSApply(g, xmlValue)
   d <- paste0(seq_along(annotation), ". ", annotation)
   cat(paste(d, collapse = '\n'))
 }
@@ -49,7 +47,7 @@ extractConfig <- function(pluginName){
   d4 <- Filter(function(d){!is.null(d$note)}, d3)
   d5 <- sapply(seq_along(d4), function(i){
     x = d4[[i]]
-    sprintf("%s. __%s__ %s", i, if (is.null(x$label)) x$text else x$label, x$note)
+    sprintf("%s. __%s:__ %s", i, if (is.null(x$label)) x$text else x$label, x$note)
   })
   cat(paste(d5, collapse = "\n"))
 }
