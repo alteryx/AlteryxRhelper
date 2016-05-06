@@ -27,16 +27,24 @@ createNewPlugin <- function(plugin_name, template = 'TemplatePlugin'){
 #' @param pluginDir directory containing the plugin files
 #' @param toDir directory to write the yxi file to
 createYXI <- function(pluginDir = ".", toDir = "."){
+  toDir <- normalizePath(toDir)
   pluginName = basename(normalizePath(pluginDir))
-  cwd = getwd(); setwd(pluginDir); on.exit(setwd(cwd));
-  files = list.files(pluginDir, full.names = F, recursive = TRUE)
-  files = files[!grepl('^(Supporting_Macros|App|Gui)', files)]
+  dirName = dirname(normalizePath(pluginDir))
+  cwd = getwd(); setwd(dirName); on.exit(setwd(cwd));
+  files = list.files(pluginName, full.names = F, recursive = TRUE)
+  files = files[!grepl('^(Supporting_Macros|App|Gui|library)', files)]
   files = files[!grepl('(README|*.Rproj)', files)]
-  files2 = list.files("Supporting_Macros", pattern = ".yxmc", full.names = TRUE)
+  files2 = list.files(
+    file.path(pluginName, "Supporting_Macros"), 
+    pattern = ".yxmc", 
+    full.names = TRUE
+  )
   files2 = files2[!grepl("(\\.R|\\.bak|\\.md)", files2)]
+  filesToCopy = c(file.path(pluginName, files), files2)
   zip(
     file.path(toDir, paste0(pluginName, '.yxi')),
-    c(files, files2)
+    filesToCopy,
+    flags = ""
   )
 }
 
