@@ -16,7 +16,7 @@ checkboxInput(x, default = FALSE)
 
 radioInput(x, default = FALSE)
 
-textInput(x, default = "[\\"\\"]")
+textInput(x, default = "")
 
 listInput(x, default = "[\\"\\"]")
 
