@@ -12,11 +12,10 @@ runTests <- function(pluginDir = ".", build_doc = TRUE){
       runWorkflow(tests[i])
     })
     names(results) <- basename(tests)
-    
-    x <- jsonlite::toJSON(
-      lapply(results, function(x){attr(x, 'status')}),
-      auto_unbox = TRUE
-    )
+    y <- lapply(results, function(x){
+      ifelse(is.null(x), 0, attr(x, 'status'))
+    })
+    x <- jsonlite::toJSON(y, auto_unbox = TRUE)
     cat(x, file = '_tests.json')
     if (build_doc) {
       rmarkdown::render('README.Rmd')
