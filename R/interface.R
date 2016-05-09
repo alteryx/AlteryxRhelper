@@ -34,7 +34,7 @@ radioInput = function(x, default = FALSE){
 
 #' @export
 #' @rdname questions
-textInput = function(x, default = '[""]'){
+textInput = function(x, default = ""){
   if (x == "" ||  grepl('^%Question\\.(.*)%$', x) || grepl('^%Engine\\.(.*)%$', x)){
     default
   } else {
