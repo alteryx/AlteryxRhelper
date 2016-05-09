@@ -91,31 +91,6 @@ createYXI2 <- function(pluginDir = ".", toDir = "."){
   )
 }
 
-#' Install packages to R library in SVN
-#' 
-#' 
-#' @param srcPkg path to source package
-#' @param svnLibDir svn library directory
-#' @export
-installToSvn <- function(srcPkg, svnLibDir = getOption('alteryx.svnlibdir')){
-  d <- read.dcf(file.path(srcPkg, "DESCRIPTION"))
-  imports <- gsub("\\n", "", strsplit(d[,'Imports'], ",")[[1]])
-  deps <- miniCRAN::pkgDep(imports, suggests = FALSE)
-  library(devtools)
-  withr::with_libpaths(svnLibDir, {
-    message(
-      "Installing following dependencies from CRAN ",
-      paste(deps, collapse = '\n  ')
-    )
-    install.packages(deps, svnLibDir)
-    message(
-      "Installing from source: ", basename(normalizePath(srcPkg))
-    )
-    install(".", lib = svnLibDir)
-  }, action = 'prefix')
-}
-
-
 
 #' Build Plugin
 #' 
