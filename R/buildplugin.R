@@ -89,8 +89,10 @@ npmBuild <- function(pluginDir = ".", type = 'nwb'){
       else {
         message("Running npm run build-umd")
         with_dir_("App", system('npm run build-umd'))
-        message("Copying built files to app.min.js and app.css")
+        message("Copying built file app.min.js")
         file.copy('App/dist/src.js', 'app.min.js', overwrite = TRUE)
+        message("Copying built file app.css")
+        file.copy('App/dist/styles.css', 'app.css', overwrite = TRUE)
       }
     } else {
       message("Nothing to update")
