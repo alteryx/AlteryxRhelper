@@ -26,16 +26,27 @@ extractInputOutput <- function(pluginName, type = "input"){
 extractConfig <- function(pluginName){
   xml <- xmlInternalTreeParse(pluginName)
   r <- xmlRoot(xml)
-  query <- "//Node[GuiSettings[contains(@Plugin, 'AlteryxGuiToolkit.Questions')]]"
+  # query <- "//Node[GuiSettings[contains(@Plugin, 'AlteryxGuiToolkit.Questions')]]"
+  # g <- getNodeSet(r, query)
+  # 
+  # 
+  # annotation_ <- Filter(function(d){ !is.null(d[[2]])}, lapply(g, function(d){
+  #   xmlToList(d)$Properties$Annotation[c('Name', 'AnnotationText')]
+  # }))
+  # annotation <- sapply(annotation_, '[[', 'AnnotationText')
+  # names(annotation) <- sapply(annotation_, '[[', 'Name')
+  # 
+  query <- "//Node[GuiSettings[contains(@Plugin, 'AlteryxGuiToolkit.Questions')]]//Properties//Annotation"
   g <- getNodeSet(r, query)
   
+  annotation_ <- xmlSApply(g, function(x){
+    d <- xmlChildren(x)
+    annotation = xmlValue(d$AnnotationText)
+    name = xmlValue(d$Name)
+    if (is.na(annotation)) NULL else (setNames(annotation, name))
+  })
   
-  annotation_ <- Filter(function(d){ !is.null(d[[2]])}, lapply(g, function(d){
-    xmlToList(d)$Properties$Annotation[c('Name', 'AnnotationText')]
-  }))
-  annotation <- sapply(annotation_, '[[', 'AnnotationText')
-  names(annotation) <- sapply(annotation_, '[[', 'Name')
-  
+  annotation = as.list(unlist(Filter(Negate(is.null), annotation_)))
   d2 <- AlteryxRhelper:::yxmc2yaml(pluginName)
   d3 <- lapply(names(d2), function(x){
     if (x %in% names(annotation)){
