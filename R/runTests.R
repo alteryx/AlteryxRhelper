@@ -13,7 +13,7 @@ runTests <- function(pluginDir = ".", build_doc = TRUE){
     })
     names(results) <- basename(tests)
     y <- lapply(results, function(x){
-      ifelse(is.null(x), 0, attr(x, 'status'))
+      ifelse(is.null(attr(x, 'status')), 0, attr(x, 'status'))
     })
     x <- jsonlite::toJSON(y, auto_unbox = TRUE)
     cat(x, file = '_tests.json')
