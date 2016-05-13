@@ -4,7 +4,7 @@
     AlteryxFullUpdate <<- FALSE
     if (.Platform$OS.type == "windows"){
       alteryx.path = "C:/Program Files/Alteryx"
-      options(alteryx.svnRdir = "C:/Users/ramnath/Desktop/DesignerTeam_Development/R")
+      options('alteryx.svndir' = 'C:/Users/ramnath/Desktop/Alteryx10.6_Predictive_Development')
     } else {
       alteryx.path = "/Volumes/C/Program Files/Alteryx"
     }
