@@ -63,7 +63,7 @@ saveReadme <- function(save = TRUE){
   pkgs <- summary(packageStatus(svnLibDir))$inst
   pkgs <- pkgs[is.na(pkgs[,"Priority"]),]
   pkgs <- pkgs[pkgs$Package != "translations",]
-  ayxPackages <- c("AlteryxRDataX", "AlteryxRviz", "htmlwidgets")
+  ayxPackages <- c("AlteryxRDataX", "AlteryxRviz")
   allPkgs <- unname(sort(c(pkgs$Package, ayxPackages)))
   if (save){
     writeLines(allPkgs, readmeFile)
