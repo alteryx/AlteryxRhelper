@@ -64,7 +64,7 @@ saveReadme <- function(save = TRUE){
   pkgs <- pkgs[is.na(pkgs[,"Priority"]),]
   pkgs <- pkgs[pkgs$Package != "translations",]
   ayxPackages <- c("AlteryxRDataX", "AlteryxRviz")
-  allPkgs <- unname(sort(c(pkgs$Package, ayxPackages)))
+  allPkgs <- unique(unname(sort(c(pkgs$Package, ayxPackages))))
   if (save){
     writeLines(allPkgs, readmeFile)
   } else {
