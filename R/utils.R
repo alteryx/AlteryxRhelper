@@ -5,9 +5,15 @@ inAlteryx <- function(){
   'package:AlteryxRDataX' %in% search()
 }
 
-listPredictiveMacros <- function(){
+listPredictiveMacros <- function(...){
+  dir(getPathToPredictiveMacros(), ...)
+}
+
+getPathToPredictiveMacros <- function(){
   alteryx = getOption('alteryx.path')
-  p <- file.path(alteryx, 'R-3.1.2/plugin/Macros/Predictive Tools')
+  file.path(alteryx, paste0('R-', getRversion()), 'plugin', 'Macros', 
+    'Predictive Tools'
+  )
 }
 
 #' Copy predictive macro
@@ -17,8 +23,7 @@ listPredictiveMacros <- function(){
 #' @param macro macro
 #' @param to to
 copyPredictiveMacro <- function(macro, to = "."){
-  alteryx = getOption('alteryx.path')
-  p <- file.path(alteryx, 'R-3.1.2/plugin/Macros/Predictive Tools')
+  p <- getPathToPredictiveMacros()
   pred_tools_path = normalizePath(p)
   file.copy(file.path(pred_tools_path, macro), to = to)
 }
