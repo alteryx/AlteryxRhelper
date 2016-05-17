@@ -45,7 +45,7 @@ saveManifest <- function(){
   message("Updating package manifest on SVN...")
   write.csv(
     d4, 
-    file = file.path(rdirs$installer, "packages.csv"), 
+    file = file.path(rdirs$installer, "../Scripts", "packages.csv"), 
     row.names = F
   )
   message("Updating package readme on SVN...")
