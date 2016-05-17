@@ -92,7 +92,7 @@ npmBuild <- function(pluginDir = ".", type = 'nwb'){
         message("Copying built file app.min.js")
         file.copy('App/dist/src.js', 'app.min.js', overwrite = TRUE)
         message("Copying built file app.css")
-        file.copy('App/dist/styles.css', 'app.css', overwrite = TRUE)
+        file.copy('App/dist/style.css', 'app.css', overwrite = TRUE)
       }
     } else {
       message("Nothing to update")
