@@ -86,7 +86,7 @@ makePluginConfig <- function(inputs, outputs, pluginName, properties = NULL){
   d = suppressWarnings(XML::xmlTree("AlteryxJavaScriptPlugin"))
   d$addNode("EngineSettings", attrs= list(
     EngineDLL = "Macro",
-    EngineDLLEntryPoint = sprintf("Supporting_Macros/%s.yxmc", pluginName),
+    EngineDLLEntryPoint = sprintf("%s/Supporting_Macros/%s.yxmc", pluginName, pluginName),
     SDKVersion = "10.1"
   ))
   d$addNode("GuiSettings", attrs = list(

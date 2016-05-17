@@ -40,7 +40,8 @@ copyHtmlPlugin <- function(pluginDir = ".", ayxDir = getAyxDirs()){
   files <- getPluginFiles(pluginDir)
   
   pluginFiles <- file.path(pluginDir, files$htmlplugin)
-  ayxPluginFiles <- dir(ayxPluginDir, full.names = TRUE)
+  ayxPluginFiles <- list.files(ayxPluginDir, full.names = TRUE)
+  ayxPluginFiles <- ayxPluginFiles[!grepl('Supporting_Macros', ayxPluginFiles)]
   if (length(ayxPluginFiles) > 0){
     pluginFilesToUpdate <- pluginFiles[
       file.mtime(pluginFiles) > file.mtime(ayxPluginFiles)
@@ -56,7 +57,10 @@ copyHtmlPlugin <- function(pluginDir = ".", ayxDir = getAyxDirs()){
   } else {
     message(file.path('HtmlPlugins', basename(ayxPluginDir)), ' is up to date.')
   }
-  
+  ayxMacroDir <- file.path(ayxPluginDir, 'Supporting_Macros')
+  if (!dir.exists(ayxMacroDir)){
+    dir.create(ayxMacroDir)
+  }
   macro <- file.path(pluginDir, files$macro)
   ayxMacro <- file.path(ayxMacroDir, basename(files$macro))
   if (file.exists(macro) && 
