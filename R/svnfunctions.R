@@ -76,7 +76,7 @@ saveReadme <- function(save = TRUE){
 getAyxSvnDirs <- function(svnDir = getOption("alteryx.svndir")){
   svnDir <- 'C:/Users/ramnath/Desktop/Alteryx10.6_Predictive_Development'
   list(
-    htmlplugin = file.path(svnDir, 'HtmlPlugins'),
+    htmlplugin = file.path(svnDir, 'AlteryxRPlugin', 'HtmlPlugins'),
     macro = file.path(svnDir, 'RuntimeData', 'Macros', 'Supporting_Macros')
   )
 }
