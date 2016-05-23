@@ -43,8 +43,8 @@ toYaml.NumericUpDown = function(type, g){
     dataName = x$Name,
     type = "NumericSpinner",
     default = x$Default[[1]],
-    minimum = x$Minimum[[1]],
-    maximum = x$Maximum[[1]],
+    min = x$Minimum[[1]],
+    max = x$Maximum[[1]],
     step = x$Increment[[1]]
   )
 }
