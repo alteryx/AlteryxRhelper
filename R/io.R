@@ -54,7 +54,7 @@ write.Alteryx2 = function(data, nOutput = 1, bIncludeRowNames = FALSE, source = 
       bIncludeRowNames = bIncludeRowNames, source = source
     )
   } else {
-    str(data)
+    head(data)
   }
 }
 
