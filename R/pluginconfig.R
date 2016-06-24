@@ -45,6 +45,12 @@ getIO <- function(template){
       return(x)
     })
   }
+  help <- getNodeSet(r, '//MacroCustomHelpLink')
+  helpLink = if (length(help) > 0){
+    xmlValue(help[[1]])
+  } else {
+    ""
+  }
   list(
     inputs = getMacroIO('MacroInput'),
     outputs = getMacroIO('MacroOutput'),
@@ -53,7 +59,8 @@ getIO <- function(template){
     properties = Filter(
         Negate(is.null),
         XML::xmlToList(getNodeSet(r, "//Properties//MetaInfo[not(@connection)]")[[1]])
-    )
+    ),
+    helpLink = helpLink
   )
 }
 
@@ -79,7 +86,8 @@ getIO <- function(template){
 #'   pluginName = 'Foo'
 #' )
 #' do.call(makePluginConfig, x)
-makePluginConfig <- function(inputs, outputs, pluginName, properties = NULL){
+makePluginConfig <- function(inputs, outputs, pluginName, properties = NULL, 
+    helpLink = ""){
   # Create Config XML
   #d = suppressWarnings(XML::xmlTree())
   #d$addNode("AlteryxJavaScriptPlugin", close = FALSE)
@@ -92,7 +100,8 @@ makePluginConfig <- function(inputs, outputs, pluginName, properties = NULL){
   d$addNode("GuiSettings", attrs = list(
     Html = sprintf("%sGui.html", pluginName),
     Icon = sprintf("%sIcon.png", pluginName),
-    SDKVersion = "10.1"
+    SDKVersion = "10.1",
+    Help = helpLink
   ), close = F)
   d$addNode("InputConnections", .children = sapply(inputs, function(x){
     d$addNode("Connection", attrs = list(
