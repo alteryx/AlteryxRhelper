@@ -6,7 +6,8 @@
 #' @param iconPath path to save icon to
 #' @param shape shape of the icon (circle or rect)
 #' @param fill fill color
-makeIcon <- function(iconPath, shape = 'circle', fill = sample(colors(), 1)){
+makeIcon <- function(iconPath, shape = 'circle', fill = sample(colors(), 1), 
+    label = NULL){
   png(iconPath, width = 48, height = 48, units = 'px')
   vp <- viewport(x=0.5,y=0.5,width=1, height=1)
   pushViewport(vp)
@@ -15,6 +16,9 @@ makeIcon <- function(iconPath, shape = 'circle', fill = sample(colors(), 1)){
     grid.circle(x=0.5, y=0.5, r=0.45, gp = gpar(fill = fill))
   } else {
     grid.rect(x = 0.5, y = 0.5, width = 0.9, height = 0.9, gp = gpar(fill = fill))
+  }
+  if (!is.null(label)){
+    grid.text(label, gp = gpar(col = 'white', cex = 1.5))
   }
   dev.off()
 }
@@ -109,7 +113,7 @@ makePluginConfig <- function(inputs, outputs, pluginName, properties = NULL,
       AllowMultiple = "False",
       Optional = if (is.null(x$Optional)) "False" else x$Optional,
       Type = "Connection",
-      Label = x$Abbrev
+      Label = if (x$Abbrev == "NULL") "" else x$Abbrev
     ))
   }))
   d$addNode("OutputConnections", .children = sapply(outputs, function(x){
@@ -118,7 +122,7 @@ makePluginConfig <- function(inputs, outputs, pluginName, properties = NULL,
       AllowMultiple = "False",
       Optional = "False",
       Type = "Connection",
-      Label = x$Abbrev
+      Label = if (x$Abbrev == "NULL") "" else x$Abbrev
     ))
   }))
   d$closeNode()
