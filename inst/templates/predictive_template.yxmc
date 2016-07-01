@@ -1,0 +1,1699 @@
+<?xml version="1.0"?>
+<AlteryxDocument yxmdVer="10.5">
+  <Nodes>
+    <Node ToolID="3">
+      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+        <Position x="426" y="54" width="384" height="84" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Text>In this exercise, you will learn how you can auto extract user inputs from Alteryx into your R code.</Text>
+          <Font name="Microsoft Sans Serif" size="9.75" style="0" />
+          <TextColor name="White" />
+          <FillColor name="White" />
+          <Shape shape="3" />
+          <Justification Justification="0" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="8">
+      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
+        <Position x="0" y="0" width="59" height="59" />
+      </GuiSettings>
+      <Properties>
+        <Configuration />
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+    </Node>
+    <Node ToolID="5">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="54" y="126" width="492" height="240" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>Macro</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#ecf2f2" BorderColor="#2f4f4f" Transparency="25" Margin="25" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="9">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
+            <Position x="106" y="237" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <UseFileInput value="False" />
+              <Name>Input</Name>
+              <Abbrev />
+              <ShowFieldMap value="False" />
+              <Optional value="False" />
+              <TextInput>
+                <Configuration>
+                  <NumRows value="100" />
+                  <Fields>
+                    <Field name="carat" />
+                    <Field name="cut" />
+                    <Field name="color" />
+                    <Field name="clarity" />
+                    <Field name="depth" />
+                    <Field name="table" />
+                    <Field name="price" />
+                    <Field name="x" />
+                    <Field name="y" />
+                    <Field name="z" />
+                  </Fields>
+                  <Data>
+                    <r>
+                      <c>1.01</c>
+                      <c>Very Good</c>
+                      <c>D</c>
+                      <c>SI1</c>
+                      <c>62.1</c>
+                      <c>59</c>
+                      <c>6630</c>
+                      <c>6.37</c>
+                      <c>6.41</c>
+                      <c>3.97</c>
+                    </r>
+                    <r>
+                      <c>0.9</c>
+                      <c>Ideal</c>
+                      <c>D</c>
+                      <c>SI1</c>
+                      <c>62.4</c>
+                      <c>55</c>
+                      <c>5656</c>
+                      <c>6.15</c>
+                      <c>6.19</c>
+                      <c>3.85</c>
+                    </r>
+                    <r>
+                      <c>0.3</c>
+                      <c>Ideal</c>
+                      <c>D</c>
+                      <c>SI1</c>
+                      <c>61.6</c>
+                      <c>56</c>
+                      <c>709</c>
+                      <c>4.34</c>
+                      <c>4.3</c>
+                      <c>2.66</c>
+                    </r>
+                    <r>
+                      <c>0.3</c>
+                      <c>Very Good</c>
+                      <c>G</c>
+                      <c>VS1</c>
+                      <c>62</c>
+                      <c>60</c>
+                      <c>565</c>
+                      <c>4.27</c>
+                      <c>4.31</c>
+                      <c>2.66</c>
+                    </r>
+                    <r>
+                      <c>2.06</c>
+                      <c>Premium</c>
+                      <c>I</c>
+                      <c>SI2</c>
+                      <c>61</c>
+                      <c>61</c>
+                      <c>13912</c>
+                      <c>8.18</c>
+                      <c>8.1</c>
+                      <c>5.02</c>
+                    </r>
+                    <r>
+                      <c>1.56</c>
+                      <c>Very Good</c>
+                      <c>G</c>
+                      <c>VVS1</c>
+                      <c>59.7</c>
+                      <c>59</c>
+                      <c>15334</c>
+                      <c>7.48</c>
+                      <c>7.57</c>
+                      <c>4.49</c>
+                    </r>
+                    <r>
+                      <c>0.51</c>
+                      <c>Premium</c>
+                      <c>E</c>
+                      <c>SI1</c>
+                      <c>61.8</c>
+                      <c>58</c>
+                      <c>1443</c>
+                      <c>5.15</c>
+                      <c>5.11</c>
+                      <c>3.17</c>
+                    </r>
+                    <r>
+                      <c>1.16</c>
+                      <c>Very Good</c>
+                      <c>E</c>
+                      <c>VS2</c>
+                      <c>62.1</c>
+                      <c>58</c>
+                      <c>8520</c>
+                      <c>6.63</c>
+                      <c>6.7</c>
+                      <c>4.14</c>
+                    </r>
+                    <r>
+                      <c>0.32</c>
+                      <c>Premium</c>
+                      <c>E</c>
+                      <c>VS2</c>
+                      <c>61.2</c>
+                      <c>59</c>
+                      <c>702</c>
+                      <c>4.4</c>
+                      <c>4.43</c>
+                      <c>2.7</c>
+                    </r>
+                    <r>
+                      <c>1.08</c>
+                      <c>Ideal</c>
+                      <c>G</c>
+                      <c>SI2</c>
+                      <c>61.9</c>
+                      <c>57</c>
+                      <c>4544</c>
+                      <c>6.55</c>
+                      <c>6.57</c>
+                      <c>4.06</c>
+                    </r>
+                    <r>
+                      <c>0.3</c>
+                      <c>Ideal</c>
+                      <c>E</c>
+                      <c>VVS1</c>
+                      <c>62.6</c>
+                      <c>54</c>
+                      <c>838</c>
+                      <c>4.3</c>
+                      <c>4.33</c>
+                      <c>2.7</c>
+                    </r>
+                    <r>
+                      <c>0.51</c>
+                      <c>Ideal</c>
+                      <c>G</c>
+                      <c>VVS2</c>
+                      <c>61.2</c>
+                      <c>55</c>
+                      <c>1875</c>
+                      <c>5.15</c>
+                      <c>5.18</c>
+                      <c>3.16</c>
+                    </r>
+                    <r>
+                      <c>1.24</c>
+                      <c>Ideal</c>
+                      <c>I</c>
+                      <c>VS2</c>
+                      <c>62</c>
+                      <c>55</c>
+                      <c>6076</c>
+                      <c>6.9</c>
+                      <c>6.87</c>
+                      <c>4.27</c>
+                    </r>
+                    <r>
+                      <c>1.7</c>
+                      <c>Very Good</c>
+                      <c>J</c>
+                      <c>VS2</c>
+                      <c>62.9</c>
+                      <c>58</c>
+                      <c>9586</c>
+                      <c>7.55</c>
+                      <c>7.59</c>
+                      <c>4.76</c>
+                    </r>
+                    <r>
+                      <c>0.58</c>
+                      <c>Ideal</c>
+                      <c>J</c>
+                      <c>VS2</c>
+                      <c>62.8</c>
+                      <c>57</c>
+                      <c>1196</c>
+                      <c>5.33</c>
+                      <c>5.28</c>
+                      <c>3.33</c>
+                    </r>
+                    <r>
+                      <c>0.4</c>
+                      <c>Very Good</c>
+                      <c>G</c>
+                      <c>VVS2</c>
+                      <c>61.6</c>
+                      <c>58</c>
+                      <c>925</c>
+                      <c>4.73</c>
+                      <c>4.78</c>
+                      <c>2.93</c>
+                    </r>
+                    <r>
+                      <c>0.91</c>
+                      <c>Ideal</c>
+                      <c>H</c>
+                      <c>SI1</c>
+                      <c>62.1</c>
+                      <c>57</c>
+                      <c>4919</c>
+                      <c>6.18</c>
+                      <c>6.21</c>
+                      <c>3.85</c>
+                    </r>
+                    <r>
+                      <c>1.21</c>
+                      <c>Ideal</c>
+                      <c>G</c>
+                      <c>VS2</c>
+                      <c>61.8</c>
+                      <c>57</c>
+                      <c>8001</c>
+                      <c>6.83</c>
+                      <c>6.79</c>
+                      <c>4.21</c>
+                    </r>
+                    <r>
+                      <c>1.47</c>
+                      <c>Very Good</c>
+                      <c>J</c>
+                      <c>VVS2</c>
+                      <c>62.6</c>
+                      <c>60</c>
+                      <c>8055</c>
+                      <c>7.17</c>
+                      <c>7.24</c>
+                      <c>4.51</c>
+                    </r>
+                    <r>
+                      <c>0.31</c>
+                      <c>Ideal</c>
+                      <c>F</c>
+                      <c>VVS1</c>
+                      <c>61.1</c>
+                      <c>56</c>
+                      <c>975</c>
+                      <c>4.37</c>
+                      <c>4.4</c>
+                      <c>2.68</c>
+                    </r>
+                    <r>
+                      <c>0.3</c>
+                      <c>Very Good</c>
+                      <c>G</c>
+                      <c>VVS2</c>
+                      <c>62.3</c>
+                      <c>59</c>
+                      <c>684</c>
+                      <c>4.25</c>
+                      <c>4.29</c>
+                      <c>2.66</c>
+                    </r>
+                    <r>
+                      <c>0.53</c>
+                      <c>Ideal</c>
+                      <c>H</c>
+                      <c>SI2</c>
+                      <c>61.9</c>
+                      <c>54</c>
+                      <c>1020</c>
+                      <c>5.21</c>
+                      <c>5.23</c>
+                      <c>3.23</c>
+                    </r>
+                    <r>
+                      <c>0.31</c>
+                      <c>Ideal</c>
+                      <c>H</c>
+                      <c>VVS1</c>
+                      <c>61.6</c>
+                      <c>55</c>
+                      <c>687</c>
+                      <c>4.37</c>
+                      <c>4.4</c>
+                      <c>2.7</c>
+                    </r>
+                    <r>
+                      <c>0.53</c>
+                      <c>Premium</c>
+                      <c>H</c>
+                      <c>SI1</c>
+                      <c>59.4</c>
+                      <c>60</c>
+                      <c>1132</c>
+                      <c>5.24</c>
+                      <c>5.26</c>
+                      <c>3.12</c>
+                    </r>
+                    <r>
+                      <c>1.51</c>
+                      <c>Good</c>
+                      <c>E</c>
+                      <c>SI1</c>
+                      <c>63.5</c>
+                      <c>57</c>
+                      <c>10696</c>
+                      <c>7.23</c>
+                      <c>7.28</c>
+                      <c>4.61</c>
+                    </r>
+                    <r>
+                      <c>1.01</c>
+                      <c>Ideal</c>
+                      <c>H</c>
+                      <c>SI1</c>
+                      <c>62.4</c>
+                      <c>53</c>
+                      <c>4559</c>
+                      <c>6.42</c>
+                      <c>6.47</c>
+                      <c>4.02</c>
+                    </r>
+                    <r>
+                      <c>0.42</c>
+                      <c>Ideal</c>
+                      <c>G</c>
+                      <c>VVS1</c>
+                      <c>60</c>
+                      <c>57</c>
+                      <c>1235</c>
+                      <c>4.86</c>
+                      <c>4.84</c>
+                      <c>2.91</c>
+                    </r>
+                    <r>
+                      <c>0.52</c>
+                      <c>Ideal</c>
+                      <c>F</c>
+                      <c>VS1</c>
+                      <c>61.2</c>
+                      <c>57</c>
+                      <c>1872</c>
+                      <c>5.2</c>
+                      <c>5.16</c>
+                      <c>3.17</c>
+                    </r>
+                    <r>
+                      <c>0.35</c>
+                      <c>Ideal</c>
+                      <c>F</c>
+                      <c>VS2</c>
+                      <c>61.5</c>
+                      <c>57</c>
+                      <c>706</c>
+                      <c>4.52</c>
+                      <c>4.55</c>
+                      <c>2.79</c>
+                    </r>
+                    <r>
+                      <c>1.21</c>
+                      <c>Premium</c>
+                      <c>D</c>
+                      <c>SI2</c>
+                      <c>60.9</c>
+                      <c>58</c>
+                      <c>6031</c>
+                      <c>6.89</c>
+                      <c>6.83</c>
+                      <c>4.18</c>
+                    </r>
+                    <r>
+                      <c>2.1</c>
+                      <c>Fair</c>
+                      <c>F</c>
+                      <c>SI2</c>
+                      <c>64.7</c>
+                      <c>61</c>
+                      <c>15827</c>
+                      <c>7.97</c>
+                      <c>7.92</c>
+                      <c>5.14</c>
+                    </r>
+                    <r>
+                      <c>0.74</c>
+                      <c>Premium</c>
+                      <c>H</c>
+                      <c>SI1</c>
+                      <c>60.9</c>
+                      <c>60</c>
+                      <c>2201</c>
+                      <c>5.81</c>
+                      <c>5.75</c>
+                      <c>3.52</c>
+                    </r>
+                    <r>
+                      <c>1.51</c>
+                      <c>Ideal</c>
+                      <c>I</c>
+                      <c>SI2</c>
+                      <c>62.8</c>
+                      <c>54</c>
+                      <c>7693</c>
+                      <c>7.28</c>
+                      <c>7.34</c>
+                      <c>4.59</c>
+                    </r>
+                    <r>
+                      <c>0.55</c>
+                      <c>Ideal</c>
+                      <c>E</c>
+                      <c>VVS2</c>
+                      <c>61.9</c>
+                      <c>56</c>
+                      <c>2374</c>
+                      <c>5.25</c>
+                      <c>5.29</c>
+                      <c>3.26</c>
+                    </r>
+                    <r>
+                      <c>0.35</c>
+                      <c>Ideal</c>
+                      <c>H</c>
+                      <c>IF</c>
+                      <c>61.9</c>
+                      <c>55</c>
+                      <c>984</c>
+                      <c>4.54</c>
+                      <c>4.51</c>
+                      <c>2.8</c>
+                    </r>
+                    <r>
+                      <c>0.59</c>
+                      <c>Ideal</c>
+                      <c>G</c>
+                      <c>VS1</c>
+                      <c>61.1</c>
+                      <c>58</c>
+                      <c>1916</c>
+                      <c>5.39</c>
+                      <c>5.41</c>
+                      <c>3.3</c>
+                    </r>
+                    <r>
+                      <c>1.06</c>
+                      <c>Premium</c>
+                      <c>E</c>
+                      <c>SI2</c>
+                      <c>61.7</c>
+                      <c>62</c>
+                      <c>4654</c>
+                      <c>6.54</c>
+                      <c>6.5</c>
+                      <c>4.02</c>
+                    </r>
+                    <r>
+                      <c>0.37</c>
+                      <c>Very Good</c>
+                      <c>G</c>
+                      <c>VVS2</c>
+                      <c>59.1</c>
+                      <c>60</c>
+                      <c>844</c>
+                      <c>4.69</c>
+                      <c>4.71</c>
+                      <c>2.78</c>
+                    </r>
+                    <r>
+                      <c>0.55</c>
+                      <c>Very Good</c>
+                      <c>E</c>
+                      <c>VVS2</c>
+                      <c>59.9</c>
+                      <c>58</c>
+                      <c>2656</c>
+                      <c>5.29</c>
+                      <c>5.33</c>
+                      <c>3.18</c>
+                    </r>
+                    <r>
+                      <c>1.36</c>
+                      <c>Fair</c>
+                      <c>J</c>
+                      <c>SI2</c>
+                      <c>67.8</c>
+                      <c>55</c>
+                      <c>4158</c>
+                      <c>6.73</c>
+                      <c>6.66</c>
+                      <c>4.54</c>
+                    </r>
+                    <r>
+                      <c>1.52</c>
+                      <c>Fair</c>
+                      <c>J</c>
+                      <c>VS1</c>
+                      <c>65.4</c>
+                      <c>58</c>
+                      <c>7186</c>
+                      <c>7.22</c>
+                      <c>7.17</c>
+                      <c>4.7</c>
+                    </r>
+                    <r>
+                      <c>0.3</c>
+                      <c>Very Good</c>
+                      <c>E</c>
+                      <c>SI1</c>
+                      <c>60.6</c>
+                      <c>56</c>
+                      <c>526</c>
+                      <c>4.35</c>
+                      <c>4.37</c>
+                      <c>2.64</c>
+                    </r>
+                    <r>
+                      <c>0.47</c>
+                      <c>Ideal</c>
+                      <c>E</c>
+                      <c>VS2</c>
+                      <c>61.7</c>
+                      <c>56</c>
+                      <c>1261</c>
+                      <c>5.01</c>
+                      <c>4.98</c>
+                      <c>3.08</c>
+                    </r>
+                    <r>
+                      <c>0.54</c>
+                      <c>Ideal</c>
+                      <c>D</c>
+                      <c>SI1</c>
+                      <c>62.1</c>
+                      <c>55</c>
+                      <c>1607</c>
+                      <c>5.18</c>
+                      <c>5.23</c>
+                      <c>3.23</c>
+                    </r>
+                    <r>
+                      <c>0.4</c>
+                      <c>Good</c>
+                      <c>D</c>
+                      <c>SI2</c>
+                      <c>63.9</c>
+                      <c>53</c>
+                      <c>798</c>
+                      <c>4.71</c>
+                      <c>4.68</c>
+                      <c>3</c>
+                    </r>
+                    <r>
+                      <c>2.37</c>
+                      <c>Ideal</c>
+                      <c>J</c>
+                      <c>VS2</c>
+                      <c>62.2</c>
+                      <c>57</c>
+                      <c>16059</c>
+                      <c>8.52</c>
+                      <c>8.58</c>
+                      <c>5.32</c>
+                    </r>
+                    <r>
+                      <c>0.61</c>
+                      <c>Ideal</c>
+                      <c>F</c>
+                      <c>SI2</c>
+                      <c>61</c>
+                      <c>56</c>
+                      <c>1270</c>
+                      <c>5.48</c>
+                      <c>5.53</c>
+                      <c>3.36</c>
+                    </r>
+                    <r>
+                      <c>0.23</c>
+                      <c>Ideal</c>
+                      <c>F</c>
+                      <c>VVS1</c>
+                      <c>62.7</c>
+                      <c>57</c>
+                      <c>530</c>
+                      <c>3.9</c>
+                      <c>3.92</c>
+                      <c>2.45</c>
+                    </r>
+                    <r>
+                      <c>1</c>
+                      <c>Ideal</c>
+                      <c>G</c>
+                      <c>SI1</c>
+                      <c>62.2</c>
+                      <c>57</c>
+                      <c>4956</c>
+                      <c>6.45</c>
+                      <c>6.38</c>
+                      <c>3.99</c>
+                    </r>
+                    <r>
+                      <c>1</c>
+                      <c>Ideal</c>
+                      <c>G</c>
+                      <c>VS2</c>
+                      <c>62.1</c>
+                      <c>57</c>
+                      <c>6612</c>
+                      <c>6.42</c>
+                      <c>6.37</c>
+                      <c>3.97</c>
+                    </r>
+                    <r>
+                      <c>1.01</c>
+                      <c>Ideal</c>
+                      <c>G</c>
+                      <c>VS2</c>
+                      <c>61.9</c>
+                      <c>56</c>
+                      <c>7179</c>
+                      <c>6.4</c>
+                      <c>6.44</c>
+                      <c>3.97</c>
+                    </r>
+                    <r>
+                      <c>1.09</c>
+                      <c>Very Good</c>
+                      <c>H</c>
+                      <c>SI1</c>
+                      <c>61.7</c>
+                      <c>59</c>
+                      <c>4849</c>
+                      <c>6.53</c>
+                      <c>6.59</c>
+                      <c>4.05</c>
+                    </r>
+                    <r>
+                      <c>0.26</c>
+                      <c>Ideal</c>
+                      <c>F</c>
+                      <c>VVS2</c>
+                      <c>62.5</c>
+                      <c>56</c>
+                      <c>599</c>
+                      <c>4.1</c>
+                      <c>4.12</c>
+                      <c>2.57</c>
+                    </r>
+                    <r>
+                      <c>1.2</c>
+                      <c>Ideal</c>
+                      <c>E</c>
+                      <c>SI2</c>
+                      <c>62.5</c>
+                      <c>55</c>
+                      <c>5964</c>
+                      <c>6.77</c>
+                      <c>6.84</c>
+                      <c>4.25</c>
+                    </r>
+                    <r>
+                      <c>0.3</c>
+                      <c>Premium</c>
+                      <c>H</c>
+                      <c>VVS2</c>
+                      <c>62.1</c>
+                      <c>52</c>
+                      <c>776</c>
+                      <c>4.31</c>
+                      <c>4.29</c>
+                      <c>2.67</c>
+                    </r>
+                    <r>
+                      <c>1.09</c>
+                      <c>Very Good</c>
+                      <c>J</c>
+                      <c>VVS1</c>
+                      <c>63.9</c>
+                      <c>56</c>
+                      <c>5588</c>
+                      <c>6.47</c>
+                      <c>6.51</c>
+                      <c>4.15</c>
+                    </r>
+                    <r>
+                      <c>0.9</c>
+                      <c>Good</c>
+                      <c>G</c>
+                      <c>VS2</c>
+                      <c>63.6</c>
+                      <c>59</c>
+                      <c>4093</c>
+                      <c>6.04</c>
+                      <c>6.1</c>
+                      <c>3.86</c>
+                    </r>
+                    <r>
+                      <c>0.28</c>
+                      <c>Ideal</c>
+                      <c>F</c>
+                      <c>VS1</c>
+                      <c>60.2</c>
+                      <c>56</c>
+                      <c>598</c>
+                      <c>4.3</c>
+                      <c>4.31</c>
+                      <c>2.59</c>
+                    </r>
+                    <r>
+                      <c>0.35</c>
+                      <c>Ideal</c>
+                      <c>E</c>
+                      <c>SI1</c>
+                      <c>62.3</c>
+                      <c>56</c>
+                      <c>788</c>
+                      <c>4.56</c>
+                      <c>4.53</c>
+                      <c>2.83</c>
+                    </r>
+                    <r>
+                      <c>0.34</c>
+                      <c>Ideal</c>
+                      <c>E</c>
+                      <c>SI1</c>
+                      <c>62.3</c>
+                      <c>57</c>
+                      <c>596</c>
+                      <c>4.48</c>
+                      <c>4.51</c>
+                      <c>2.8</c>
+                    </r>
+                    <r>
+                      <c>2.01</c>
+                      <c>Ideal</c>
+                      <c>G</c>
+                      <c>SI2</c>
+                      <c>63</c>
+                      <c>56</c>
+                      <c>13498</c>
+                      <c>7.98</c>
+                      <c>7.9</c>
+                      <c>5</c>
+                    </r>
+                    <r>
+                      <c>0.3</c>
+                      <c>Premium</c>
+                      <c>G</c>
+                      <c>VVS2</c>
+                      <c>62.8</c>
+                      <c>60</c>
+                      <c>878</c>
+                      <c>4.28</c>
+                      <c>4.25</c>
+                      <c>2.68</c>
+                    </r>
+                    <r>
+                      <c>0.72</c>
+                      <c>Premium</c>
+                      <c>G</c>
+                      <c>VS2</c>
+                      <c>62.3</c>
+                      <c>59</c>
+                      <c>2405</c>
+                      <c>5.77</c>
+                      <c>5.69</c>
+                      <c>3.57</c>
+                    </r>
+                    <r>
+                      <c>0.31</c>
+                      <c>Ideal</c>
+                      <c>D</c>
+                      <c>VS2</c>
+                      <c>62.5</c>
+                      <c>56</c>
+                      <c>942</c>
+                      <c>4.36</c>
+                      <c>4.34</c>
+                      <c>2.72</c>
+                    </r>
+                    <r>
+                      <c>2.12</c>
+                      <c>Premium</c>
+                      <c>J</c>
+                      <c>SI2</c>
+                      <c>62.3</c>
+                      <c>61</c>
+                      <c>12140</c>
+                      <c>8.21</c>
+                      <c>8.16</c>
+                      <c>5.1</c>
+                    </r>
+                    <r>
+                      <c>1.57</c>
+                      <c>Premium</c>
+                      <c>F</c>
+                      <c>SI2</c>
+                      <c>60.2</c>
+                      <c>60</c>
+                      <c>8001</c>
+                      <c>7.49</c>
+                      <c>7.43</c>
+                      <c>4.49</c>
+                    </r>
+                    <r>
+                      <c>1.28</c>
+                      <c>Ideal</c>
+                      <c>F</c>
+                      <c>VVS2</c>
+                      <c>62.2</c>
+                      <c>56</c>
+                      <c>12841</c>
+                      <c>6.95</c>
+                      <c>6.91</c>
+                      <c>4.32</c>
+                    </r>
+                    <r>
+                      <c>1.63</c>
+                      <c>Ideal</c>
+                      <c>H</c>
+                      <c>VS2</c>
+                      <c>62.4</c>
+                      <c>55</c>
+                      <c>12155</c>
+                      <c>7.53</c>
+                      <c>7.57</c>
+                      <c>4.71</c>
+                    </r>
+                    <r>
+                      <c>1.02</c>
+                      <c>Very Good</c>
+                      <c>E</c>
+                      <c>SI1</c>
+                      <c>63.2</c>
+                      <c>60</c>
+                      <c>5456</c>
+                      <c>6.33</c>
+                      <c>6.42</c>
+                      <c>4.03</c>
+                    </r>
+                    <r>
+                      <c>0.51</c>
+                      <c>Ideal</c>
+                      <c>H</c>
+                      <c>SI2</c>
+                      <c>62.5</c>
+                      <c>55</c>
+                      <c>983</c>
+                      <c>5.1</c>
+                      <c>5.14</c>
+                      <c>3.2</c>
+                    </r>
+                    <r>
+                      <c>1.5</c>
+                      <c>Good</c>
+                      <c>H</c>
+                      <c>VS1</c>
+                      <c>63.4</c>
+                      <c>59</c>
+                      <c>10256</c>
+                      <c>7.2</c>
+                      <c>7.29</c>
+                      <c>4.59</c>
+                    </r>
+                    <r>
+                      <c>1.16</c>
+                      <c>Ideal</c>
+                      <c>G</c>
+                      <c>VS2</c>
+                      <c>61.7</c>
+                      <c>57</c>
+                      <c>7113</c>
+                      <c>6.72</c>
+                      <c>6.8</c>
+                      <c>4.17</c>
+                    </r>
+                    <r>
+                      <c>0.33</c>
+                      <c>Ideal</c>
+                      <c>H</c>
+                      <c>VS1</c>
+                      <c>61.9</c>
+                      <c>56</c>
+                      <c>743</c>
+                      <c>4.48</c>
+                      <c>4.44</c>
+                      <c>2.76</c>
+                    </r>
+                    <r>
+                      <c>0.72</c>
+                      <c>Ideal</c>
+                      <c>H</c>
+                      <c>SI1</c>
+                      <c>62.2</c>
+                      <c>58</c>
+                      <c>2458</c>
+                      <c>5.72</c>
+                      <c>5.76</c>
+                      <c>3.57</c>
+                    </r>
+                    <r>
+                      <c>0.31</c>
+                      <c>Ideal</c>
+                      <c>G</c>
+                      <c>VVS2</c>
+                      <c>62.4</c>
+                      <c>56</c>
+                      <c>907</c>
+                      <c>4.35</c>
+                      <c>4.31</c>
+                      <c>2.7</c>
+                    </r>
+                    <r>
+                      <c>0.32</c>
+                      <c>Ideal</c>
+                      <c>D</c>
+                      <c>VVS2</c>
+                      <c>61.7</c>
+                      <c>57</c>
+                      <c>834</c>
+                      <c>4.39</c>
+                      <c>4.42</c>
+                      <c>2.72</c>
+                    </r>
+                    <r>
+                      <c>0.56</c>
+                      <c>Very Good</c>
+                      <c>D</c>
+                      <c>SI1</c>
+                      <c>63</c>
+                      <c>58</c>
+                      <c>1746</c>
+                      <c>5.21</c>
+                      <c>5.24</c>
+                      <c>3.29</c>
+                    </r>
+                    <r>
+                      <c>0.41</c>
+                      <c>Ideal</c>
+                      <c>E</c>
+                      <c>VVS2</c>
+                      <c>61.5</c>
+                      <c>55</c>
+                      <c>1243</c>
+                      <c>4.83</c>
+                      <c>4.79</c>
+                      <c>2.96</c>
+                    </r>
+                    <r>
+                      <c>0.74</c>
+                      <c>Very Good</c>
+                      <c>E</c>
+                      <c>SI2</c>
+                      <c>63.3</c>
+                      <c>59</c>
+                      <c>1632</c>
+                      <c>5.82</c>
+                      <c>5.78</c>
+                      <c>3.67</c>
+                    </r>
+                    <r>
+                      <c>0.97</c>
+                      <c>Ideal</c>
+                      <c>H</c>
+                      <c>SI2</c>
+                      <c>60.7</c>
+                      <c>55</c>
+                      <c>3729</c>
+                      <c>6.47</c>
+                      <c>6.41</c>
+                      <c>3.91</c>
+                    </r>
+                    <r>
+                      <c>1.73</c>
+                      <c>Very Good</c>
+                      <c>H</c>
+                      <c>VS2</c>
+                      <c>59.2</c>
+                      <c>61</c>
+                      <c>13102</c>
+                      <c>7.78</c>
+                      <c>7.82</c>
+                      <c>4.62</c>
+                    </r>
+                    <r>
+                      <c>0.26</c>
+                      <c>Very Good</c>
+                      <c>E</c>
+                      <c>VS1</c>
+                      <c>63</c>
+                      <c>59</c>
+                      <c>453</c>
+                      <c>4.03</c>
+                      <c>4.06</c>
+                      <c>2.55</c>
+                    </r>
+                    <r>
+                      <c>0.59</c>
+                      <c>Ideal</c>
+                      <c>G</c>
+                      <c>VVS2</c>
+                      <c>62.7</c>
+                      <c>56</c>
+                      <c>2125</c>
+                      <c>5.33</c>
+                      <c>5.36</c>
+                      <c>3.35</c>
+                    </r>
+                    <r>
+                      <c>0.72</c>
+                      <c>Ideal</c>
+                      <c>I</c>
+                      <c>VVS2</c>
+                      <c>61.3</c>
+                      <c>56</c>
+                      <c>2591</c>
+                      <c>5.77</c>
+                      <c>5.8</c>
+                      <c>3.55</c>
+                    </r>
+                    <r>
+                      <c>0.79</c>
+                      <c>Ideal</c>
+                      <c>E</c>
+                      <c>SI1</c>
+                      <c>62.1</c>
+                      <c>54</c>
+                      <c>3107</c>
+                      <c>5.92</c>
+                      <c>5.96</c>
+                      <c>3.69</c>
+                    </r>
+                    <r>
+                      <c>0.43</c>
+                      <c>Very Good</c>
+                      <c>G</c>
+                      <c>SI1</c>
+                      <c>62.3</c>
+                      <c>59</c>
+                      <c>754</c>
+                      <c>4.79</c>
+                      <c>4.81</c>
+                      <c>2.99</c>
+                    </r>
+                    <r>
+                      <c>0.41</c>
+                      <c>Premium</c>
+                      <c>E</c>
+                      <c>VS1</c>
+                      <c>60.7</c>
+                      <c>58</c>
+                      <c>1079</c>
+                      <c>4.79</c>
+                      <c>4.83</c>
+                      <c>2.92</c>
+                    </r>
+                    <r>
+                      <c>0.32</c>
+                      <c>Ideal</c>
+                      <c>G</c>
+                      <c>VS1</c>
+                      <c>61.9</c>
+                      <c>55</c>
+                      <c>602</c>
+                      <c>4.4</c>
+                      <c>4.42</c>
+                      <c>2.73</c>
+                    </r>
+                    <r>
+                      <c>1.07</c>
+                      <c>Premium</c>
+                      <c>G</c>
+                      <c>VS2</c>
+                      <c>62.1</c>
+                      <c>58</c>
+                      <c>6471</c>
+                      <c>6.59</c>
+                      <c>6.55</c>
+                      <c>4.08</c>
+                    </r>
+                    <r>
+                      <c>0.41</c>
+                      <c>Premium</c>
+                      <c>E</c>
+                      <c>VS1</c>
+                      <c>61.9</c>
+                      <c>59</c>
+                      <c>1079</c>
+                      <c>4.77</c>
+                      <c>4.8</c>
+                      <c>2.96</c>
+                    </r>
+                    <r>
+                      <c>0.55</c>
+                      <c>Ideal</c>
+                      <c>D</c>
+                      <c>VS2</c>
+                      <c>61.5</c>
+                      <c>56</c>
+                      <c>2030</c>
+                      <c>5.28</c>
+                      <c>5.25</c>
+                      <c>3.24</c>
+                    </r>
+                    <r>
+                      <c>1.14</c>
+                      <c>Premium</c>
+                      <c>H</c>
+                      <c>SI1</c>
+                      <c>59.2</c>
+                      <c>58</c>
+                      <c>4980</c>
+                      <c>6.86</c>
+                      <c>6.8</c>
+                      <c>4.04</c>
+                    </r>
+                    <r>
+                      <c>1</c>
+                      <c>Very Good</c>
+                      <c>F</c>
+                      <c>VVS1</c>
+                      <c>63</c>
+                      <c>56</c>
+                      <c>8008</c>
+                      <c>6.32</c>
+                      <c>6.37</c>
+                      <c>4</c>
+                    </r>
+                    <r>
+                      <c>1.54</c>
+                      <c>Premium</c>
+                      <c>G</c>
+                      <c>VS2</c>
+                      <c>61.6</c>
+                      <c>59</c>
+                      <c>12308</c>
+                      <c>7.46</c>
+                      <c>7.4</c>
+                      <c>4.58</c>
+                    </r>
+                    <r>
+                      <c>0.5</c>
+                      <c>Ideal</c>
+                      <c>D</c>
+                      <c>VS1</c>
+                      <c>61.6</c>
+                      <c>57</c>
+                      <c>2025</c>
+                      <c>5.13</c>
+                      <c>5.09</c>
+                      <c>3.15</c>
+                    </r>
+                    <r>
+                      <c>1.36</c>
+                      <c>Very Good</c>
+                      <c>H</c>
+                      <c>VS1</c>
+                      <c>59.9</c>
+                      <c>58</c>
+                      <c>9178</c>
+                      <c>7.16</c>
+                      <c>7.2</c>
+                      <c>4.3</c>
+                    </r>
+                    <r>
+                      <c>0.31</c>
+                      <c>Ideal</c>
+                      <c>I</c>
+                      <c>IF</c>
+                      <c>62.2</c>
+                      <c>54</c>
+                      <c>652</c>
+                      <c>4.36</c>
+                      <c>4.39</c>
+                      <c>2.72</c>
+                    </r>
+                    <r>
+                      <c>0.33</c>
+                      <c>Very Good</c>
+                      <c>G</c>
+                      <c>VS2</c>
+                      <c>60.6</c>
+                      <c>61</c>
+                      <c>579</c>
+                      <c>4.46</c>
+                      <c>4.49</c>
+                      <c>2.71</c>
+                    </r>
+                    <r>
+                      <c>0.73</c>
+                      <c>Very Good</c>
+                      <c>D</c>
+                      <c>SI1</c>
+                      <c>60.8</c>
+                      <c>59</c>
+                      <c>3014</c>
+                      <c>5.8</c>
+                      <c>5.85</c>
+                      <c>3.54</c>
+                    </r>
+                    <r>
+                      <c>0.5</c>
+                      <c>Very Good</c>
+                      <c>G</c>
+                      <c>SI1</c>
+                      <c>62.1</c>
+                      <c>59</c>
+                      <c>1237</c>
+                      <c>5.09</c>
+                      <c>5.12</c>
+                      <c>3.17</c>
+                    </r>
+                  </Data>
+                </Configuration>
+              </TextInput>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="True" />
+            </Annotation>
+            <MetaInfo connection="Output">
+              <RecordInfo>
+                <Field name="carat" source="TextInput:" type="Double" />
+                <Field name="cut" size="9" source="TextInput:" type="String" />
+                <Field name="color" size="1" source="TextInput:" type="String" />
+                <Field name="clarity" size="4" source="TextInput:" type="String" />
+                <Field name="depth" source="TextInput:" type="Double" />
+                <Field name="table" source="TextInput:" type="Byte" />
+                <Field name="price" source="TextInput:" type="Int16" />
+                <Field name="x" source="TextInput:" type="Double" />
+                <Field name="y" source="TextInput:" type="Double" />
+                <Field name="z" source="TextInput:" type="Double" />
+              </RecordInfo>
+            </MetaInfo>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroInput" />
+        </Node>
+        <Node ToolID="10">
+          <GuiSettings Plugin="AlteryxRPluginGui.R">
+            <Position x="225" y="235" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <RScript><![CDATA[## DO NOT MODIFY: Auto Inserted by AlteryxRhelper -------------
+library(AlteryxRhelper)
+
+## Configuration
+config <- list(
+  barColor = dropdownInput('%Question.barColor%' , 'steelblue'),
+  numBins = numericInput('%Quesqtion.numBins%' , 5)
+)
+
+options(alteryx.wd = '%Engine.WorkflowDirectory%')
+options(alteryx.debug = config$debug)
+## -----------------------------------------------------
+
+## Defaults ----
+defaults <- list (
+  d1 = data.frame(
+    carat = runif(100),
+    price = runif(100)*100
+  )
+)
+
+## Inputs ----
+inputs <- list(
+  d1 = read.Alteryx2("#1", default = defaults$d1) 
+)
+
+payload <- list(inputs = inputs, config = config)
+print(str(payload))
+
+## Process Payload ----------------------------------------
+
+process <- function(payload){
+  require(ggplot2)
+  inputs <- payload$inputs
+  config <- payload$config
+  d <- inputs$d1
+  out1 <- d
+  out2 <- ggplot(data = d, aes(x = carat)) +
+    geom_histogram(bins = config$numBins, fill = config$barColor)
+  list(out1 = out1, out2 = out2)
+}
+
+results <- process(payload)
+
+## Write Output --------------------------------------------
+
+## Output1
+write.Alteryx2(results$out1, 1)
+
+## Output 2
+AlteryxGraph2(results$out2, 3)
+]]></RScript>
+              <UseFullUpdate value="False" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR" />
+        </Node>
+        <Node ToolID="11">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+            <Position x="342" y="170" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Name>Output1</Name>
+              <Abbrev />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+        </Node>
+        <Node ToolID="13">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
+            <Position x="342" y="282" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Name>Output2</Name>
+              <Abbrev />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
+        </Node>
+        <Node ToolID="20">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+            <Position x="462" y="258" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <TempFile>C:\ProgramData\Alteryx\Engine\Engine_2504_49c72fe85f044bcd88b135d0c5120c90_\Engine_2448_6c5ee5fd56194672a38745702ab940d3_.yxdb</TempFile>
+              <Layout>
+                <ViewMode>Single</ViewMode>
+                <ViewSize value="100" />
+                <View1>
+                  <DefaultTab>Report</DefaultTab>
+                  <Hints>
+                    <Table />
+                  </Hints>
+                </View1>
+                <View2 />
+              </Layout>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+        </Node>
+        <Node ToolID="21">
+          <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
+            <Position x="462" y="174" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <TempFile>C:\ProgramData\Alteryx\Engine\Engine_2504_49c72fe85f044bcd88b135d0c5120c90_\Engine_2448_957ba994c4654aae828dbfa730ee735a_.yxdb</TempFile>
+              <Layout>
+                <View1>
+                  <Hints>
+                    <Table />
+                  </Hints>
+                </View1>
+              </Layout>
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
+        </Node>
+      </ChildNodes>
+    </Node>
+    <Node ToolID="18">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="54" y="18" width="427" height="105" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>INTERFACE</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#defe9c" BorderColor="#2f4f4f" Transparency="80" Margin="10" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="15">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+            <Position x="64" y="47" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>barColor</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="14">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+            <Position x="198" y="54" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>numBins</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="19">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
+            <Position x="378" y="54" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>debug</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
+    </Node>
+  </Nodes>
+  <Connections>
+    <Connection name="#1">
+      <Origin ToolID="9" Connection="Output" />
+      <Destination ToolID="10" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Output1" />
+      <Destination ToolID="11" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Output3" />
+      <Destination ToolID="13" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Output3" />
+      <Destination ToolID="20" Connection="Input" />
+    </Connection>
+    <Connection>
+      <Origin ToolID="10" Connection="Output1" />
+      <Destination ToolID="21" Connection="Input" />
+    </Connection>
+  </Connections>
+  <Properties>
+    <Memory default="True" />
+    <GlobalRecordLimit value="0" />
+    <TempFiles default="True" />
+    <Annotation on="True" includeToolName="False" />
+    <ConvErrorLimit value="10" />
+    <ConvErrorLimit_Stop value="False" />
+    <CancelOnError value="False" />
+    <DisableBrowse value="False" />
+    <EnablePerformanceProfiling value="False" />
+    <DisableAllOutput value="False" />
+    <ShowAllMacroMessages value="False" />
+    <ShowConnectionStatusIsOn value="True" />
+    <ShowConnectionStatusOnlyWhenRunning value="True" />
+    <ZoomLevel value="0" />
+    <LayoutType>Horizontal</LayoutType>
+    <Constants>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Input (9)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (11)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Macro Output (13)</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>numBins</Name>
+        <Value />
+        <IsNumeric value="True" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>barColor</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>debug</Name>
+        <Value />
+        <IsNumeric value="False" />
+      </Constant>
+    </Constants>
+    <MetaInfo>
+      <NameIsFileName value="True" />
+      <Name>predictive_template</Name>
+      <Description />
+      <RootToolName />
+      <ToolVersion />
+      <ToolInDb value="False" />
+      <CategoryName />
+      <SearchTags />
+      <Author />
+      <Company />
+      <Copyright />
+      <DescriptionLink actual="" displayed="" />
+    </MetaInfo>
+    <Events>
+      <Enabled value="True" />
+    </Events>
+    <RuntimeProperties>
+      <Actions />
+      <Questions>
+        <Question>
+          <Type>Tab</Type>
+          <Description>Questions</Description>
+          <Name>Tab (8)</Name>
+          <ToolId value="8" />
+          <Questions>
+            <Question>
+              <Type>MacroInput</Type>
+              <Description>Macro Input (9)</Description>
+              <Name>Macro Input (9)</Name>
+              <ToolId value="9" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (11)</Description>
+              <Name>Macro Output (11)</Name>
+              <ToolId value="11" />
+            </Question>
+            <Question>
+              <Type>MacroOutput</Type>
+              <Description>Macro Output (13)</Description>
+              <Name>Macro Output (13)</Name>
+              <ToolId value="13" />
+            </Question>
+            <Question>
+              <Type>NumericUpDown</Type>
+              <Description>Select number of bins</Description>
+              <Name>numBins</Name>
+              <ToolId value="14" />
+              <Minimum value="1" />
+              <Maximum value="100" />
+              <Increment value="1" />
+              <Default value="10" />
+              <Decimals value="0" />
+            </Question>
+            <Question>
+              <Type>ListBox</Type>
+              <Description>Set bar color</Description>
+              <Name>barColor</Name>
+              <ToolId value="15" />
+              <Multiple value="False" />
+              <Default>steelblue</Default>
+              <Mode>Manual</Mode>
+              <Manual_Values><![CDATA[steelblue
+skyblue
+darkred
+]]></Manual_Values>
+            </Question>
+            <Question>
+              <Type>BooleanGroup</Type>
+              <Description>Debug</Description>
+              <Name>debug</Name>
+              <ToolId value="19" />
+              <Questions />
+              <Default value="False" />
+              <Collapsable value="False" />
+            </Question>
+          </Questions>
+        </Question>
+      </Questions>
+      <ModuleType>Macro</ModuleType>
+      <MacroCustomHelp value="False" />
+      <MacroDynamicOutputFields value="False" />
+      <MacroImageStd value="39" />
+      <MacroInputs />
+      <MacroOutputs />
+      <Wiz_CustomHelp value="False" />
+      <Wiz_CustomGraphic value="False" />
+      <Wiz_ShowOutput value="True" />
+      <Wiz_OpenOutputTools>
+        <Tool ToolId="9" Selected="True" />
+        <Tool ToolId="11" Selected="True" />
+        <Tool ToolId="13" Selected="True" />
+        <Tool ToolId="20" Selected="False" />
+        <Tool ToolId="21" Selected="False" />
+      </Wiz_OpenOutputTools>
+      <Wiz_OutputMessage />
+      <Wiz_NoOutputFilesMessage />
+      <Wiz_ChainRunWizard />
+    </RuntimeProperties>
+  </Properties>
+</AlteryxDocument>

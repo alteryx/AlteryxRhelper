@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<AlteryxDocument yxmdVer="10.0">
+<AlteryxDocument yxmdVer="10.5">
   <Nodes>
     <Node ToolID="2">
       <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
@@ -16,7 +16,7 @@
     </Node>
     <Node ToolID="3">
       <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
-        <Position x="54" y="251" />
+        <Position x="114" y="239" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -80,7 +80,7 @@
     </Node>
     <Node ToolID="4">
       <GuiSettings Plugin="AlteryxRPluginGui.R">
-        <Position x="150" y="251" />
+        <Position x="210" y="239" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -99,12 +99,17 @@ write.Alteryx2(d, 1)
           <DefaultAnnotationText />
           <Left value="False" />
         </Annotation>
+        <MetaInfo connection="Output1">
+          <RecordInfo>
+            <Field name="x" source="R-DATA:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
       </Properties>
       <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR" />
     </Node>
     <Node ToolID="5">
       <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
-        <Position x="246" y="203" />
+        <Position x="306" y="191" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -119,19 +124,6 @@ write.Alteryx2(d, 1)
       </Properties>
       <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
     </Node>
-    <Node ToolID="11">
-      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-        <Position x="354" y="78" width="59" height="59" />
-      </GuiSettings>
-      <Properties>
-        <Configuration />
-        <Annotation DisplayMode="0">
-          <Name>debug</Name>
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-    </Node>
     <Node ToolID="12">
       <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
         <Position x="0" y="0" width="59" height="59" />
@@ -144,6 +136,52 @@ write.Alteryx2(d, 1)
           <Left value="False" />
         </Annotation>
       </Properties>
+    </Node>
+    <Node ToolID="21">
+      <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
+        <Position x="116" y="49" width="266" height="98" />
+      </GuiSettings>
+      <Properties>
+        <Configuration>
+          <Caption>INTERFACE</Caption>
+          <Style TextColor="#2f4f4f" FillColor="#defe9c" BorderColor="#2f4f4f" Transparency="80" Margin="10" />
+          <Disabled value="False" />
+          <Folded value="False" />
+        </Configuration>
+        <Annotation DisplayMode="0">
+          <Name />
+          <DefaultAnnotationText />
+          <Left value="False" />
+        </Annotation>
+      </Properties>
+      <ChildNodes>
+        <Node ToolID="22">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.QuestionTextBox">
+            <Position x="126" y="78" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>textbox</Name>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="23">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
+            <Position x="246" y="78" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+      </ChildNodes>
     </Node>
   </Nodes>
   <Connections>
@@ -187,9 +225,15 @@ write.Alteryx2(d, 1)
       </Constant>
       <Constant>
         <Namespace>Question</Namespace>
-        <Name>debug</Name>
+        <Name>textbox</Name>
         <Value />
         <IsNumeric value="False" />
+      </Constant>
+      <Constant>
+        <Namespace>Question</Namespace>
+        <Name>Numeric Up Down (23)</Name>
+        <Value />
+        <IsNumeric value="True" />
       </Constant>
     </Constants>
     <MetaInfo>
@@ -230,6 +274,27 @@ write.Alteryx2(d, 1)
               <Name>Macro Output (5)</Name>
               <ToolId value="5" />
             </Question>
+            <Question>
+              <Type>TextBox</Type>
+              <Description>Enter Text</Description>
+              <Name>textbox</Name>
+              <ToolId value="22" />
+              <Default />
+              <Password value="False" />
+              <Multiline value="False" />
+              <Hidden value="False" />
+            </Question>
+            <Question>
+              <Type>NumericUpDown</Type>
+              <Description>Enter Number</Description>
+              <Name>Numeric Up Down (23)</Name>
+              <ToolId value="23" />
+              <Minimum value="0" />
+              <Maximum value="100" />
+              <Increment value="1" />
+              <Default value="50" />
+              <Decimals value="0" />
+            </Question>
           </Questions>
         </Question>
         <Question>
@@ -237,17 +302,7 @@ write.Alteryx2(d, 1)
           <Description>Debug</Description>
           <Name>Tab (12)</Name>
           <ToolId value="12" />
-          <Questions>
-            <Question>
-              <Type>BooleanGroup</Type>
-              <Description>Debug</Description>
-              <Name>debug</Name>
-              <ToolId value="11" />
-              <Questions />
-              <Default value="False" />
-              <Collapsable value="False" />
-            </Question>
-          </Questions>
+          <Questions />
         </Question>
       </Questions>
       <ModuleType>Macro</ModuleType>
