@@ -16,7 +16,7 @@
     </Node>
     <Node ToolID="3">
       <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
-        <Position x="114" y="239" />
+        <Position x="54" y="244" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -24,9 +24,10 @@
           <Name>Input3</Name>
           <Abbrev />
           <ShowFieldMap value="False" />
+          <Optional value="False" />
           <TextInput>
             <Configuration>
-              <NumRows value="11" />
+              <NumRows value="10" />
               <Fields>
                 <Field name="x" />
               </Fields>
@@ -67,6 +68,7 @@
         </Configuration>
         <Annotation DisplayMode="0">
           <Name>Text Input (1)</Name>
+          <AnnotationText>__Input:__ Specify a data input</AnnotationText>
           <DefaultAnnotationText />
           <Left value="True" />
         </Annotation>
@@ -80,7 +82,7 @@
     </Node>
     <Node ToolID="4">
       <GuiSettings Plugin="AlteryxRPluginGui.R">
-        <Position x="210" y="239" />
+        <Position x="150" y="244" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -109,7 +111,7 @@ write.Alteryx2(d, 1)
     </Node>
     <Node ToolID="5">
       <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
-        <Position x="306" y="191" />
+        <Position x="246" y="196" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -118,6 +120,7 @@ write.Alteryx2(d, 1)
         </Configuration>
         <Annotation DisplayMode="0">
           <Name />
+          <AnnotationText>__Output:__ This provides a data output</AnnotationText>
           <DefaultAnnotationText />
           <Left value="False" />
         </Annotation>
@@ -139,7 +142,7 @@ write.Alteryx2(d, 1)
     </Node>
     <Node ToolID="21">
       <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-        <Position x="116" y="49" width="266" height="98" />
+        <Position x="56" y="54" width="292" height="98" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -157,12 +160,13 @@ write.Alteryx2(d, 1)
       <ChildNodes>
         <Node ToolID="22">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.QuestionTextBox">
-            <Position x="126" y="78" width="59" height="59" />
+            <Position x="66" y="83" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
             <Annotation DisplayMode="0">
               <Name>textbox</Name>
+              <AnnotationText>This allows the user to specify a name</AnnotationText>
               <DefaultAnnotationText />
               <Left value="False" />
             </Annotation>
@@ -170,12 +174,13 @@ write.Alteryx2(d, 1)
         </Node>
         <Node ToolID="23">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
-            <Position x="246" y="78" width="59" height="59" />
+            <Position x="186" y="83" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
             <Annotation DisplayMode="0">
-              <Name />
+              <Name>number</Name>
+              <AnnotationText>This allows the user to specify a number</AnnotationText>
               <DefaultAnnotationText />
               <Left value="False" />
             </Annotation>
@@ -198,7 +203,7 @@ write.Alteryx2(d, 1)
     <Memory default="True" />
     <GlobalRecordLimit value="0" />
     <TempFiles default="True" />
-    <Annotation on="True" includeToolName="False" />
+    <Annotation on="False" includeToolName="False" />
     <ConvErrorLimit value="10" />
     <ConvErrorLimit_Stop value="False" />
     <CancelOnError value="False" />
@@ -213,41 +218,29 @@ write.Alteryx2(d, 1)
     <Constants>
       <Constant>
         <Namespace>Question</Namespace>
-        <Name>Macro Input (3)</Name>
-        <Value />
-        <IsNumeric value="False" />
-      </Constant>
-      <Constant>
-        <Namespace>Question</Namespace>
-        <Name>Macro Output (5)</Name>
-        <Value />
-        <IsNumeric value="False" />
-      </Constant>
-      <Constant>
-        <Namespace>Question</Namespace>
         <Name>textbox</Name>
         <Value />
         <IsNumeric value="False" />
       </Constant>
       <Constant>
         <Namespace>Question</Namespace>
-        <Name>Numeric Up Down (23)</Name>
+        <Name>number</Name>
         <Value />
         <IsNumeric value="True" />
       </Constant>
     </Constants>
     <MetaInfo>
-      <NameIsFileName value="True" />
-      <Name>empty</Name>
+      <NameIsFileName value="False" />
+      <Name>{{ pluginName }}</Name>
       <Description />
       <RootToolName />
       <ToolVersion />
       <ToolInDb value="False" />
-      <CategoryName />
+      <CategoryName>Experiments</CategoryName>
       <SearchTags />
-      <Author />
-      <Company />
-      <Copyright />
+      <Author>Advanced Analytics</Author>
+      <Company>Alteryx, Inc</Company>
+      <Copyright>Alteryx, Inc</Copyright>
       <DescriptionLink actual="" displayed="" />
     </MetaInfo>
     <Events>
@@ -264,8 +257,8 @@ write.Alteryx2(d, 1)
           <Questions>
             <Question>
               <Type>MacroInput</Type>
-              <Description>Macro Input (3)</Description>
-              <Name>Macro Input (3)</Name>
+              <Description>Text Input (1)</Description>
+              <Name>Text Input (1)</Name>
               <ToolId value="3" />
             </Question>
             <Question>
@@ -287,7 +280,7 @@ write.Alteryx2(d, 1)
             <Question>
               <Type>NumericUpDown</Type>
               <Description>Enter Number</Description>
-              <Name>Numeric Up Down (23)</Name>
+              <Name>number</Name>
               <ToolId value="23" />
               <Minimum value="0" />
               <Maximum value="100" />
