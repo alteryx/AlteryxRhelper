@@ -1,7 +1,7 @@
 getPluginFiles <- function(pluginDir = "."){
   pluginName = basename(normalizePath(pluginDir, mustWork = TRUE))
   files = list.files(pluginDir, pattern = '^[^App]', full.names = F)
-  files =  files[!grepl("^(Supporting_Macros|Gui|LICENSE|README)", files)]
+  files =  files[!grepl("^(Supporting_Macros|Gui|LICENSE|README|Supporting_Files)", files)]
   files = files[!grepl("^.*\\.Rproj", files)]
   supporting_macro <- file.path(
     "Supporting_Macros", 
