@@ -1,24 +1,24 @@
 ---
-title: "About the Simulation Sampling Tool"
+title: "About the {{ pluginName }} Tool"
 output: 
   html_document: 
     keep_md: yes
 ---
 
-<img src="../SimSamplingIcon.png" width=100 height=100 />
+<img src="../../{{ pluginName }}Icon.png" width=100 height=100 />
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-pluginName = 'SimSampling.yxmc'
+pluginName = '../../Supporting_Macros/{{ pluginName }}.yxmc'
 ```
 
-Simulation Sampling allows for sampling. The sampling can be done parametrically from a distribution, from input data, or as a combination - best fitting to a distribution and sampling from that. The data can also be "drawn", if one is unsure of the parameters of a distribution but is also lacking data.
+<!-- Insert description of plugin -->
 
 _Note: This tool uses the R tool. Install R and the necessary packages by going to Options > Download Predictive Tools._
 
 ### Inputs
 
-There are 2 inputs.
+There are ___ inputs.
 
 ```{r echo = F, comment = NA, results = 'asis', warning = F}
 AlteryxRhelper::extractInputOutput(pluginName)
