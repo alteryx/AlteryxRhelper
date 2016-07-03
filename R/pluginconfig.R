@@ -127,6 +127,9 @@ makePluginConfig <- function(inputs, outputs, pluginName, properties = NULL,
   }))
   d$closeNode()
   if (!is.null(properties)){
+    if (properties[['Name']] == '{{ pluginName }}'){
+      properties[['Name']] = pluginName
+    }
     d$addNode("Properties", close = F)
     d$addNode(
       "MetaInfo", 
