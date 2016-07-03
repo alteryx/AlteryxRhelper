@@ -17,3 +17,6 @@ test/
 
 # ignore rmarkdown templates
 inst/rmarkdown
+
+# ignore backup files
+*.bak
