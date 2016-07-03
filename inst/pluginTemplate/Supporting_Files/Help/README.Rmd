@@ -1,0 +1,37 @@
+---
+title: "About the {{ pluginName }} Tool"
+output: 
+  html_document: 
+    keep_md: yes
+---
+
+<img src="../../{{ pluginName }}Icon.png" width=48 height=48 />
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+pluginName = '../../Supporting_Macros/{{ pluginName }}.yxmc'
+```
+
+<!-- Insert description of plugin -->
+
+_Note: This tool uses the R tool. Install R and the necessary packages by going to Options > Download Predictive Tools._
+
+### Inputs
+
+There are ___ inputs.
+
+```{r echo = F, comment = NA, results = 'asis', warning = F}
+AlteryxRhelper::extractInputOutput(pluginName)
+```
+
+### Configuration Properties
+
+```{r echo = F, comment = NA, results = 'asis', warning = F}
+AlteryxRhelper::extractConfig(pluginName)
+```
+
+### Output
+
+```{r echo = F, comment = NA, results = 'asis', warning = F}
+AlteryxRhelper::extractInputOutput(pluginName, type = 'output')
+```
