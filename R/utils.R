@@ -136,6 +136,21 @@ copyMacro <- function(macro, todir = '.', repo = 'svn', ...){
 }
 
 
+copyPredictiveAndHelperMacros <- function(macro, to = '.'){
+  copyPredictiveMacro(macro, to = to)
+  macro <- file.path(to, macro)
+  doc <- xmlInternalTreeParse(macro)
+  root <- xmlRoot(doc)
+  helpers <- getNodeSet(root, '//EngineSettings[@Macro]')
+  sapply(helpers, function(d){
+    x <- gsub('\\\\', '/', xmlGetAttr(d, 'Macro'))
+    copyPredictiveMacro(x, 'Supporting_Macros/Helper_Macros')
+  })
+  d <- paste(readLines(macro, warn = F), collapse = '\n')
+  d <- gsub("Supporting_Macros", "Helper_Macros", d)
+  cat(d, file = macro)
+}
+
 
 
 
