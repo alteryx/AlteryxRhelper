@@ -102,7 +102,13 @@ writeGuiHtml <- function(pluginDir, htmlFile = NULL, overrides = NULL){
   layoutFile = file.path(layoutDir, 'layout.html.sample')
   x1 <- yxmc2yaml(yxmcFile)
   x1b <- paste(
-    c("<fieldset>", paste("{{", names(x1), "}}"), "</fieldset>\n"), collapse = '\n'
+    c(
+      "<fieldset>", 
+      "<legend>Configuration</legend>",
+      paste0("{{ ", "`", names(x1), "`", " }}"), 
+      "</fieldset>\n"
+    ), 
+    collapse = '\n'
   )
   cat(x1b, file = layoutFile)
   if (file.exists(ov <- file.path(pluginDir, 'Gui', 'overrides.yaml'))){
