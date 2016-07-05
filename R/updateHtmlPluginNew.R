@@ -7,7 +7,12 @@ getPluginFiles <- function(pluginDir = "."){
     "Supporting_Macros", 
     paste0(pluginName, ".yxmc")
   )
-  list(htmlplugin = files, macro = supporting_macro)
+  helper_macros <- list.files(
+    file.path('Supporting_Macros', 'Helper_Macros'), 
+    pattern = "yxmc",
+    full = TRUE
+  )
+  list(htmlplugin = files, macro = supporting_macro, helpers = helper_macros)
 }
 
 getAyxDirs <- function(alteryxDir = getOption('alteryx.path')){
@@ -70,6 +75,17 @@ copyHtmlPlugin <- function(pluginDir = ".", ayxDir = getAyxDirs()){
   } else {
     message(file.path('SupportingMacros', basename(ayxMacro)), ' is up to date')
   }
+  message("Copying Helper Macros")
+  if (length(files$helpers) > 0){
+    if (!dir.exists(hdir <- file.path(ayxPluginDir, 'Supporting_Macros', 'Helper_Macros'))){
+      dir.create(hdir)
+    }
+    sapply(files$helpers, function(helper){
+      message("Copying helper macros...", basename(helper))
+      file.copy(helper, hdir)
+    })
+  }
+  
 }
 
 #' Create YXI file
