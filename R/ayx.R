@@ -87,15 +87,16 @@ makeGuiHtml <- function(widgets, pluginName = "", template = NULL){
 
 
 writeGuiHtml <- function(pluginDir, htmlFile = NULL, overrides = NULL){
+  dirs <- dirNames()
   pluginDir <- normalizePath(pluginDir)
   pluginName <- basename(pluginDir)
   if (is.null(htmlFile)){
     htmlFile <- file.path(pluginDir, sprintf("%sGui.html", pluginName))
   }
   yxmcFile <- file.path(
-    pluginDir, 'Supporting_Macros', sprintf("%s.yxmc", pluginName)
+    pluginDir, dirs$macros, sprintf("%s.yxmc", pluginName)
   )
-  layoutDir <- file.path(pluginDir, 'Supporting_Files', 'Gui')
+  layoutDir <- file.path(pluginDir, dirs$extras, 'Gui')
   if (!dir.exists(layoutDir)){
     dir.create(layoutDir)
   }
@@ -131,14 +132,15 @@ writeGuiHtml <- function(pluginDir, htmlFile = NULL, overrides = NULL){
 #' @param layout should a layout file be used
 #' @import yaml
 createPluginFromMacro <- function(pluginDir = ".", overrides = NULL, layout = NULL){
+  dirs <- dirNames()
   pluginDir = normalizePath(pluginDir)
   pluginName <- basename(pluginDir)
   yxmcFile <- file.path(
-    pluginDir, 'Supporting_Macros', sprintf("%s.yxmc", pluginName)
+    pluginDir, dirs$macros, sprintf("%s.yxmc", pluginName)
   )
   if (is.null(layout)){
     if (file.exists(
-      l <- file.path(pluginDir, 'Supporting_Files', 'Gui', 'layout.html')
+      l <- file.path(pluginDir, dirs$extras, 'Gui', 'layout.html')
     )){
       layout = TRUE
     }
@@ -155,20 +157,21 @@ createPluginFromMacro <- function(pluginDir = ".", overrides = NULL, layout = NU
 }
 
 writeGuiHtmlFromLayout <- function(pluginDir, htmlFile = NULL, overrides = NULL){
+  dirs <- dirNames()
   pluginDir <- normalizePath(pluginDir)
   pluginName <- basename(pluginDir)
   if (is.null(htmlFile)){
     htmlFile <- file.path(pluginDir, sprintf("%sGui.html", pluginName))
   }
   mylayout <- paste(
-    readLines(file.path(pluginDir, 'Supporting_Files', 'Gui', 'layout.html')), 
+    readLines(file.path(pluginDir, dirs$extras, 'Gui', 'layout.html')), 
     collapse = '\n'
   )
   yxmcFile <- file.path(
-    pluginDir, 'Supporting_Macros', sprintf("%s.yxmc", pluginName)
+    pluginDir, dirs$macros, sprintf("%s.yxmc", pluginName)
   )
   x1 <- yxmc2yaml(yxmcFile)
-  if (file.exists(ov <- file.path(pluginDir, "Supporting_Files", "Gui", "overrides.yaml"))){
+  if (file.exists(ov <- file.path(pluginDir, dirs$extras, "Gui", "overrides.yaml"))){
     overrides <- yaml::yaml.load_file(ov)
   }
   if (!is.null(overrides)){
