@@ -60,10 +60,11 @@ getIO <- function(template){
     outputs = getMacroIO('MacroOutput'),
     pluginName = tools::file_path_sans_ext(basename(template)),
     #properties = getNodeSet(r, '//Properties//MetaInfo[not(@connection)]')
-    properties = Filter(
-        Negate(is.null),
-        XML::xmlToList(getNodeSet(r, "//Properties//MetaInfo[not(@connection)]")[[1]])
-    ),
+    # properties = Filter(
+    #     Negate(is.null),
+    #     XML::xmlToList(getNodeSet(r, "//Properties//MetaInfo[not(@connection)]")[[1]])
+    # ),
+    properties = getProperties(r),
     helpLink = helpLink
   )
 }
@@ -92,13 +93,14 @@ getIO <- function(template){
 #' do.call(makePluginConfig, x)
 makePluginConfig <- function(inputs, outputs, pluginName, properties = NULL, 
     helpLink = ""){
+  dirs <- dirNames()
   # Create Config XML
   #d = suppressWarnings(XML::xmlTree())
   #d$addNode("AlteryxJavaScriptPlugin", close = FALSE)
   d = suppressWarnings(XML::xmlTree("AlteryxJavaScriptPlugin"))
   d$addNode("EngineSettings", attrs= list(
     EngineDLL = "Macro",
-    EngineDLLEntryPoint = sprintf("%s/Supporting_Macros/%s.yxmc", pluginName, pluginName),
+    EngineDLLEntryPoint = sprintf("%s/%s/%s.yxmc", pluginName, dirs$macros, pluginName),
     SDKVersion = "10.1"
   ))
   d$addNode("GuiSettings", attrs = list(
@@ -157,4 +159,11 @@ yxmc2PluginConfig <- function(yxmcFile, saveToFile = NULL){
   } else {
     return(y)
   }
+}
+
+getProperties <- function(r){
+  props <- getNodeSet(r, "//Properties//MetaInfo[not(@connection)]//*")
+  nms <- xmlSApply(props, xmlName)
+  vals <- xmlSApply(props, xmlValue)
+  setNames(as.list(vals), nms)
 }
