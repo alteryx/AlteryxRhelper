@@ -5,7 +5,8 @@
 #' @param pluginDir plugin directory
 #' @export
 runTests <- function(pluginDir = ".", build_doc = TRUE){
-  with_dir_(file.path(pluginDir, 'Supporting_Macros', 'tests'), {
+  dirs <- dirNames()
+  with_dir_(file.path(pluginDir, dirs$extras, 'Tests'), {
     tests <- list.files(".",  pattern = '.yxmd')
     results <- lapply(seq_along(tests), function(i){
       message("Testing ", tools::file_path_sans_ext(basename(tests[i])))
