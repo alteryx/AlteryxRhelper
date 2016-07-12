@@ -1,16 +1,19 @@
 getPluginFiles <- function(pluginDir = "."){
+  dirs <- dirNames()
   pluginName = basename(normalizePath(pluginDir, mustWork = TRUE))
-  files = list.files(pluginDir, pattern = '^[^App]', full.names = F)
-  files =  files[!grepl("^(Supporting_Macros|Gui|LICENSE|README|Supporting_Files)", files)]
+  #files = list.files(pluginDir, pattern = '^[^App]', full.names = F)
+  #files =  files[!grepl("^(Supporting_Macros|Gui|LICENSE|README|Supporting_Files)", files)]
+  files <- list.files(include.dirs = FALSE)
+  files <- files[!grepl("^(Extras|Macros)", files)]
   files = files[!grepl("^.*\\.Rproj", files)]
   supporting_macro <- file.path(
-    "Supporting_Macros", 
+    dirs$macros, 
     paste0(pluginName, ".yxmc")
   )
   helper_macros <- list.files(
-    file.path('Supporting_Macros', 'Helper_Macros'), 
+    file.path(dirs$macros, 'Supporting_Macros'), 
     pattern = "yxmc",
-    full = TRUE
+    full.names = TRUE
   )
   list(htmlplugin = files, macro = supporting_macro, helpers = helper_macros)
 }
@@ -20,10 +23,10 @@ getAyxDirs <- function(alteryxDir = getOption('alteryx.path')){
     stop("The directory to copy the plugin to ", alteryxDir, " does not exist")
   }
   ayxPluginDir <- file.path(alteryxDir, 'bin', 'HtmlPlugins')
-  if (!(file.exists(ayxPluginDir))) {
-    message("Creating ", pluginName, " directory")
-    dir.create(to, recursive = TRUE)
-  }
+  # if (!(file.exists(ayxPluginDir))) {
+  #   message("Creating ", pluginName, " directory")
+  #   dir.create(to, recursive = TRUE)
+  # }
   ayxMacroDir <- file.path(alteryxDir, 'bin', 
     'RuntimeData', 'Macros', 'Supporting_Macros'
   )
@@ -37,6 +40,7 @@ getAyxDirs <- function(alteryxDir = getOption('alteryx.path')){
 #' @param ayxDir alteryx directories to copy to
 #' @export
 copyHtmlPlugin <- function(pluginDir = ".", ayxDir = getAyxDirs()){
+  dirs <- dirNames()
   pluginName <- basename(normalizePath(pluginDir))
   ayxPluginDir <- file.path(ayxDir$htmlplugin, pluginName)
   if (!dir.exists(ayxPluginDir)) dir.create(ayxPluginDir)
@@ -46,7 +50,7 @@ copyHtmlPlugin <- function(pluginDir = ".", ayxDir = getAyxDirs()){
   
   pluginFiles <- file.path(pluginDir, files$htmlplugin)
   ayxPluginFiles <- list.files(ayxPluginDir, full.names = TRUE)
-  ayxPluginFiles <- ayxPluginFiles[!grepl('Supporting_Macros', ayxPluginFiles)]
+  ayxPluginFiles <- ayxPluginFiles[!grepl(dirs$macros, ayxPluginFiles)]
   if (length(ayxPluginFiles) > 0){
     pluginFilesToUpdate <- pluginFiles[
       file.mtime(pluginFiles) > file.mtime(ayxPluginFiles)
@@ -62,7 +66,7 @@ copyHtmlPlugin <- function(pluginDir = ".", ayxDir = getAyxDirs()){
   } else {
     message(file.path('HtmlPlugins', basename(ayxPluginDir)), ' is up to date.')
   }
-  ayxMacroDir <- file.path(ayxPluginDir, 'Supporting_Macros')
+  ayxMacroDir <- file.path(ayxPluginDir, dirs$macros)
   if (!dir.exists(ayxMacroDir)){
     dir.create(ayxMacroDir)
   }
@@ -77,7 +81,7 @@ copyHtmlPlugin <- function(pluginDir = ".", ayxDir = getAyxDirs()){
   }
   message("Copying Helper Macros")
   if (length(files$helpers) > 0){
-    if (!dir.exists(hdir <- file.path(ayxPluginDir, 'Supporting_Macros', 'Helper_Macros'))){
+    if (!dir.exists(hdir <- file.path(ayxPluginDir, dirs$macros, 'Supporting_Macros'))){
       dir.create(hdir)
     }
     sapply(files$helpers, function(helper){
@@ -117,6 +121,7 @@ createYXI2 <- function(pluginDir = ".", toDir = "."){
 #' 
 #' @export
 #' @param pluginDir directory containing the plugin
+#' @param build whether or not to run npm build
 buildPlugin2 <- function(pluginDir = ".", build = FALSE){
   yxmc <- list.files(
     file.path(pluginDir, "Supporting_Macros"), pattern = ".yxmc$", 
