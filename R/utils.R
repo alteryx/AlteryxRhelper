@@ -22,10 +22,11 @@ getPathToPredictiveMacros <- function(){
 #' @export
 #' @param macro macro
 #' @param to to
-copyPredictiveMacro <- function(macro, to = "."){
+#' @param ... extra arguments to pass on to file.copy
+copyPredictiveMacro <- function(macro, to = ".", ...){
   p <- getPathToPredictiveMacros()
   pred_tools_path = normalizePath(p)
-  file.copy(file.path(pred_tools_path, macro), to = to)
+  file.copy(file.path(pred_tools_path, macro), to = to, ...)
 }
 
 #' Check if a file is older than the other
@@ -136,21 +137,49 @@ copyMacro <- function(macro, todir = '.', repo = 'svn', ...){
 }
 
 
-copyPredictiveAndHelperMacros <- function(macro, to = '.'){
-  copyPredictiveMacro(macro, to = to)
+copyPredictiveAndHelperMacros <- function(macro, pluginDir = '.'){
+  dirs <- dirNames()
+  to <- file.path(pluginDir, dirs$macros)
+  copyPredictiveMacro(macro, to = to, overwrite = TRUE)
+  iconFile <- file.path(
+    pluginDir,
+    sprintf("%sIcon.png", tools:::file_path_sans_ext(basename(macro)))
+  )
+  p <- getPathToPredictiveMacros()
+  pred_tools_path = normalizePath(p)
+  macroPath <- file.path(pred_tools_path, macro)
+  extractIcon(macroPath, iconFile)
   macro <- file.path(to, macro)
   doc <- xmlInternalTreeParse(macro)
   root <- xmlRoot(doc)
   helpers <- getNodeSet(root, '//EngineSettings[@Macro]')
   sapply(helpers, function(d){
     x <- gsub('\\\\', '/', xmlGetAttr(d, 'Macro'))
-    copyPredictiveMacro(x, 'Supporting_Macros/Helper_Macros')
+    copyPredictiveMacro(x, file.path(dirs$macros, 'Supporting_Macros'))
   })
-  d <- paste(readLines(macro, warn = F), collapse = '\n')
-  d <- gsub("Supporting_Macros", "Helper_Macros", d)
-  cat(d, file = macro)
+  #d <- paste(readLines(macro, warn = F), collapse = '\n')
+  #d <- gsub("Supporting_Macros", "Helper_Macros", d)
+  #cat(d, file = macro)
 }
 
+dirNames <- function(){
+  list(
+    macros = 'Macros',
+    extras = 'Extras'
+  )
+}
 
-
+#' Extract Icon
+#' 
+#' @param yxmc path to yxmc file
+#' @param out icon file to write out to
+extractIcon <- function(yxmc, out){
+  doc <- xmlInternalTreeParse(yxmc)
+  root <- xmlRoot(doc)
+  macroImg <- xmlValue(getNodeSet(root, '//MacroImage')[[1]])
+  
+  #x <- RCurl::base64Decode(macroImg, "raw")
+  x <- base64enc::base64decode(what = macroImg)
+  writeBin(x, out)
+}
 
