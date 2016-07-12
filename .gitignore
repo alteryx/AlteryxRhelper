@@ -20,3 +20,4 @@ inst/rmarkdown
 
 # ignore backup files
 *.bak
+.DS_Store
