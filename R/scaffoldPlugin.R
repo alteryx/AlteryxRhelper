@@ -17,16 +17,17 @@ scaffoldPlugin <- function(pluginName){
       file.path(pluginName, '.gitignore')
     )
     readmes <- list.files(
-      pluginName, pattern = 'README', recursive = TRUE, full = TRUE
+      pluginName, pattern = 'README', recursive = TRUE, full.names = TRUE
     )
     for (readme in readmes){
       updateReadme(readme, pluginName)
     }
   }
   cwd = getwd(); on.exit(setwd(cwd)); setwd(pluginName)
-  scaffoldWorkflow(pluginName, outDir = 'Supporting_Macros', edit = F)
-  if (!dir.exists('Supporting_Files')){
-    dir.create('Supporting_Files')
+  dirs <- dirNames()
+  scaffoldWorkflow(pluginName, outDir = dirs$macros, edit = F)
+  if (!dir.exists(dirs$extras)){
+    dir.create(dirs$extras)
   }
   if (!file.exists('app.min.js')){
     app = system.file('templates', 'app.min.js', package = 'AlteryxRhelper')
@@ -36,8 +37,8 @@ scaffoldPlugin <- function(pluginName){
     file.create('app.css')
   }
   createPluginFromMacro(".")
-  message("Initializing a git repository...")
-  r <- git2r::init(".")
+  # message("Initializing a git repository...")
+  # r <- git2r::init(".")
   # paths <- unlist(git2r::status(r))
   # git2r::add(r, paths)
   # git2r::commit(r, 'Initial Commit')
@@ -48,4 +49,16 @@ updateReadme <- function(readme, pluginName){
   input <- paste(readLines(readme, warn = F), collapse = '\n')
   output <- whisker::whisker.render(input, list(pluginName = pluginName))
   cat(output, file = readme)
+}
+
+#' Scaffold a plugin based on an existing predictive macro.
+#'
+#'
+#' @export
+#' @param macro name of the predictive macro
+scaffoldPluginFromMacro <- function(macro){
+  scaffoldPlugin(macro)
+  setwd(macro)
+  copyPredictiveAndHelperMacros(paste0(macro, '.yxmc'))
+  createPluginFromMacro()
 }
