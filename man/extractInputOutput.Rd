@@ -8,6 +8,8 @@ extractInputOutput(pluginName, type = "input")
 }
 \arguments{
 \item{pluginName}{path to yxmc file}
+
+\item{type}{whether to extract from input or output}
 }
 \description{
 Extract annotation from Inputs

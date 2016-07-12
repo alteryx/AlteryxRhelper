@@ -2,6 +2,7 @@
 #'
 #'
 #' @param pluginName path to yxmc file
+#' @param type whether to extract from input or output
 #' @export
 extractInputOutput <- function(pluginName, type = "input"){
   if (type == 'input'){
@@ -37,7 +38,7 @@ extractConfig <- function(pluginName){
   })
   
   annotation = as.list(unlist(Filter(Negate(is.null), annotation_)))
-  d2 <- AlteryxRhelper:::yxmc2yaml(pluginName)
+  d2 <- yxmc2yaml(pluginName)
   d3 <- lapply(names(d2), function(x){
     if (x %in% names(annotation)){
       d2[[x]]$note <- annotation[[x]]

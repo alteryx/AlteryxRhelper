@@ -99,6 +99,12 @@ updateHtmlPlugin <- function(pluginDir = ".", alteryxDir = getOption('alteryx.pa
   }
 }
 
+#' Update SVN Folder
+#' 
+#' 
+#' @param pluginDir plugin directory
+#' @param alteryxDir alteryx directory
+#' @param build whether or not to build
 #' @export
 updateSvnFolder <- function(pluginDir = ".", alteryxDir = "C://Desktop", 
     build = FALSE){

@@ -4,7 +4,8 @@
 \alias{makeIcon}
 \title{Make a circular or square icon and save it as a png file}
 \usage{
-makeIcon(iconPath, shape = "circle", fill = sample(colors(), 1))
+makeIcon(iconPath, shape = "circle", fill = sample(colors(), 1),
+  label = NULL)
 }
 \arguments{
 \item{iconPath}{path to save icon to}
@@ -12,6 +13,8 @@ makeIcon(iconPath, shape = "circle", fill = sample(colors(), 1))
 \item{shape}{shape of the icon (circle or rect)}
 
 \item{fill}{fill color}
+
+\item{label}{a label to use for the icon}
 }
 \description{
 Make a circular or square icon and save it as a png file

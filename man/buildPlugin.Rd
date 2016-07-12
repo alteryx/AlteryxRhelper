@@ -8,6 +8,8 @@ buildPlugin(pluginDir = ".", build = FALSE)
 }
 \arguments{
 \item{pluginDir}{directory containing the plugin}
+
+\item{build}{whether or not to run npm build}
 }
 \description{
 Build Plugin

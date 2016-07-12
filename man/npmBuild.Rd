@@ -6,6 +6,11 @@
 \usage{
 npmBuild(pluginDir = ".", type = "nwb")
 }
+\arguments{
+\item{pluginDir}{plugin directory}
+
+\item{type}{nwb or mobx}
+}
 \description{
 Run build process to update app.min.js and app.css
 }

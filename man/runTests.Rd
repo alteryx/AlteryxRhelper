@@ -8,6 +8,8 @@ runTests(pluginDir = ".", build_doc = TRUE)
 }
 \arguments{
 \item{pluginDir}{plugin directory}
+
+\item{build_doc}{whether or not to build the README file.}
 }
 \description{
 Run all tests in the Supporting_Macros/tests folder

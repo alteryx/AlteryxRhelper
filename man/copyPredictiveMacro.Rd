@@ -4,12 +4,14 @@
 \alias{copyPredictiveMacro}
 \title{Copy predictive macro}
 \usage{
-copyPredictiveMacro(macro, to = ".")
+copyPredictiveMacro(macro, to = ".", ...)
 }
 \arguments{
 \item{macro}{macro}
 
 \item{to}{to}
+
+\item{...}{extra arguments to pass on to file.copy}
 }
 \description{
 Copy predictive macro

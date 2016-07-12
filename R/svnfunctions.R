@@ -2,7 +2,7 @@
 #' 
 #' 
 #' @param srcPkg path to source package
-#' @param svnLibDir svn library directory
+#' @param install whether or not to actually install dependencies
 #' @export
 installToSvn <- function(srcPkg, install = TRUE){
   srcPkg <- normalizePath(srcPkg)
@@ -13,7 +13,7 @@ installToSvn <- function(srcPkg, install = TRUE){
   deps <- miniCRAN::pkgDep(imports, suggests = FALSE)
   installed <- rownames(installed.packages(svnLibDir))
   depsToInstall <- setdiff(deps, installed)
-  library(devtools)
+  install <- devtools::install
   if (install){
     withr::with_libpaths(svnLibDir, {
       if (length(depsToInstall) > 0){
@@ -72,6 +72,10 @@ saveReadme <- function(save = TRUE){
   }
 }
 
+#' Get Alteryx SVN Directories
+#' 
+#' 
+#' @param svnDir svn directory
 #' @export
 getAyxSvnDirs <- function(svnDir = getOption("alteryx.svndir")){
   svnDir <- 'C:/Users/ramnath/Desktop/Alteryx10.6_Predictive_Development'
@@ -81,6 +85,10 @@ getAyxSvnDirs <- function(svnDir = getOption("alteryx.svndir")){
   )
 }
 
+#' Get Alteryx R SVN Directories
+#' 
+#' 
+#' @param svnDir svn directory
 #' @export
 getAyxSvnRDirs <- function(svnDir = getOption("alteryx.svndir")){
   list(

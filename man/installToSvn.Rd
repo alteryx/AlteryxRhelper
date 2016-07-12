@@ -9,7 +9,7 @@ installToSvn(srcPkg, install = TRUE)
 \arguments{
 \item{srcPkg}{path to source package}
 
-\item{svnLibDir}{svn library directory}
+\item{install}{whether or not to actually install dependencies}
 }
 \description{
 Install packages to R library in SVN

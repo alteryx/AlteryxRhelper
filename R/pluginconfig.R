@@ -6,6 +6,7 @@
 #' @param iconPath path to save icon to
 #' @param shape shape of the icon (circle or rect)
 #' @param fill fill color
+#' @param label a label to use for the icon
 makeIcon <- function(iconPath, shape = 'circle', fill = sample(colors(), 1), 
     label = NULL){
   png(iconPath, width = 48, height = 48, units = 'px')
@@ -79,6 +80,7 @@ getIO <- function(template){
 #' @param outputs outputs
 #' @param pluginName pluginName
 #' @param properties properties
+#' @param helpLink help link
 #' @examples 
 #' x = list(
 #'   inputs = list(

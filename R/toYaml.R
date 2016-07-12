@@ -145,5 +145,5 @@ yxmc2yaml <- function(template, asYaml = F){
   m <- Filter(Negate(is.null), lapply(g, renderToYaml))
   names(m) <- sapply(m, '[[', 'dataName')
   m <- lapply(m, function(x){x$dataName = NULL; x})
-  if (asYaml) yaml::as.yaml(m) else m
+  if (asYaml) as.yaml(m) else m
 }

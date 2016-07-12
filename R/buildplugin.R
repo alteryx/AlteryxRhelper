@@ -8,6 +8,7 @@ isOlder2 <- function(target, ...){
 #' 
 #' @export
 #' @param pluginDir directory containing the plugin
+#' @param build whether or not to run npm build
 buildPlugin <- function(pluginDir = ".", build = FALSE){
   yxmc <- list.files(file.path(pluginDir, "Supporting_Macros"), pattern = ".yxmc$", full.names = T)
   pluginName = tools::file_path_sans_ext(basename(yxmc))
@@ -48,6 +49,7 @@ buildPlugin <- function(pluginDir = ".", build = FALSE){
 #' 
 #' 
 #' @export
+#' @import jsonlite
 #' @param yxmcFile path to macro
 generateConfigurationTable <- function(yxmcFile){
   d <- yxmc2yaml(yxmcFile)
@@ -72,6 +74,8 @@ generateConfigurationTable <- function(yxmcFile){
 #' 
 #' 
 #' @export
+#' @param pluginDir plugin directory
+#' @param type nwb or mobx
 npmBuild <- function(pluginDir = ".", type = 'nwb'){
   with_dir_(pluginDir, {
     l <- as.list(append('app.min.js', list.files("App/src", recursive = TRUE, full.names = TRUE)))

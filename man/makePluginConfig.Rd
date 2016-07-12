@@ -4,7 +4,8 @@
 \alias{makePluginConfig}
 \title{Make plugin configuration xml file}
 \usage{
-makePluginConfig(inputs, outputs, pluginName, properties = NULL)
+makePluginConfig(inputs, outputs, pluginName, properties = NULL,
+  helpLink = "")
 }
 \arguments{
 \item{inputs}{inputs}
@@ -14,6 +15,8 @@ makePluginConfig(inputs, outputs, pluginName, properties = NULL)
 \item{pluginName}{pluginName}
 
 \item{properties}{properties}
+
+\item{helpLink}{help link}
 }
 \description{
 Make plugin configuration xml file

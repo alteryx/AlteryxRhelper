@@ -3,6 +3,7 @@
 #' 
 #' 
 #' @param pluginDir plugin directory
+#' @param build_doc whether or not to build the README file.
 #' @export
 runTests <- function(pluginDir = ".", build_doc = TRUE){
   dirs <- dirNames()
