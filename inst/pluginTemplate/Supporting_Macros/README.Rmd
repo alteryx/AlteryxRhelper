@@ -10,10 +10,20 @@ This folder contains the macro backend and associated files for the **{{ pluginN
 | File                   | Description                                       |
 |----------------------  |---------------------------------------------------|
 | Data/                  | Data files needed for macro to run as workflow    |
-| Supporting_Macros/     | Auxilliary macros used inside the main macro      |      | {{ pluginName }}.yxmc  | Main macro for the plugin                         |
+| Supporting_Macros/     | Auxilliary macros used inside the main macro      |       
+| {{ pluginName }}.yxmc  | Main macro for the plugin                         | 
 | {{ pluginName }}1.R    | R code used in the R Tools contained in the macro |
 | Help                   | Help                                              |
 
+
+#### Usage
+
+__R Code__
+
+1. Edit `{{ pluginName }}1.R` to update the logic of the tool. 
+2. Use the [style guide](Style_Guide.md) while writing your R code. 
+3. Use the `Data` folder to store any data used. 
+4. Run `insertRcode("{{ pluginName }}.yxmc", "{{ pluginName }}1.R")` to insert R code back into the macro. Note that you will have to close and reopen the macro for the changes in the R tool to take effect.
 
 #### Configuration Parameters
 

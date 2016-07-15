@@ -224,7 +224,7 @@
     <MetaInfo>
       <NameIsFileName value="True" />
       <Name>Sample_Template</Name>
-      <Description />
+      <Description>This workflow shows how to use this plugin</Description>
       <RootToolName />
       <ToolVersion />
       <ToolInDb value="False" />

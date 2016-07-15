@@ -1,0 +1,3 @@
+## Samples
+
+This folder contains all samples and associated data files.
