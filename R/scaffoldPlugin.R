@@ -57,8 +57,13 @@ updateReadme <- function(readme, pluginName){
 #' @export
 #' @param macro name of the predictive macro
 scaffoldPluginFromMacro <- function(macro){
+  dirs <- dirNames()
   scaffoldPlugin(macro)
   setwd(macro)
   copyPredictiveAndHelperMacros(paste0(macro, '.yxmc'))
+  extractRcode(
+    file.path(dirs$macros, paste0(macro, '.yxmc')), 
+    extractInput = 'config'
+  )
   createPluginFromMacro()
 }
