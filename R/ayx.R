@@ -2,11 +2,7 @@ ayxOption <- function(x){
   tag('alteryx-option', x)
 }
 
-#' Alteryx Plugin Widget
-#' 
-#'
-#' @import htmltools
-#' @param x x
+# Alteryx Plugin Widget
 ayxPluginWidget = function(x){
   if (!is.null(x$values)){
     values = lapply(seq_along(x$values), function(i){
@@ -130,7 +126,7 @@ writeGuiHtml <- function(pluginDir, htmlFile = NULL, overrides = NULL){
 #' @param pluginDir plugin directory
 #' @param overrides should an override file be used
 #' @param layout should a layout file be used
-#' @import yaml
+#' @import yaml htmltools
 createPluginFromMacro <- function(pluginDir = ".", overrides = NULL, layout = NULL){
   dirs <- dirNames()
   pluginDir = normalizePath(pluginDir)
