@@ -74,7 +74,7 @@ aTemplate = function(template){
 #' @param edit open file for editing
 #' @param ... additional arguments
 scaffoldWorkflow <- function(name = 'mymacro', outDir  = ".", 
-    template =  aTemplate('empty.yxmc'), edit = TRUE, ...){
+    template =  aTemplate('predictive_template.yxmc'), edit = TRUE, ...){
   if (!file.exists(outDir)){
     dir.create(outDir)
   }
