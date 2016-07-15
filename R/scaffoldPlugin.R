@@ -3,7 +3,7 @@
 #'
 #' @export
 #' @param pluginName name of the plugin
-scaffoldPlugin <- function(pluginName){
+scaffoldPlugin <- function(pluginName, ...){
   if (!dir.exists(pluginName)){
     #dir.create(pluginName)
     from <- system.file('pluginTemplate', package = 'AlteryxRhelper')
@@ -36,7 +36,7 @@ scaffoldPlugin <- function(pluginName){
   if (!file.exists('app.css')){
     file.create('app.css')
   }
-  createPluginFromMacro(".")
+  createPluginFromMacro(".", ...)
   # message("Initializing a git repository...")
   # r <- git2r::init(".")
   # paths <- unlist(git2r::status(r))

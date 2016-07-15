@@ -127,7 +127,7 @@ writeGuiHtml <- function(pluginDir, htmlFile = NULL, overrides = NULL){
 #' @param overrides should an override file be used
 #' @param layout should a layout file be used
 #' @import yaml htmltools
-createPluginFromMacro <- function(pluginDir = ".", overrides = NULL, layout = NULL){
+createPluginFromMacro <- function(pluginDir = ".", overrides = NULL, layout = NULL, ...){
   dirs <- dirNames()
   pluginDir = normalizePath(pluginDir)
   pluginName <- basename(pluginDir)
@@ -148,7 +148,7 @@ createPluginFromMacro <- function(pluginDir = ".", overrides = NULL, layout = NU
   }
   yxmc2PluginConfig(yxmcFile, saveToFile = paste0(pluginName, "Config.xml"))
   if (!file.exists(icon <- paste0(pluginName, "Icon.png"))){
-    makeIcon(icon)
+    makeIcon(icon, ...)
   }
 }
 
