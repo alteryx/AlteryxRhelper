@@ -164,7 +164,7 @@ copyPredictiveAndHelperMacros <- function(macro, pluginDir = '.'){
 
 dirNames <- function(){
   list(
-    macros = 'Macros',
+    macros = 'Supporting_Macros',
     extras = 'Extras'
   )
 }
