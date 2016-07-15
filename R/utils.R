@@ -183,3 +183,16 @@ extractIcon <- function(yxmc, out){
   writeBin(x, out)
 }
 
+#' Stop
+#' 
+#' @param msg message
+#' @param ... extra arguments to pass on to stop.Alteryx
+#' @export
+stop.Alteryx <- function(msg, ...){
+  if (inAlteryx()){
+    AlteryxRDataX::stop.Alteryx(msg, ...)
+  } else {
+    stop(msg)
+  }
+}
+
