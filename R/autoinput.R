@@ -28,7 +28,7 @@ makeCall <- function(x){
   } else {
     call_ = paste0(f1, '(', x1, ')')
   }
-  paste(" ", x$Name, '=', call_)
+  paste0(" `", x$Name, '` = ', call_)
 }
 
 # Make an input string to be inserted at the top of R code
