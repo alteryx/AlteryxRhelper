@@ -1359,11 +1359,11 @@ inputs <- list(
 #' and unit tested.
 
 process <- function(config, inputs){
-  require(ggplot2)
   d <- inputs$d1
   out1 <- d
-  out2 <- ggplot(data = d, aes(x = carat)) +
-    geom_histogram(bins = config$numBins, fill = config$barColor)
+  out2 <- function(){
+    hist(d$carat, breaks = config$numBins, col = config$barColor)
+  }
   list(out1 = out1, out2 = out2)
 }
 
@@ -1375,7 +1375,7 @@ outputs <- process(config, inputs)
 #' object generated previously and then write them out to the desired output
 
 write.Alteryx2(outputs$out1, 1)
-AlteryxGraph2(outputs$out2, 3)
+AlteryxGraph2(outputs$out2(), 3)
 ]]></RScript>
               <UseFullUpdate value="False" />
             </Configuration>
