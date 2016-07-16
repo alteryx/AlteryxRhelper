@@ -4,10 +4,12 @@
 \alias{scaffoldPlugin}
 \title{Scaffold a new plugin with a predictive macro}
 \usage{
-scaffoldPlugin(pluginName)
+scaffoldPlugin(pluginName, ...)
 }
 \arguments{
 \item{pluginName}{name of the plugin}
+
+\item{...}{extra arguments to pass on to createPluginFromMacro}
 }
 \description{
 Scaffold a new plugin with a predictive macro
