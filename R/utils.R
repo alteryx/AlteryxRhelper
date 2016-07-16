@@ -64,32 +64,7 @@ aTemplate = function(template){
   system.file('templates', template, package = 'AlteryxRhelper')
 }
 
-#' Scaffold a new workflow based on a template
-#' 
-#' 
-#' @export
-#' @param name name
-#' @param outDir output directory
-#' @param template template
-#' @param edit open file for editing
-#' @param ... additional arguments
-scaffoldWorkflow <- function(name = 'mymacro', outDir  = ".", 
-    template =  aTemplate('predictive_template.yxmc'), edit = TRUE, ...){
-  if (!file.exists(outDir)){
-    dir.create(outDir)
-  }
-  tFile = template
-  oFile = file.path(outDir, paste0(name, ".", tools::file_ext(template)))
-  file.copy(tFile, oFile)
-  extractRcode(oFile, ...)
-  rFiles = list.files(outDir, pattern = '\\.R$', full.names = TRUE)
-  rFiles2 = grep(name, rFiles, value = TRUE)
-  if (edit){
-    invisible(lapply(rFiles2, file.edit))
-    message("Switching to directory ", outDir)
-    setwd(outDir)
-  }
-}
+
 
 
 #' Dump and quit on error
@@ -196,3 +171,67 @@ stop.Alteryx <- function(msg, ...){
   }
 }
 
+updateReadme <- function(readme, pluginName){
+  input <- paste(readLines(readme, warn = F), collapse = '\n')
+  output <- whisker::whisker.render(input, list(pluginName = pluginName))
+  cat(output, file = readme)
+}
+
+#' Generate table of configuration items
+#' 
+#' 
+#' @export
+#' @import jsonlite
+#' @param yxmcFile path to macro
+generateConfigurationTable <- function(yxmcFile){
+  d <- yxmc2yaml(yxmcFile)
+  d2 <- plyr::ldply(names(d), function(x){
+    d_ = d[[x]]
+    foo = function(x){x[is.null(x)] <- ""; x}
+    c(
+      dataName = x, 
+      label = ifelse(is.null(d_$label), "", d_$label),
+      default = ifelse(is.null(d_$default), 
+                       ifelse(is.null(d_$placeholder), "",  d_$placeholder),
+                       d_$default
+      ),
+      values = ifelse(is.null(d_$values), "", 
+        gsub(",", ", ", jsonlite::toJSON(names(d_$values), auto_unbox = TRUE))
+      )
+    )
+  })
+}
+
+copy_dir <- function (from, to) {
+  if (!(file.exists(to))) {
+    dir.create(to, recursive = TRUE)
+    message("Copying files to ", to, "...")
+    file.copy(list.files(from, full.names = T), to, recursive = TRUE)
+  }
+}
+
+#' Make a circular or square icon and save it as a png file
+#'
+#' @export
+#' 
+#' @import grid
+#' @param iconPath path to save icon to
+#' @param shape shape of the icon (circle or rect)
+#' @param fill fill color
+#' @param label a label to use for the icon
+makeIcon <- function(iconPath, shape = 'circle', fill = sample(colors(), 1), 
+                     label = NULL){
+  png(iconPath, width = 48, height = 48, units = 'px')
+  vp <- viewport(x=0.5,y=0.5,width=1, height=1)
+  pushViewport(vp)
+  
+  if (shape == 'circle'){
+    grid.circle(x=0.5, y=0.5, r=0.45, gp = gpar(fill = fill))
+  } else {
+    grid.rect(x = 0.5, y = 0.5, width = 0.9, height = 0.9, gp = gpar(fill = fill))
+  }
+  if (!is.null(label)){
+    grid.text(label, gp = gpar(col = 'white', cex = 1.5))
+  }
+  dev.off()
+}

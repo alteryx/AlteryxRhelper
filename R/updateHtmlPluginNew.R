@@ -23,96 +23,10 @@ getAyxDirs <- function(alteryxDir = getOption('alteryx.path')){
     stop("The directory to copy the plugin to ", alteryxDir, " does not exist")
   }
   ayxPluginDir <- file.path(alteryxDir, 'bin', 'HtmlPlugins')
-  # if (!(file.exists(ayxPluginDir))) {
-  #   message("Creating ", pluginName, " directory")
-  #   dir.create(to, recursive = TRUE)
-  # }
   ayxMacroDir <- file.path(alteryxDir, 'bin', 
     'RuntimeData', 'Macros', 'Supporting_Macros'
   )
   list(htmlplugin = ayxPluginDir, macro = ayxMacroDir)
-}
-
-#' Update Html Plugin
-#'
-#'
-#' @param pluginDir plugin directory to copy from
-#' @param ayxDir alteryx directories to copy to
-#' @export
-copyHtmlPlugin <- function(pluginDir = ".", ayxDir = getAyxDirs()){
-  dirs <- dirNames()
-  pluginName <- basename(normalizePath(pluginDir))
-  ayxPluginDir <- file.path(ayxDir$htmlplugin, pluginName)
-  if (!dir.exists(ayxPluginDir)) dir.create(ayxPluginDir)
-  ayxMacroDir <- ayxDir$macro
-  
-  files <- getPluginFiles(pluginDir)
-  
-  pluginFiles <- file.path(pluginDir, files$htmlplugin)
-  ayxPluginFiles <- list.files(ayxPluginDir, full.names = TRUE)
-  ayxPluginFiles <- ayxPluginFiles[!grepl(dirs$macros, ayxPluginFiles)]
-  if (length(ayxPluginFiles) > 0){
-    pluginFilesToUpdate <- pluginFiles[
-      file.mtime(pluginFiles) > file.mtime(ayxPluginFiles)
-    ]
-  } else {
-    pluginFilesToUpdate <- pluginFiles
-  }
-  if (length(pluginFilesToUpdate) > 0){
-    message('Copying\n  ',  paste(pluginFilesToUpdate, collapse = "\n  "), 
-      '\nto HtmlPlugins'
-    )
-    file.copy(pluginFilesToUpdate, ayxPluginDir, recursive = TRUE)
-  } else {
-    message(file.path('HtmlPlugins', basename(ayxPluginDir)), ' is up to date.')
-  }
-  ayxMacroDir <- file.path(ayxPluginDir, dirs$macros)
-  if (!dir.exists(ayxMacroDir)){
-    dir.create(ayxMacroDir)
-  }
-  macro <- file.path(pluginDir, files$macro)
-  ayxMacro <- file.path(ayxMacroDir, basename(files$macro))
-  if (file.exists(macro) && 
-    !file.exists(ayxMacro) || file.mtime(macro) > file.mtime(ayxMacro)){
-    message('Copying supporting macro ', basename(macro), ' to ', ayxMacroDir)
-    file.copy(macro, ayxMacro, overwrite = TRUE)
-  } else {
-    message(file.path('SupportingMacros', basename(ayxMacro)), ' is up to date')
-  }
-  message("Copying Helper Macros")
-  if (length(files$helpers) > 0){
-    if (!dir.exists(hdir <- file.path(ayxPluginDir, dirs$macros, 'Supporting_Macros'))){
-      dir.create(hdir)
-    }
-    sapply(files$helpers, function(helper){
-      message("Copying helper macros...", basename(helper))
-      file.copy(helper, hdir)
-    })
-  }
-  
-}
-
-#' Create YXI file
-#' 
-#' 
-#' @param pluginDir plugin directory
-#' @param toDir to directory
-#' @export
-createYXI2 <- function(pluginDir = ".", toDir = "."){
-  pluginName = basename(normalizePath(pluginDir, mustWork = TRUE))
-  pluginFiles <- getPluginFiles(pluginDir)
-  toDir <- normalizePath(toDir, mustWork = TRUE)
-  dirName = dirname(normalizePath(pluginDir))
-  cwd = getwd(); setwd(dirName); on.exit(setwd(cwd));
-  filesToCopy <- file.path(
-    pluginName, 
-    unlist(pluginFiles, use.names = F)
-  )
-  zip(
-    file.path(toDir, paste0(pluginName, '.yxi')),
-    filesToCopy,
-    flags = ""
-  )
 }
 
 

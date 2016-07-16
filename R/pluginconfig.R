@@ -1,32 +1,4 @@
-#' Make a circular or square icon and save it as a png file
-#'
-#' @export
-#' 
-#' @import grid
-#' @param iconPath path to save icon to
-#' @param shape shape of the icon (circle or rect)
-#' @param fill fill color
-#' @param label a label to use for the icon
-makeIcon <- function(iconPath, shape = 'circle', fill = sample(colors(), 1), 
-    label = NULL){
-  png(iconPath, width = 48, height = 48, units = 'px')
-  vp <- viewport(x=0.5,y=0.5,width=1, height=1)
-  pushViewport(vp)
-  
-  if (shape == 'circle'){
-    grid.circle(x=0.5, y=0.5, r=0.45, gp = gpar(fill = fill))
-  } else {
-    grid.rect(x = 0.5, y = 0.5, width = 0.9, height = 0.9, gp = gpar(fill = fill))
-  }
-  if (!is.null(label)){
-    grid.text(label, gp = gpar(col = 'white', cex = 1.5))
-  }
-  dev.off()
-}
-
 # Get input/output configuration information from a macro
-# template <- "~/Desktop/SNIPPETS/dev/Optimization/Supporting_Macros/Optimization.yxmc"
-# x = getIO(template)
 getIO <- function(template){
   xml <- XML::xmlInternalTreeParse(template)
   r <- XML::xmlRoot(xml)
@@ -60,11 +32,6 @@ getIO <- function(template){
     inputs = getMacroIO('MacroInput'),
     outputs = getMacroIO('MacroOutput'),
     pluginName = tools::file_path_sans_ext(basename(template)),
-    #properties = getNodeSet(r, '//Properties//MetaInfo[not(@connection)]')
-    # properties = Filter(
-    #     Negate(is.null),
-    #     XML::xmlToList(getNodeSet(r, "//Properties//MetaInfo[not(@connection)]")[[1]])
-    # ),
     properties = getProperties(r),
     helpLink = helpLink
   )
@@ -96,9 +63,6 @@ getIO <- function(template){
 makePluginConfig <- function(inputs, outputs, pluginName, properties = NULL, 
     helpLink = ""){
   dirs <- dirNames()
-  # Create Config XML
-  #d = suppressWarnings(XML::xmlTree())
-  #d$addNode("AlteryxJavaScriptPlugin", close = FALSE)
   d = suppressWarnings(XML::xmlTree("AlteryxJavaScriptPlugin"))
   d$addNode("EngineSettings", attrs= list(
     EngineDLL = "Macro",

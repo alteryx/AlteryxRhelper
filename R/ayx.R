@@ -44,7 +44,6 @@ renderAyxWidgets <- function(config){
 }
 
 makePage <- function(config, layout = NULL){
-  #config <- yaml::yaml.load_file(config)
   config <- lapply(seq_along(config), function(i){
     config[[i]]$id = names(config)[i]
     config[[i]]$dataName = names(config)[i]; 
@@ -77,7 +76,6 @@ makeGuiHtml <- function(widgets, pluginName = "", template = NULL){
     template <- system.file('templates', 'GuiTemplate.html', package = 'AlteryxRhelper')
   }
   gui <- htmltools::htmlTemplate(template, widgets = widgets, title = pluginName)
-  #writeLines(as.character(gui), sprintf("%sGui.html", pluginName))
   return(gui)
 }
 
@@ -117,39 +115,6 @@ writeGuiHtml <- function(pluginDir, htmlFile = NULL, overrides = NULL){
   x2 <- makePage(x1)
   x3 <- makeGuiHtml(x2, pluginName = pluginName)
   cat(as.character(x3), file = htmlFile)
-}
-
-#' Create Plugin from Macro
-#' 
-#' 
-#' @export
-#' @param pluginDir plugin directory
-#' @param overrides should an override file be used
-#' @param layout should a layout file be used
-#' @import yaml htmltools
-createPluginFromMacro <- function(pluginDir = ".", overrides = NULL, layout = NULL, ...){
-  dirs <- dirNames()
-  pluginDir = normalizePath(pluginDir)
-  pluginName <- basename(pluginDir)
-  yxmcFile <- file.path(
-    pluginDir, dirs$macros, sprintf("%s.yxmc", pluginName)
-  )
-  if (is.null(layout)){
-    if (file.exists(
-      l <- file.path(pluginDir, dirs$extras, 'Gui', 'layout.html')
-    )){
-      layout = TRUE
-    }
-  }
-  if (is.null(layout)){
-    writeGuiHtml(pluginDir, overrides = overrides)
-  } else {
-    writeGuiHtmlFromLayout(pluginDir, overrides = overrides) 
-  }
-  yxmc2PluginConfig(yxmcFile, saveToFile = paste0(pluginName, "Config.xml"))
-  if (!file.exists(icon <- paste0(pluginName, "Icon.png"))){
-    makeIcon(icon, ...)
-  }
 }
 
 writeGuiHtmlFromLayout <- function(pluginDir, htmlFile = NULL, overrides = NULL){

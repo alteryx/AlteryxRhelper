@@ -1,8 +1,36 @@
+#' Scaffold a new workflow based on a template
+#' 
+#' 
+#' @export
+#' @param name name
+#' @param outDir output directory
+#' @param template template
+#' @param edit open file for editing
+#' @param ... additional arguments
+scaffoldWorkflow <- function(name = 'mymacro', outDir  = ".", 
+                             template =  aTemplate('predictive_template.yxmc'), edit = TRUE, ...){
+  if (!file.exists(outDir)){
+    dir.create(outDir)
+  }
+  tFile = template
+  oFile = file.path(outDir, paste0(name, ".", tools::file_ext(template)))
+  file.copy(tFile, oFile)
+  extractRcode(oFile, ...)
+  rFiles = list.files(outDir, pattern = '\\.R$', full.names = TRUE)
+  rFiles2 = grep(name, rFiles, value = TRUE)
+  if (edit){
+    invisible(lapply(rFiles2, file.edit))
+    message("Switching to directory ", outDir)
+    setwd(outDir)
+  }
+}
+
 #' Scaffold a new plugin with a predictive macro
 #'
 #'
 #' @export
 #' @param pluginName name of the plugin
+#' @param ... extra arguments to pass on to createPluginFromMacro
 scaffoldPlugin <- function(pluginName, ...){
   if (!dir.exists(pluginName)){
     #dir.create(pluginName)
@@ -44,12 +72,6 @@ scaffoldPlugin <- function(pluginName, ...){
   # git2r::commit(r, 'Initial Commit')
 }
 
-
-updateReadme <- function(readme, pluginName){
-  input <- paste(readLines(readme, warn = F), collapse = '\n')
-  output <- whisker::whisker.render(input, list(pluginName = pluginName))
-  cat(output, file = readme)
-}
 
 #' Scaffold a plugin based on an existing predictive macro.
 #'

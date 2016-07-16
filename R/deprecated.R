@@ -1,8 +1,53 @@
-copy_dir <- function (from, to) {
-  if (!(file.exists(to))) {
-    dir.create(to, recursive = TRUE)
-    message("Copying files to ", to, "...")
-    file.copy(list.files(from, full.names = T), to, recursive = TRUE)
+# Add README.Rmd with Help
+addHelpDoc <- function(out = 'Supporting_Macros/README.Rmd'){
+  helpFile = system.file("templates", "help_template.Rmd", package = 'AlteryxRhelper')
+  if (file.copy(helpFile, out)){
+    message("Copied help template to ", out)
+  }
+}
+
+
+isOlder2 <- function(target, ...){
+  if (!file.exists(target)){ return(TRUE) }
+  any(Filter(Negate(is.na), file.mtime(target) < file.mtime(...)))
+}
+
+# Build Plugin
+# @param pluginDir directory containing the plugin
+# @param build whether or not to run npm build
+buildPlugin <- function(pluginDir = ".", build = FALSE){
+  yxmc <- list.files(file.path(pluginDir, "Supporting_Macros"), pattern = ".yxmc$", full.names = T)
+  pluginName = tools::file_path_sans_ext(basename(yxmc))
+  guiFile <- file.path(pluginDir, sprintf("%sGui.html", pluginName))
+  configFile <- file.path(pluginDir, sprintf("%sConfig.xml", pluginName))
+  rFile <- list.files(file.path(pluginDir, "Supporting_Macros"), pattern = ".R$", full.names = T)
+  updated <- FALSE
+  if (dir.exists('Gui')){
+    to_update <- isOlder2(guiFile, 'Gui/layout.html', 'Gui/overrides.yaml', yxmc)
+  } else {
+    to_update <-  isOlder2(guiFile, yxmc)
+  }
+  if (to_update){
+    updated <- TRUE
+    message("Updating Gui.html and Config.xml")
+    createPluginFromMacro(pluginDir)
+  }
+  if (isOlder2(yxmc, rFile)){
+    updated <- TRUE
+    insertRcode(yxmc, rFile)
+  }
+  if (build){
+    l <- as.list(append('app.min.js', list.files("App/src", recursive = TRUE)))
+    if (do.call('isOlder2', l)){
+      withr::with_dir("App", system('npm run build-umd'))
+      file.copy('App/dist/src.js', 'app.min.js', overwrite = TRUE)
+      updated = TRUE
+    }
+  }
+  if (updated == FALSE){
+    message("Nothing to update...")
+  } else {
+    updateHtmlPlugin(pluginDir)
   }
 }
 
@@ -13,7 +58,7 @@ createNewPlugin <- function(plugin_name, template = 'TemplatePlugin'){
   lapply(d, function(f){
     file.rename(f, gsub(template, plugin_name, f))
   })
-
+  
   d2 <- list.files(pattern = ".xml")
   d2_contents <- readLines(d2, warn = F)
   d2_contents_new <- gsub(template, plugin_name, d2_contents)
@@ -49,15 +94,14 @@ createYXI <- function(pluginDir = ".", toDir = "."){
 }
 
 
-#' Install HTML Plugin in Alteryx
-#' 
-#' 
-#' @export
-#' @param pluginDir plugin directory
-#' @param alteryxDir alteryx directory
-#' @param build whether or not to build js files
-updateHtmlPlugin <- function(pluginDir = ".", alteryxDir = getOption('alteryx.path'), 
-    build = FALSE){
+# Install HTML Plugin in Alteryx
+# 
+# 
+# @export
+# @param pluginDir plugin directory
+# @param alteryxDir alteryx directory
+# @param build whether or not to build js files
+updateHtmlPlugin <- function(pluginDir = ".", alteryxDir = getOption('alteryx.path'),     build = FALSE){
   pluginName = tools::file_path_sans_ext(basename(normalizePath(pluginDir)))
   with_dir <- function (new, code){
     old <- setwd(dir = new)
@@ -84,11 +128,10 @@ updateHtmlPlugin <- function(pluginDir = ".", alteryxDir = getOption('alteryx.pa
   files = files[file.mtime(files) > file.mtime(dir(to, full.names = TRUE))]
   message('Copying ', length(files), ' to HtmlPlugins')
   file.copy(files, to, recursive = TRUE)
-
+  
   # Copy Supporting Macro
-  supporting_macro <- list.files(file.path(".", 'Supporting_Macros'), full.names = TRUE,
-    pattern = '^.*\\.yxmc$'                               
-  )
+  supporting_macro <- list.files(
+    file.path(".", 'Supporting_Macros'), full.names = TRUE, pattern = '^.*\\.yxmc$'    )
   if (length(supporting_macro) > 0){
     message('Copying macro to Supporting_Macros ...')
     file.copy(
@@ -99,15 +142,14 @@ updateHtmlPlugin <- function(pluginDir = ".", alteryxDir = getOption('alteryx.pa
   }
 }
 
-#' Update SVN Folder
-#' 
-#' 
-#' @param pluginDir plugin directory
-#' @param alteryxDir alteryx directory
-#' @param build whether or not to build
-#' @export
+# Update SVN Folder
+
+# @param pluginDir plugin directory
+# @param alteryxDir alteryx directory
+# @param build whether or not to build
+# @export
 updateSvnFolder <- function(pluginDir = ".", alteryxDir = "C://Desktop", 
-    build = FALSE){
+      build = FALSE){
   pluginName = tools::file_path_sans_ext(basename(normalizePath(pluginDir)))
   with_dir <- function (new, code){
     old <- setwd(dir = new)
@@ -133,9 +175,8 @@ updateSvnFolder <- function(pluginDir = ".", alteryxDir = "C://Desktop",
   file.copy(files, to, recursive = TRUE)
   
   # Copy Supporting Macro
-  supporting_macro <- list.files(file.path(".", 'Supporting_Macros'), full.names = TRUE,
-     pattern = '^.*\\.yxmc$'                               
-  )
+  supporting_macro <- list.files(
+    file.path(".", 'Supporting_Macros'), full.names = TRUE, pattern = '^.*\\.yxmc$'    )
   if (length(supporting_macro) > 0){
     file.copy(
       supporting_macro,
