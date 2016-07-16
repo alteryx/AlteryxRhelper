@@ -133,7 +133,7 @@ copyHtmlPlugin <- function(pluginDir = ".", ayxDir = getAyxDirs()){
 #' @param pluginDir plugin directory
 #' @param toDir to directory
 #' @export
-createYXI2 <- function(pluginDir = ".", toDir = "."){
+createYXI <- function(pluginDir = ".", toDir = "."){
   pluginName = basename(normalizePath(pluginDir, mustWork = TRUE))
   pluginFiles <- getPluginFiles(pluginDir)
   toDir <- normalizePath(toDir, mustWork = TRUE)
