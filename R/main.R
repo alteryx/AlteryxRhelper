@@ -5,10 +5,11 @@
 #' @param pluginDir plugin directory
 #' @param overrides should an override file be used
 #' @param layout should a layout file be used
+#' @param render_readme whether or not to render READMEs
 #' @param ... arguments to pass on to makeIcon
 #' @import yaml htmltools
 createPluginFromMacro <- function(pluginDir = ".", overrides = NULL, 
-    layout = NULL, ...){
+    layout = NULL, render_readme = TRUE, ...){
   dirs <- dirNames()
   pluginDir = normalizePath(pluginDir)
   pluginName <- basename(pluginDir)
@@ -30,6 +31,9 @@ createPluginFromMacro <- function(pluginDir = ".", overrides = NULL,
   yxmc2PluginConfig(yxmcFile, saveToFile = paste0(pluginName, "Config.xml"))
   if (!file.exists(icon <- paste0(pluginName, "Icon.png"))){
     makeIcon(icon, ...)
+  }
+  if (render_readme){
+    renderReadmes(pluginDir, quiet = TRUE)
   }
 }
 

@@ -235,3 +235,15 @@ makeIcon <- function(iconPath, shape = 'circle', fill = sample(colors(), 1),
   }
   dev.off()
 }
+
+# Render README.Rmd files in the plugin folder
+renderReadmes <- function(pluginDir = ".", ...){
+  AlteryxRhelper:::with_dir_(pluginDir, {
+    readmes <- list.files(
+      ".", pattern = 'README', recursive = TRUE, full.names = TRUE
+    )
+    for (readme in readmes){
+      rmarkdown::render(readme, ...)
+    }
+  })
+}
