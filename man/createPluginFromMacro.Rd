@@ -5,7 +5,7 @@
 \title{Create Plugin from Macro}
 \usage{
 createPluginFromMacro(pluginDir = ".", overrides = NULL, layout = NULL,
-  ...)
+  render_readme = TRUE, ...)
 }
 \arguments{
 \item{pluginDir}{plugin directory}
@@ -13,6 +13,8 @@ createPluginFromMacro(pluginDir = ".", overrides = NULL, layout = NULL,
 \item{overrides}{should an override file be used}
 
 \item{layout}{should a layout file be used}
+
+\item{render_readme}{whether or not to render READMEs}
 
 \item{...}{arguments to pass on to makeIcon}
 }
