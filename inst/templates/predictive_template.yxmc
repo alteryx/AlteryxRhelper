@@ -1,26 +1,6 @@
 <?xml version="1.0"?>
 <AlteryxDocument yxmdVer="10.5">
   <Nodes>
-    <Node ToolID="3">
-      <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
-        <Position x="426" y="54" width="384" height="84" />
-      </GuiSettings>
-      <Properties>
-        <Configuration>
-          <Text>In this exercise, you will learn how you can auto extract user inputs from Alteryx into your R code.</Text>
-          <Font name="Microsoft Sans Serif" size="9.75" style="0" />
-          <TextColor name="White" />
-          <FillColor name="White" />
-          <Shape shape="3" />
-          <Justification Justification="0" />
-        </Configuration>
-        <Annotation DisplayMode="0">
-          <Name />
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-    </Node>
     <Node ToolID="8">
       <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
         <Position x="0" y="0" width="59" height="59" />
@@ -36,7 +16,7 @@
     </Node>
     <Node ToolID="5">
       <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-        <Position x="54" y="126" width="492" height="240" />
+        <Position x="55" y="191" width="345" height="240" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -54,7 +34,7 @@
       <ChildNodes>
         <Node ToolID="9">
           <GuiSettings Plugin="AlteryxBasePluginsGui.MacroInput.MacroInput">
-            <Position x="106" y="237" />
+            <Position x="80" y="302" />
           </GuiSettings>
           <Properties>
             <Configuration>
@@ -1285,6 +1265,7 @@
             </Configuration>
             <Annotation DisplayMode="0">
               <Name />
+              <AnnotationText>__Input:__ Tabular data to use for plotting the histogram.</AnnotationText>
               <DefaultAnnotationText />
               <Left value="True" />
             </Annotation>
@@ -1307,7 +1288,7 @@
         </Node>
         <Node ToolID="10">
           <GuiSettings Plugin="AlteryxRPluginGui.R">
-            <Position x="225" y="235" />
+            <Position x="199" y="300" />
           </GuiSettings>
           <Properties>
             <Configuration>
@@ -1322,9 +1303,9 @@
 library(AlteryxRhelper)
 
 config <- list(
- `barColor` = dropdownInput('%Question.barColor%' , 'steelblue'),
- `debug` = checkboxInput('%Question.debug%' , FALSE),
- `numBins` = numericInput('%Question.numBins%' , 10)
+ `bar_color` = dropdownInput('%Question.barColor%' , 'steelblue'),
+ `num_bins` = numericInput('%Question.numBins%' , 10),
+ `yvar` = dropdownInput('%Question.yvar%', 'price')
 )
 options(alteryx.wd = '%Engine.WorkflowDirectory%')
 options(alteryx.debug = config$debug)
@@ -1362,7 +1343,13 @@ process <- function(config, inputs){
   d <- inputs$d1
   out1 <- d
   out2 <- function(){
-    hist(d$carat, breaks = config$numBins, col = config$barColor)
+    hist(
+      d[[config$yvar]], 
+      breaks = config$num_bins, 
+      col = config$bar_color,
+      main = paste('Histogram of', config$yvar),
+      xlab = config$yvar
+    )
   }
   list(out1 = out1, out2 = out2)
 }
@@ -1384,20 +1371,40 @@ AlteryxGraph2(outputs$out2(), 3)
               <DefaultAnnotationText />
               <Left value="False" />
             </Annotation>
+            <MetaInfo connection="Output3">
+              <RecordInfo>
+                <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString" />
+              </RecordInfo>
+            </MetaInfo>
+            <MetaInfo connection="Output1">
+              <RecordInfo>
+                <Field name="carat" source="R-DATA:" type="Double" />
+                <Field name="cut" size="1073741823" source="R-DATA:" type="V_WString" />
+                <Field name="color" size="1073741823" source="R-DATA:" type="V_WString" />
+                <Field name="clarity" size="1073741823" source="R-DATA:" type="V_WString" />
+                <Field name="depth" source="R-DATA:" type="Double" />
+                <Field name="table" source="R-DATA:" type="Int32" />
+                <Field name="price" source="R-DATA:" type="Int32" />
+                <Field name="x" source="R-DATA:" type="Double" />
+                <Field name="y" source="R-DATA:" type="Double" />
+                <Field name="z" source="R-DATA:" type="Double" />
+              </RecordInfo>
+            </MetaInfo>
           </Properties>
           <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR" />
         </Node>
         <Node ToolID="11">
           <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
-            <Position x="342" y="170" />
+            <Position x="316" y="235" />
           </GuiSettings>
           <Properties>
             <Configuration>
               <Name>Output1</Name>
-              <Abbrev />
+              <Abbrev>D</Abbrev>
             </Configuration>
             <Annotation DisplayMode="0">
               <Name />
+              <AnnotationText>__Output D:__ Data output</AnnotationText>
               <DefaultAnnotationText />
               <Left value="False" />
             </Annotation>
@@ -1406,76 +1413,27 @@ AlteryxGraph2(outputs$out2(), 3)
         </Node>
         <Node ToolID="13">
           <GuiSettings Plugin="AlteryxBasePluginsGui.MacroOutput.MacroOutput">
-            <Position x="342" y="282" />
+            <Position x="316" y="347" />
           </GuiSettings>
           <Properties>
             <Configuration>
               <Name>Output2</Name>
-              <Abbrev />
+              <Abbrev>R</Abbrev>
             </Configuration>
             <Annotation DisplayMode="0">
               <Name />
+              <AnnotationText>__Output R:__ Histogram of chosen field.</AnnotationText>
               <DefaultAnnotationText />
               <Left value="False" />
             </Annotation>
           </Properties>
           <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
         </Node>
-        <Node ToolID="20">
-          <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-            <Position x="462" y="258" />
-          </GuiSettings>
-          <Properties>
-            <Configuration>
-              <TempFile>C:\ProgramData\Alteryx\Engine\Engine_2504_49c72fe85f044bcd88b135d0c5120c90_\Engine_2448_6c5ee5fd56194672a38745702ab940d3_.yxdb</TempFile>
-              <Layout>
-                <ViewMode>Single</ViewMode>
-                <ViewSize value="100" />
-                <View1>
-                  <DefaultTab>Report</DefaultTab>
-                  <Hints>
-                    <Table />
-                  </Hints>
-                </View1>
-                <View2 />
-              </Layout>
-            </Configuration>
-            <Annotation DisplayMode="0">
-              <Name />
-              <DefaultAnnotationText />
-              <Left value="False" />
-            </Annotation>
-          </Properties>
-          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
-        </Node>
-        <Node ToolID="21">
-          <GuiSettings Plugin="AlteryxBasePluginsGui.BrowseV2.BrowseV2">
-            <Position x="462" y="174" />
-          </GuiSettings>
-          <Properties>
-            <Configuration>
-              <TempFile>C:\ProgramData\Alteryx\Engine\Engine_2504_49c72fe85f044bcd88b135d0c5120c90_\Engine_2448_957ba994c4654aae828dbfa730ee735a_.yxdb</TempFile>
-              <Layout>
-                <View1>
-                  <Hints>
-                    <Table />
-                  </Hints>
-                </View1>
-              </Layout>
-            </Configuration>
-            <Annotation DisplayMode="0">
-              <Name />
-              <DefaultAnnotationText />
-              <Left value="False" />
-            </Annotation>
-          </Properties>
-          <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxBrowseV2" />
-        </Node>
       </ChildNodes>
     </Node>
     <Node ToolID="18">
       <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-        <Position x="54" y="18" width="427" height="105" />
+        <Position x="54" y="54" width="348" height="117" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -1493,12 +1451,13 @@ AlteryxGraph2(outputs$out2(), 3)
       <ChildNodes>
         <Node ToolID="15">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-            <Position x="64" y="47" width="59" height="59" />
+            <Position x="90" y="102" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
             <Annotation DisplayMode="0">
-              <Name>barColor</Name>
+              <Name>bar_color</Name>
+              <AnnotationText>Set the fill color of the bars.</AnnotationText>
               <DefaultAnnotationText />
               <Left value="False" />
             </Annotation>
@@ -1506,25 +1465,87 @@ AlteryxGraph2(outputs$out2(), 3)
         </Node>
         <Node ToolID="14">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
-            <Position x="198" y="54" width="59" height="59" />
+            <Position x="198" y="102" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
             <Annotation DisplayMode="0">
-              <Name>numBins</Name>
+              <Name>num_bins</Name>
+              <AnnotationText>Select number of bins to use while plotting the histogram</AnnotationText>
               <DefaultAnnotationText />
               <Left value="False" />
             </Annotation>
           </Properties>
         </Node>
-        <Node ToolID="19">
-          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-            <Position x="378" y="54" width="59" height="59" />
+        <Node ToolID="22">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+            <Position x="318" y="102" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
             <Annotation DisplayMode="0">
-              <Name>debug</Name>
+              <Name>yvar</Name>
+              <AnnotationText>Select the field name to plot the histogram for.</AnnotationText>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="23">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="64" y="83" width="100" height="24" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Bar Color</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="Black" />
+              <FillColor name="White" />
+              <Shape shape="3" />
+              <Justification Justification="4" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="24">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="184" y="83" width="100" height="24" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>Number of Bins</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="Black" />
+              <FillColor name="White" />
+              <Shape shape="3" />
+              <Justification Justification="4" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="25">
+          <GuiSettings Plugin="AlteryxGuiToolkit.TextBox.TextBox">
+            <Position x="292" y="83" width="100" height="24" />
+          </GuiSettings>
+          <Properties>
+            <Configuration>
+              <Text>y Variable</Text>
+              <Font name="Segoe UI" size="8.25" style="0" />
+              <TextColor name="Black" />
+              <FillColor name="White" />
+              <Shape shape="3" />
+              <Justification Justification="4" />
+            </Configuration>
+            <Annotation DisplayMode="0">
+              <Name />
               <DefaultAnnotationText />
               <Left value="False" />
             </Annotation>
@@ -1538,6 +1559,10 @@ AlteryxGraph2(outputs$out2(), 3)
       <Origin ToolID="9" Connection="Output" />
       <Destination ToolID="10" Connection="Input" />
     </Connection>
+    <Connection Wireless="True">
+      <Origin ToolID="9" Connection="Question" />
+      <Destination ToolID="22" Connection="Question Input" />
+    </Connection>
     <Connection>
       <Origin ToolID="10" Connection="Output1" />
       <Destination ToolID="11" Connection="Input" />
@@ -1546,20 +1571,12 @@ AlteryxGraph2(outputs$out2(), 3)
       <Origin ToolID="10" Connection="Output3" />
       <Destination ToolID="13" Connection="Input" />
     </Connection>
-    <Connection>
-      <Origin ToolID="10" Connection="Output3" />
-      <Destination ToolID="20" Connection="Input" />
-    </Connection>
-    <Connection>
-      <Origin ToolID="10" Connection="Output1" />
-      <Destination ToolID="21" Connection="Input" />
-    </Connection>
   </Connections>
   <Properties>
     <Memory default="True" />
     <GlobalRecordLimit value="0" />
     <TempFiles default="True" />
-    <Annotation on="True" includeToolName="False" />
+    <Annotation on="False" includeToolName="False" />
     <ConvErrorLimit value="10" />
     <ConvErrorLimit_Stop value="False" />
     <CancelOnError value="False" />
@@ -1592,19 +1609,19 @@ AlteryxGraph2(outputs$out2(), 3)
       </Constant>
       <Constant>
         <Namespace>Question</Namespace>
-        <Name>numBins</Name>
+        <Name>num_bins</Name>
         <Value />
         <IsNumeric value="True" />
       </Constant>
       <Constant>
         <Namespace>Question</Namespace>
-        <Name>barColor</Name>
+        <Name>bar_color</Name>
         <Value />
         <IsNumeric value="False" />
       </Constant>
       <Constant>
         <Namespace>Question</Namespace>
-        <Name>debug</Name>
+        <Name>yvar</Name>
         <Value />
         <IsNumeric value="False" />
       </Constant>
@@ -1618,9 +1635,9 @@ AlteryxGraph2(outputs$out2(), 3)
       <ToolInDb value="False" />
       <CategoryName>Experiments</CategoryName>
       <SearchTags />
-      <Author />
-      <Company />
-      <Copyright />
+      <Author>Alteryx, Inc.</Author>
+      <Company>Alteryx, Inc.</Company>
+      <Copyright>Alteryx, Inc., 2016</Copyright>
       <DescriptionLink actual="" displayed="" />
     </MetaInfo>
     <Events>
@@ -1656,7 +1673,7 @@ AlteryxGraph2(outputs$out2(), 3)
             <Question>
               <Type>NumericUpDown</Type>
               <Description>Select number of bins</Description>
-              <Name>numBins</Name>
+              <Name>num_bins</Name>
               <ToolId value="14" />
               <Minimum value="1" />
               <Maximum value="100" />
@@ -1667,7 +1684,7 @@ AlteryxGraph2(outputs$out2(), 3)
             <Question>
               <Type>ListBox</Type>
               <Description>Set bar color</Description>
-              <Name>barColor</Name>
+              <Name>bar_color</Name>
               <ToolId value="15" />
               <Multiple value="False" />
               <Default>steelblue</Default>
@@ -1678,13 +1695,16 @@ darkred
 ]]></Manual_Values>
             </Question>
             <Question>
-              <Type>BooleanGroup</Type>
-              <Description>Debug</Description>
-              <Name>debug</Name>
-              <ToolId value="19" />
-              <Questions />
-              <Default value="False" />
-              <Collapsable value="False" />
+              <Type>ListBox</Type>
+              <Description>Select y Variable</Description>
+              <Name>yvar</Name>
+              <ToolId value="22" />
+              <Multiple value="False" />
+              <Default />
+              <Mode>MacroField</Mode>
+              <MacroField_InputTool value="0" />
+              <Field_IncludeNone value="False" />
+              <MacroField_FilterTypes>Int16,Int32,Int64,FixedDecimal,Float,Double</MacroField_FilterTypes>
             </Question>
           </Questions>
         </Question>
@@ -1702,8 +1722,6 @@ darkred
         <Tool ToolId="9" Selected="True" />
         <Tool ToolId="11" Selected="True" />
         <Tool ToolId="13" Selected="True" />
-        <Tool ToolId="20" Selected="False" />
-        <Tool ToolId="21" Selected="False" />
       </Wiz_OpenOutputTools>
       <Wiz_OutputMessage />
       <Wiz_NoOutputFilesMessage />
