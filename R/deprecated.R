@@ -65,12 +65,12 @@ createNewPlugin <- function(plugin_name, template = 'TemplatePlugin'){
   writeLines(d2_contents_new, d2)
 }
 
-#' Create a YXI installable
-#' 
-#' 
-#' @export
-#' @param pluginDir directory containing the plugin files
-#' @param toDir directory to write the yxi file to
+# Create a YXI installable
+# 
+# 
+# @export
+# @param pluginDir directory containing the plugin files
+# @param toDir directory to write the yxi file to
 createYXI0 <- function(pluginDir = ".", toDir = "."){
   toDir <- normalizePath(toDir)
   pluginName = basename(normalizePath(pluginDir))
