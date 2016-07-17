@@ -8,7 +8,7 @@
 #' @param edit open file for editing
 #' @param ... additional arguments
 scaffoldWorkflow <- function(name = 'mymacro', outDir  = ".", 
-                             template =  aTemplate('predictive_template.yxmc'), edit = TRUE, ...){
+    template =  aTemplate('predictive_template.yxmc'), edit = TRUE, ...){
   if (!file.exists(outDir)){
     dir.create(outDir)
   }
@@ -54,6 +54,8 @@ scaffoldPlugin <- function(pluginName, ...){
   cwd = getwd(); on.exit(setwd(cwd)); setwd(pluginName)
   dirs <- dirNames()
   scaffoldWorkflow(pluginName, outDir = dirs$macros, edit = F)
+  yxmc <- file.path(dirNames()$macros, sprintf('%s.yxmc', pluginName))
+  updateReadme(yxmc, pluginName)
   if (!dir.exists(dirs$extras)){
     dir.create(dirs$extras)
   }
