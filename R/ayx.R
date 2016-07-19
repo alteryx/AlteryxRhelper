@@ -1,5 +1,5 @@
 ayxOption <- function(x){
-  tag('alteryx-option', x)
+  htmltools::tag('alteryx-option', x)
 }
 
 # Alteryx Plugin Widget
