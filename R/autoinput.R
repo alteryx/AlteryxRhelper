@@ -31,9 +31,13 @@ makeCall <- function(x){
   paste0(" `", x$Name, '` = ', call_)
 }
 
-# Make an input string to be inserted at the top of R code
-makeInput <- function(template, input){
-  xml <- xmlInternalTreeParse(template)
+#' Extract question constants and return code that can be inserted
+#' 
+#' @param path to macro from which to extract question constants
+#' @param input variable to assign the question constants to
+#' @export
+extractQuestionConstants <- function(macro, input = 'config'){
+  xml <- xmlInternalTreeParse(macro)
   r <- xmlRoot(xml)
   #g <- getNodeSet(r, '//Question[not(Questions)]')
   g <- getNodeSet(r, '//Question')

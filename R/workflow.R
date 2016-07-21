@@ -40,7 +40,7 @@ extractRcode <- function(template, outFile = NULL, extractInput = NULL){
   saveTo <- paste0(outFile, seq_along(rcode), ".R")
   invisible(lapply(seq_along(rcode), function(i){
     if (!is.null(extractInput)){
-      inputs <- makeInput(template, extractInput)
+      inputs <- extractQuestionConstants(template, extractInput)
       # rcode_ <- sub("(## DO NOT MODIFY: Auto Inserted by AlteryxRhelper ----\n.*\n##----\n)", "", rcode[[i]])
       rcode_ <- sub("(## DO NOT MODIFY: Auto Inserted by AlteryxRhelper ----\n.*\n##----\n)", inputs, rcode[[i]])
       #rcode_ <- paste(c(inputs, rcode_), collapse = '\n')
