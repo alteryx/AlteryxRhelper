@@ -1303,8 +1303,8 @@
 library(AlteryxRhelper)
 
 config <- list(
- `bar_color` = dropdownInput('%Question.barColor%' , 'steelblue'),
- `num_bins` = numericInput('%Question.numBins%' , 10),
+ `bar_color` = dropdownInput('%Question.bar_color%' , 'steelblue'),
+ `num_bins` = numericInput('%Question.num_bins%' , 10),
  `yvar` = dropdownInput('%Question.yvar%', 'price')
 )
 options(alteryx.wd = '%Engine.WorkflowDirectory%')
