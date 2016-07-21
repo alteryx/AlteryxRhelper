@@ -2,9 +2,17 @@
 #'
 #' @export
 inAlteryx <- function(){
-  'package:AlteryxRDataX' %in% search()
+  #'package:AlteryxRDataX' %in% search()
+  exists("AlteryxDataOutput", .GlobalEnv)
 }
 
+#' List predictive macros
+#' 
+#' This returns a list of predictive macros in Alteryx. The list can be filtered
+#' by passing additional arguments to the \code{\link{dir}} function.
+#' 
+#' @export
+#' @param ... additional arguments to pass on to dir
 listPredictiveMacros <- function(...){
   dir(getPathToPredictiveMacros(), ...)
 }
