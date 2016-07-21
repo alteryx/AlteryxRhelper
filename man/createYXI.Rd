@@ -2,7 +2,7 @@
 % Please edit documentation in R/main.R
 \name{createYXI}
 \alias{createYXI}
-\title{Create YXI file}
+\title{Create a YXI file}
 \usage{
 createYXI(pluginDir = ".", toDir = ".")
 }
@@ -12,6 +12,9 @@ createYXI(pluginDir = ".", toDir = ".")
 \item{toDir}{to directory}
 }
 \description{
-Create YXI file
+YXI files are zip files with a `.yxi` extension that allow a plugin to be
+packaged along with all its dependencies. This function allows a user to
+create a YXI file programatically. The resulting `.yxi` file can be
+distributed standalone.
 }
 
