@@ -1,11 +1,14 @@
-#' Returns TRUE if called inside an Alteryx R Tool.
-#'
+#' Check if the execution environment is Alteryx.
+#' 
+#' Determine if code is being executed inside an Alteryx R Tool. It utilizes the
+#' presence of certain global variables like \code{AlteryxDataOutput} to detect
+#' if the execution environment is Alteryx or not.
 #' @export
 inAlteryx <- function(){
   exists("AlteryxDataOutput", .GlobalEnv)
 }
 
-#' List predictive macros
+#' List predictive macros.
 #' 
 #' This returns a list of predictive macros in Alteryx. The list can be filtered
 #' by passing additional arguments to the \code{\link{dir}} function.
@@ -139,9 +142,6 @@ copyPredictiveAndHelperMacros <- function(macro, pluginDir = '.'){
     x <- gsub('\\\\', '/', xmlGetAttr(d, 'Macro'))
     copyPredictiveMacro(x, file.path(dirs$macros, 'Supporting_Macros'))
   })
-  #d <- paste(readLines(macro, warn = F), collapse = '\n')
-  #d <- gsub("Supporting_Macros", "Helper_Macros", d)
-  #cat(d, file = macro)
 }
 
 dirNames <- function(){
@@ -159,8 +159,6 @@ extractIcon <- function(yxmc, out){
   doc <- xmlInternalTreeParse(yxmc)
   root <- xmlRoot(doc)
   macroImg <- xmlValue(getNodeSet(root, '//MacroImage')[[1]])
-  
-  #x <- RCurl::base64Decode(macroImg, "raw")
   x <- base64enc::base64decode(what = macroImg)
   writeBin(x, out)
 }
@@ -176,12 +174,6 @@ stop.Alteryx <- function(msg, ...){
   } else {
     stop(msg)
   }
-}
-
-updateReadme <- function(readme, pluginName){
-  input <- paste(readLines(readme, warn = F), collapse = '\n')
-  output <- whisker::whisker.render(input, list(pluginName = pluginName))
-  cat(output, file = readme)
 }
 
 #' Generate table of configuration items
@@ -217,21 +209,20 @@ copy_dir <- function (from, to) {
   }
 }
 
-#' Make a circular or square icon and save it as a png file
+#' Make a circular or square icon and save it to a png file.
 #'
-#' @export
 #' 
-#' @import grid
 #' @param iconPath path to save icon to
 #' @param shape shape of the icon (circle or rect)
 #' @param fill fill color
 #' @param label a label to use for the icon
+#' @import grid
+#' @export
 makeIcon <- function(iconPath, shape = 'circle', fill = sample(colors(), 1), 
-                     label = NULL){
+    label = NULL){
   png(iconPath, width = 48, height = 48, units = 'px')
   vp <- viewport(x=0.5,y=0.5,width=1, height=1)
   pushViewport(vp)
-  
   if (shape == 'circle'){
     grid.circle(x=0.5, y=0.5, r=0.45, gp = gpar(fill = fill))
   } else {
@@ -241,6 +232,13 @@ makeIcon <- function(iconPath, shape = 'circle', fill = sample(colors(), 1),
     grid.text(label, gp = gpar(col = 'white', cex = 1.5))
   }
   dev.off()
+}
+
+
+updateReadme <- function(readme, pluginName){
+  input <- paste(readLines(readme, warn = F), collapse = '\n')
+  output <- whisker::whisker.render(input, list(pluginName = pluginName))
+  cat(output, file = readme)
 }
 
 # Render README.Rmd files in the plugin folder
