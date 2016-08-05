@@ -80,7 +80,7 @@ scaffoldPlugin <- function(pluginName, ...){
 #'
 #' @export
 #' @param macro name of the predictive macro
-scaffoldPluginFromMacro <- function(macro){
+scaffoldPluginFromMacro <- function(macro, ...){
   dirs <- dirNames()
   scaffoldPlugin(macro)
   setwd(macro)
@@ -89,5 +89,5 @@ scaffoldPluginFromMacro <- function(macro){
     file.path(dirs$macros, paste0(macro, '.yxmc')), 
     extractInput = 'config'
   )
-  createPluginFromMacro()
+  createPluginFromMacro(".", ...)
 }
