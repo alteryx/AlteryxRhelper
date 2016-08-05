@@ -9,7 +9,7 @@
 #' @param ... arguments to pass on to makeIcon
 #' @import yaml htmltools
 createPluginFromMacro <- function(pluginDir = ".", overrides = NULL, 
-    layout = NULL, render_readme = TRUE, ...){
+    layout = NULL, render_readme = FALSE, ...){
   dirs <- dirNames()
   pluginDir = normalizePath(pluginDir)
   pluginName <- basename(pluginDir)
