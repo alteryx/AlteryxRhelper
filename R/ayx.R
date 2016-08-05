@@ -106,7 +106,7 @@ writeGuiHtml <- function(pluginDir, htmlFile = NULL, overrides = NULL){
     collapse = '\n'
   )
   cat(x1b, file = layoutFile)
-  if (file.exists(ov <- file.path(pluginDir, 'Gui', 'overrides.yaml'))){
+  if (file.exists(ov <- file.path(pluginDir, dirs$extras, 'Gui', 'overrides.yaml'))){
     overrides <- yaml::yaml.load_file(ov)
   }
   if (!is.null(overrides)){
