@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{makeIcon}
 \alias{makeIcon}
-\title{Make a circular or square icon and save it as a png file}
+\title{Make a circular or square icon and save it to a png file.}
 \usage{
 makeIcon(iconPath, shape = "circle", fill = sample(colors(), 1),
   label = NULL)
@@ -17,6 +17,6 @@ makeIcon(iconPath, shape = "circle", fill = sample(colors(), 1),
 \item{label}{a label to use for the icon}
 }
 \description{
-Make a circular or square icon and save it as a png file
+Make a circular or square icon and save it to a png file.
 }
 

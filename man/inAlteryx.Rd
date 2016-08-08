@@ -2,13 +2,13 @@
 % Please edit documentation in R/utils.R
 \name{inAlteryx}
 \alias{inAlteryx}
-\title{Check if the execution environment is Alteryx}
+\title{Check if the execution environment is Alteryx.}
 \usage{
 inAlteryx()
 }
 \description{
-It utilizes the presence of certain global variables to detect if the 
-execution environment is Alteryx or not.It returns \code{TRUE} if called
-inside an Alteryx R Tool.
+Determine if code is being executed inside an Alteryx R Tool. It utilizes the
+presence of certain global variables like \code{AlteryxDataOutput} to detect
+if the execution environment is Alteryx or not.
 }
 

@@ -2,7 +2,7 @@
 % Please edit documentation in R/utils.R
 \name{listPredictiveMacros}
 \alias{listPredictiveMacros}
-\title{List predictive macros}
+\title{List predictive macros.}
 \usage{
 listPredictiveMacros(...)
 }

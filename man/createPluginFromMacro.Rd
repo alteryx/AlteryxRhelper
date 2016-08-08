@@ -5,7 +5,7 @@
 \title{Create Plugin from Macro}
 \usage{
 createPluginFromMacro(pluginDir = ".", overrides = NULL, layout = NULL,
-  render_readme = TRUE, ...)
+  render_readme = FALSE, ...)
 }
 \arguments{
 \item{pluginDir}{plugin directory}

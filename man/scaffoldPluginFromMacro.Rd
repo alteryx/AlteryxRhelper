@@ -4,7 +4,7 @@
 \alias{scaffoldPluginFromMacro}
 \title{Scaffold a plugin based on an existing predictive macro.}
 \usage{
-scaffoldPluginFromMacro(macro)
+scaffoldPluginFromMacro(macro, ...)
 }
 \arguments{
 \item{macro}{name of the predictive macro}
