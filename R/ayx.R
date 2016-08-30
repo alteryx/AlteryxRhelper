@@ -26,7 +26,7 @@ ayxPluginWidget = function(x){
   x$label <- NULL
   tagList(
     HTML(paste("<!-- ", x$dataName, " -->")),
-    tags$label(label, `for` = x$id),
+    if (x$type != 'CheckBox') tags$label(label, `for` = x$id) else NULL,
     tag('alteryx-pluginwidget', x)
   )
 }
