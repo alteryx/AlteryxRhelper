@@ -82,11 +82,21 @@ scaffoldPlugin <- function(pluginName, ...){
 #' @param macro name of the predictive macro
 scaffoldPluginFromMacro <- function(macro, ...){
   dirs <- dirNames()
-  scaffoldPlugin(macro)
-  setwd(macro)
-  copyPredictiveAndHelperMacros(paste0(macro, '.yxmc'))
+  pluginDir <- basename(macro)
+  scaffoldPlugin(pluginDir)
+  macroFileName <- paste0(macro, '.yxmc')
+  if (file.exists(macroFileName)){
+    macroFileName <- normalizePath(macroFileName)
+  }
+  setwd(pluginDir)
+  if (file.exists(macroFileName)){
+    file.copy(macroFileName, dirs$macros, overwrite = TRUE)
+  } else {
+    copyPredictiveAndHelperMacros(basename(macroFileName))
+  }
+  
   extractRcode(
-    file.path(dirs$macros, paste0(macro, '.yxmc')), 
+    file.path(dirs$macros, basename(macroFileName)), 
     extractInput = 'config'
   )
   createPluginFromMacro(".", ...)
