@@ -33,7 +33,7 @@ getIO <- function(template){
     outputs = getMacroIO('MacroOutput'),
     pluginName = tools::file_path_sans_ext(basename(template)),
     properties = getProperties(r),
-    helpLink = helpLink
+    helpLink = paste0(sub("AlteryxHelp:", "", helpLink), ".htm")
   )
 }
 
