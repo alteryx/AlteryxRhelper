@@ -36,7 +36,12 @@ getPathToPredictiveMacros <- function(){
 copyPredictiveMacro <- function(macro, to = ".", ...){
   p <- getPathToPredictiveMacros()
   pred_tools_path = normalizePath(p)
-  file.copy(file.path(pred_tools_path, macro), to = to, ...)
+  from <- file.path(pred_tools_path, macro)
+  if (file.exists(from)){
+    file.copy(from, to = to, ...)
+  } else {
+    message(macro, ' not found.') 
+  }
 }
 
 #' Check if a file is older than the other
@@ -140,7 +145,7 @@ copyPredictiveAndHelperMacros <- function(macro, pluginDir = '.'){
   helpers <- getNodeSet(root, '//EngineSettings[@Macro]')
   sapply(helpers, function(d){
     x <- gsub('\\\\', '/', xmlGetAttr(d, 'Macro'))
-    copyPredictiveMacro(x, file.path(dirs$macros, 'Supporting_Macros'))
+    copyPredictiveMacro(x, file.path(dirs$macros, dirname(x)))
   })
 }
 
