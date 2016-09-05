@@ -116,18 +116,38 @@ toYaml.LabelGroup <- function(type, g2){
 
 toYaml.RadioGroup = function(type, g){
   x <- if (is.list(g)) g else xmlToList(g)
+  x$dataName = x$Name
+  # list(
+  #   dataName = x$Name,
+  #   type = "RadioButton",
+  #   value = x$Description,
+  #   group = 'radioTest1',
+  #   default = tolower(bool_map(x$Default[['value']]))
+  # )
+  x
+}
+
+toYaml.LabelGroup = function(type, g){
+  x <- if (is.list(g)) g else xmlToList(g)
+  values <- as.list(sapply(unname(x$Questions), function(y){
+    if (y$Type == 'RadioGroup') setNames(y$Description, y$Name) else NULL
+  }))
+  if (all(unlist(lapply(values, is.null)))){
+    return(NULL)
+  }
   list(
     dataName = x$Name,
-    type = "RadioButton",
-    text = x$Description,
-    group = 'radioTest1',
-    default = tolower(bool_map(x$Default[['value']]))
+    label = x$Description, 
+    type = "RadioGroup",
+    default = names(values)[1],
+    values = values,
+    group = x$Name
   )
 }
 
 renderToYaml <- function(g){
   x = xmlToList(g)
-  types = c("FileBrowse", "TextBox", "BooleanGroup", "ListBox", "NumericUpDown", "Date", "RadioGroup")
+  types = c("FileBrowse", "TextBox", "BooleanGroup", "ListBox", "NumericUpDown", "Date", "LabelGroup")
   if (x$Type %in% types){
     toYaml(structure(x$Type, class = x$Type), g)
   } else {
