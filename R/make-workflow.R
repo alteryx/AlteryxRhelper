@@ -25,8 +25,8 @@ config2xml <- function(props, collapse = ","){
 }
 
 #' @export
-makeWorkflow <- function(template, data, config, inputs_id, config_id, outFile, 
-    collapse = ","){
+makeWorkflow <- function(template, data, config, inputs_id, config_id, 
+    comment_id = NULL, comment = NULL, outFile, collapse = ","){
   getTool <- function(id){
     sprintf("//Node[@ToolID = '%s']/Properties/Configuration", id)
   }
@@ -39,5 +39,11 @@ makeWorkflow <- function(template, data, config, inputs_id, config_id, outFile,
   n3 <- xml_find_first(doc, getTool(config_id))
   xmlConfig <- config2xml(config, collapse = collapse)
   invisible(xml_replace(n3, xmlConfig))
+  
+  if (!is.null(comment_id)){
+    n4 <- xml_find_first(doc, getTool(comment_id))
+    n5 <- xml_child(n4)
+    xml_text(n5) <- comment
+  }
   write_xml(doc, outFile)
 }
