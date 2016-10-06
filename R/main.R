@@ -169,10 +169,10 @@ insertRcode2 <- function(){
 }
 
 #' @export
-updatePlugin <- function(pluginDir = "."){
+updatePlugin <- function(pluginDir = ".", ...){
   with_dir_(pluginDir, {
     insertRcode2()
-    createPluginFromMacro()
+    createPluginFromMacro(pluginDir = ".", ...)
     copyHtmlPlugin()
   })
 }
