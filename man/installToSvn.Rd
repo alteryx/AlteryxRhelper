@@ -4,7 +4,7 @@
 \alias{installToSvn}
 \title{Install packages to R library in SVN}
 \usage{
-installToSvn(srcPkg, install = TRUE)
+installToSvn(srcPkg, to_install = TRUE)
 }
 \arguments{
 \item{srcPkg}{path to source package}
