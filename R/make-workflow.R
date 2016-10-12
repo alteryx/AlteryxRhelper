@@ -47,3 +47,27 @@ makeWorkflow <- function(template, data, config, inputs_id, config_id,
   }
   write_xml(doc, outFile)
 }
+
+#' @export
+makeWorkflow2 <- function(template, repl, outFile, collapse = ","){
+  getTool <- function(id){
+    sprintf("//Node[@ToolID = '%s']/Properties/Configuration", id)
+  }
+  doc <- read_xml(template)
+  lapply(repl, function(r){
+    if (r$type == 'input'){
+      n2 <- xml_find_first(doc, getTool(r$node))
+      textinput <- df2TextInput(r$data)
+      invisible(xml_replace(n2, textinput))
+    } else if (r$type == 'config'){
+      n3 <- xml_find_first(doc, getTool(r$node))
+      xmlConfig <- config2xml(r$data, collapse = collapse)
+      invisible(xml_replace(n3, xmlConfig))
+    } else if (r$type == 'text'){
+      n4 <- xml_find_first(doc, getTool(r$node))
+      n5 <- xml_child(n4)
+      xml_text(n5) <- r$data
+    }
+  })
+  write_xml(doc, outFile)
+}
