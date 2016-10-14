@@ -21,7 +21,7 @@ listPredictiveMacros <- function(...){
 
 getPathToPredictiveMacros <- function(){
   alteryx = getOption('alteryx.path')
-  file.path(alteryx, paste0('R-', getRversion()), 'plugin', 'Macros', 
+  file.path(alteryx, paste0('R-', '3.2.3'), 'plugin', 'Macros', 
     'Predictive Tools'
   )
 }
