@@ -19,6 +19,8 @@ runTests <- function(pluginDir = ".", build_doc = TRUE){
     })
     x <- jsonlite::toJSON(y, auto_unbox = TRUE)
     cat(x, file = '_tests.json')
+    res2 <- lapply(results, function(x){x[-1]})
+    cat(jsonlite::toJSON(res2, auto_unbox = TRUE), file = '_results.json')
     if (build_doc) {
       rmarkdown::render('README.Rmd')
       browseURL('README.html')
