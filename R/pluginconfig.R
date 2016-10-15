@@ -128,7 +128,7 @@ yxmc2PluginConfig <- function(yxmcFile, saveToFile = NULL){
 }
 
 getProperties <- function(r){
-  props <- getNodeSet(r, "//Properties//MetaInfo[not(@connection)]")[[1]]
+  props <- getNodeSet(r, "//Properties//MetaInfo[not(@*)]")[[1]]
   nms <- xmlSApply(props, xmlName)
   vals <- xmlSApply(props, xmlValue)
   setNames(as.list(vals), nms)
