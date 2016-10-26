@@ -4,6 +4,9 @@ ayxOption <- function(x){
 
 # Alteryx Plugin Widget
 ayxPluginWidget = function(x){
+  if (x$type == 'ToggleBar'){
+    return(renderToggleBar(x))
+  }
   if (!is.null(x$values)){
     values = lapply(seq_along(x$values), function(i){
       list(

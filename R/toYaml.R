@@ -145,9 +145,24 @@ toYaml.LabelGroup = function(type, g){
   )
 }
 
+toYaml.ToggleBar = toYaml.LabelGroup
+
+
+renderToggleBar <- function(d){
+  div(class = 'clearfix', id = paste0('id-', d$group),
+    div(class = 'label', style='float:left;', d$label),
+    div(style = 'float:right;', div(class = 'tabs',
+      lapply(d$values, function(x){
+        cl = if (d$default == x) 'tab is-tab-selected' else 'tab'
+        div(class = cl, `data-page` = x, id = paste0('id-', x), x)
+      })                                
+    ))
+  )
+}
+
 renderToYaml <- function(g){
   x = xmlToList(g)
-  types = c("FileBrowse", "TextBox", "BooleanGroup", "ListBox", "NumericUpDown", "Date", "LabelGroup")
+  types = c("FileBrowse", "TextBox", "BooleanGroup", "ListBox", "NumericUpDown", "Date", "LabelGroup", "ToggleBar")
   if (x$Type %in% types){
     toYaml(structure(x$Type, class = x$Type), g)
   } else {
