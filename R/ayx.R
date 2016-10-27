@@ -2,6 +2,11 @@ ayxOption <- function(x){
   htmltools::tag('alteryx-option', x)
 }
 
+ayxWidgetWithProps <- function(x){
+  d <- jsonlite::toJSON(Filter(Negate(is.null), x), auto_unbox = TRUE)
+  htmltools::tag('alteryx-pluginwidget', list(`data-props` = d))
+}
+
 # Alteryx Plugin Widget
 ayxPluginWidget = function(x){
   if (x$type == 'ToggleBar'){
