@@ -140,7 +140,7 @@ makeConfigFile <- function(yxmc){
   doc <- xmlTreeParse(yxmc)
   root <- xmlRoot(doc)
   props <- Filter(function(x){length(x) > 0}, getProperties(root))
-  ayxPlugin <- newXMLNode("AlteryxJavascriptPlugin", 
+  ayxPlugin <- newXMLNode("AlteryxJavaScriptPlugin", 
     newXMLNode("Properties", 
       newXMLNode("MetaInfo", lapply(names(props), function(k){
         newXMLNode(k, props[[k]])
