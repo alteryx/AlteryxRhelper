@@ -154,9 +154,9 @@ createYXI <- function(pluginDir = ".", toDir = "."){
   )
   yxi <- file.path(toDir, paste0(pluginName, '.yxi'))
   zip(yxi, filesToCopy, flags = "")
-  tf <- file.path(tempdir(), 'config.xml')
-  saveXML(makeConfigFile(file.path(pluginName, pluginFiles$macro)), file = tf)
-  zip(yxi, tf, flags = '-j')
+  #tf <- file.path(tempdir(), 'config.xml')
+  #saveXML(makeConfigFile(file.path(pluginName, pluginFiles$macro)), file = tf)
+  #zip(yxi, tf, flags = '-j')
 }
 
 #' @export
