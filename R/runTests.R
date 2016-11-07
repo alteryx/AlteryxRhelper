@@ -31,6 +31,9 @@ runTests <- function(pluginDir = ".", build_doc = TRUE){
 getTests <- function(pluginDir = ".", testDir = 'Tests'){
   dirs <- dirNames()
   test_dir <- file.path(pluginDir, dirs$extras, testDir)
+  if (!dir.exists(test_dir)){
+    test_dir <- file.path(pluginDir, 'Supporting_Macros', 'tests')
+  }
   list.files(test_dir, pattern = '.yxmd', full = TRUE)
 }
 
@@ -67,6 +70,18 @@ runTests2 <- function(pluginDir = ".", build_doc = FALSE, testDir = 'Tests'){
     })
   }
   return(results)
+}
+
+#' Run Workflows in a directory
+#' 
+#' @param wdir directory containing the workflows to run.
+#' @export
+runWorkflows <- function(wdir){
+  f <- list.files(wdir, pattern = '.yxmd', full.names = TRUE)
+  lapply(f, function(x){
+    message("Running workflow ", x)
+    runWorkflow2(x)
+  })
 }
 
 with_dir_ <- function (new, code) {
