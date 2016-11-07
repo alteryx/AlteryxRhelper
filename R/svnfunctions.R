@@ -80,10 +80,9 @@ saveReadme <- function(save = TRUE){
 #' @param svnDir svn directory
 #' @export
 getAyxSvnDirs <- function(svnDir = getOption("alteryx.svndir")){
-  svnDir <- 'C:\\Users\\ramnath\\Desktop\\SVN_Full_Repos\\Predictive_Development'
   list(
     htmlplugin = file.path(svnDir, "Alteryx", "Plugins", "AlteryxRPlugin", 
-                           "HtmlPlugins"),
+      "HtmlPlugins"),
     macro = NULL
   )
 }
@@ -99,7 +98,6 @@ copyHtmlPluginToSvn <- function(pluginDir = "."){
 #' @param svnDir svn directory
 #' @export
 getAyxSvnRDirs <- function(svnDir = getOption("alteryx.svndir")){
-  svnDir <- 'C:\\Users\\ramnath\\Desktop\\SVN_Full_Repos\\Predictive_Development'
   rPath <- file.path(svnDir, "3rdParty", "R")
   list(
     lib = file.path(rPath, 'R_Installed_Files', 'R-3.2.3', 'library'),
