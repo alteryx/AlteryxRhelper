@@ -118,8 +118,8 @@ copyHtmlPlugin <- function(pluginDir = ".", ayxDir = getAyxDirs()){
   } else {
     message(file.path('SupportingMacros', basename(ayxMacro)), ' is up to date')
   }
-  message("Copying Helper Macros")
   if (length(files$helpers) > 0){
+    message("Copying Helper Macros")
     if (!dir.exists(hdir <- file.path(ayxPluginDir, dirs$macros, 'Supporting_Macros'))){
       dir.create(hdir)
     }
