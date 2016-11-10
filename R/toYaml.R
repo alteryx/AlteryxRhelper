@@ -149,12 +149,16 @@ toYaml.ToggleBar = toYaml.LabelGroup
 
 
 renderToggleBar <- function(d){
-  div(class = 'clearfix', id = paste0('id-', d$group),
+  div(class = 'clearfix togglebar', id = paste0('id-', d$group),
     div(class = 'label', style='float:left;', d$label),
-    div(style = 'float:right;', div(class = 'tabs',
-      lapply(d$values, function(x){
-        cl = if (d$default == x) 'tab is-tab-selected' else 'tab'
-        div(class = cl, `data-page` = x, id = paste0('id-', x), x)
+    div(style = 'float:right;', div(class = 'toggletabs',
+      lapply(names(d$values), function(k){
+        cl = if (d$default == k) {
+          'toggletab is-tab-selected' 
+        } else {
+          'toggletab'
+        }
+        div(class = cl, `data-page` = k, id = paste0('id-', k), d$values[[k]])
       })                                
     ))
   )
