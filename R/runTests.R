@@ -50,6 +50,7 @@ parseResult <- function(result){
 
 #' @export
 runWorkflow2 <- function(file){
+  message("Running ", file)
   r <- runWorkflow(file)
   results <- parseResult(r)
   name <- tools::file_path_sans_ext(basename(file))
