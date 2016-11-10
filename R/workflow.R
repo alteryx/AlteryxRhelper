@@ -104,7 +104,7 @@ runWorkflow = function(file){
   cmd = paste("AlteryxEngineCmd.exe", shQuote(param))
   out = system(cmd, intern = TRUE)
   on.exit({
-    message("Exiting function...")
+    message("Exiting function with status ", attr(out, 'status'))
     setwd(cwd)
   })
   return(out)
