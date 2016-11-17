@@ -31,10 +31,15 @@ ayxPluginWidget = function(x){
     x$default <- NULL
   }
   label <- x$label
-  x$label <- NULL
+  if (x$type != 'NumericSlider') {
+    x$label <- NULL
+  } else {
+    x$initialValue <- x$default
+    x$default <- NULL
+  }
   tagList(
     HTML(paste("<!-- ", x$dataName, " -->")),
-    if (x$type != 'CheckBox' && !is.null(label) && label != "") {
+    if (!(x$type %in% c('CheckBox', 'NumericSlider')) && !is.null(label) && label != "") {
       tags$label(label, `for` = x$id)
     } else {
       NULL
