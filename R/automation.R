@@ -38,7 +38,8 @@ runFromWindows <- function(){
 downloadInstallers <- function(
    buildRepo = "\\\\DEN-IT-FILE-07\\BuildRepo", 
    to = "C:/Users/ramnath/Downloads",
-   buildDir = NULL, branch = "Predictive_Dev", type = 'Server'){
+   buildDir = NULL, branch = "Predictive_Dev", type = 'Server',
+   rInstaller = 'RInstaller'){
   runFromWindows()
   to <- normalizePath(to)
   if (is.null(buildDir)){
@@ -53,21 +54,23 @@ downloadInstallers <- function(
   message("Downloading ", ayxInstaller)
   file.copy(ayxInstaller, to)
   rInstaller <- list.files(
-    file.path(buildDir, 'R'), pattern = 'RInstaller', full.names = TRUE
+    file.path(buildDir, 'R'), pattern = rInstaller, full.names = TRUE
   )
   message("Downloading ", rInstaller)
   file.copy(rInstaller, to)
-  list(ayxInstaller = ayxInstaller, rInstaller = rInstaller)
+  list(
+    ayxInstaller = file.path(to, basename(ayxInstaller)), 
+    rInstaller = file.path(to, basename(rInstaller))
+  )
 }
 
 #' Install Alteryx
 #' 
-#' @param installers list of named installers.
-#' @param from directory to install from.
+#' @param installers list of paths to named installers.
 #' @export
-installAlteryx <- function(installers, from = 'C:/Users/ramnath/Downloads'){
-  withr::with_dir(from, {
-    r <- plyr::llply(installers, function(installer){
+installAlteryx <- function(installers){
+  withr::with_dir(dirname(installers), {
+    r <- plyr::llply(basename(installers), function(installer){
       message("Installing ", basename(installer))
       install_cmd <- paste(basename(installer), '/s')
       message('Running ', install_cmd)
@@ -113,7 +116,7 @@ writeRPluginIni <- function(revo = "FALSE", replace = FALSE){
 #' Install all needed packages that are missing
 #'
 #' @export
-installAllPackages <- function(){
+installAllPackages <- function(dev = TRUE){
   runFromWindows()
   cranPkgs <- listInstalledPackages()$cran
   existing_packages <- row.names(installed.packages())
@@ -136,6 +139,43 @@ installAllPackages <- function(){
   withr::with_libpaths(lib, {
     lapply(ayxPackages, install)
   })
+}
+
+#' Install all packages
+#' 
+#' 
+#' @export
+installAllPackages2 <- function(
+    cranRepo = 'https://mran.revolutionanalytics.com/snapshot/2016-01-01/',
+    ayxRepo = 'https://alteryx.github.io/drat',
+    buildRepo = "\\\\DEN-IT-FILE-07\\BuildRepo",
+    branch = 'Predictive_Development'){
+  runFromWindows()
+  requiredPkgs <- unlist(listInstalledPackages(), use.names = F)
+  requiredPkgs <- requiredPkgs[requiredPkgs != 'AlteryxRDataX']
+  existing_packages <- row.names(installed.packages())
+  needed_packages <- requiredPkgs[!(requiredPkgs %in% existing_packages)]
+  if (length(.libPaths()) == 1) {
+    lib <- .libPaths()
+  } else {
+    lib <- .libPaths()[2]
+  }
+  message("Installing AlteryxRDataX...")
+  if (is.null(buildDir)){
+    builds <-  dir(buildRepo, pattern = branch, full = TRUE)
+    buildDir <- tail(builds, 1)
+  }
+  RDataX <- list.files(file.path(buildDir, 'R'), pattern = 'AlteryxRDataX_', 
+    full.names = TRUE)
+  install.packages(RDataX, repos = NULL)
+  if (length(needed_packages) > 0){
+    repos <- c(CRAN = cranRepo, Alteryx = ayxRepo)
+    message("Installing missing packages from CRAN...")
+    message(paste(needed_packages, collapse = "\n"))
+    install.packages(needed_packages, repos = repos)
+    message("Updating CRAN packages ...")
+    update.packages()
+  }
 }
 
 #' Update R installation
