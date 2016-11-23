@@ -4,7 +4,7 @@
 \alias{installAllPackages}
 \title{Install all needed packages that are missing}
 \usage{
-installAllPackages()
+installAllPackages(dev = TRUE)
 }
 \description{
 Install all needed packages that are missing

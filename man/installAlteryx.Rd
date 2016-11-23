@@ -4,12 +4,10 @@
 \alias{installAlteryx}
 \title{Install Alteryx}
 \usage{
-installAlteryx(installers, from = "C:/Users/ramnath/Downloads")
+installAlteryx(installers)
 }
 \arguments{
-\item{installers}{list of named installers.}
-
-\item{from}{directory to install from.}
+\item{installers}{list of paths to named installers.}
 }
 \description{
 Install Alteryx
