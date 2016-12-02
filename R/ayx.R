@@ -37,6 +37,10 @@ ayxPluginWidget = function(x){
     x$initialValue <- x$default
     x$default <- NULL
   }
+  if (x$type == 'CheckBox'){
+    x$defaultValue <- x$default
+    x$default <- NULL
+  }
   tagList(
     HTML(paste("<!-- ", x$dataName, " -->")),
     if (!(x$type %in% c('CheckBox', 'NumericSlider')) && !is.null(label) && label != "") {
