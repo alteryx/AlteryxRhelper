@@ -69,7 +69,7 @@ downloadInstallers <- function(
 #' @param installers list of paths to named installers.
 #' @export
 installAlteryx <- function(installers){
-  withr::with_dir(dirname(installers), {
+  withr::with_dir(dirname(installers[[1]]), {
     r <- plyr::llply(basename(installers), function(installer){
       message("Installing ", basename(installer))
       install_cmd <- paste(basename(installer), '/s')
@@ -92,19 +92,23 @@ listInstalledPackages <- function(){
 }
 
 # Write RPluginIni
-writeRPluginIni <- function(revo = "FALSE", replace = FALSE){
+writeRPluginIni <- function(revo = FALSE, replace = FALSE){
   RpluginIni <- file.path(getOption('alteryx.path'), 'Settings',
    'RPluginSettings.ini'
   )
   l <- c(
     RVersion = paste(R.version$major, R.version$minor, sep = "."),
     RExePath = normalizePath(R.home()),
-    RevolutionRinstalled = "FALSE"
+    RevolutionRinstalled = as.character(revo)
   )
   contents <- c(
     '[Settings]',
     paste(names(l), l, sep = "=")
   )
+  if (revo){
+    message('Copying XDF macros and samples ...')
+    copyXDFFiles()
+  }
   if (replace){
     message('Writing new RpluginSettings.ini')
     writeLines(contents, con = RpluginIni)
@@ -188,3 +192,20 @@ updateRInstallation <- function(){
   writeRPluginIni(replace = TRUE)
 }
 
+copyXDFFiles <- function(){
+  svnDir <- getOption('alteryx.svndir')
+  xdf_macros <- file.path(svnDir, 'Alteryx', 'Plugins', 'AlteryxRPlugin', 
+    'XDF_Macros')
+  xdf_samples <- file.path(svnDir, 'Alteryx', 'Plugins', 'AlteryxRPlugin', 
+    'XDF_Samples')
+  copy_dir <- function (from, to) {
+    if (!(file.exists(to))) {
+      dir.create(to, recursive = TRUE)
+    }
+    message("Copying files to ", to, "...")
+    file.copy(list.files(from, full.names = T), to, recursive = TRUE)
+  }
+  pluginDir <- file.path(getOption('alteryx.path'), 'R-3.2.3', 'plugin')
+  copy_dir(xdf_macros, file.path(pluginDir, 'Macros', 'XDF_Macros'))
+  copy_dir(xdf_samples, file.path(pluginDir, 'Samples', 'XDF_Samples'))
+}
