@@ -34,7 +34,12 @@ getTests <- function(pluginDir = ".", testDir = 'Tests'){
   if (!dir.exists(test_dir)){
     test_dir <- file.path(pluginDir, 'Supporting_Macros', 'tests')
   }
-  list.files(test_dir, pattern = '.yxmd', full = TRUE)
+  f <- list.files(test_dir, pattern = '.yxmd', full = TRUE)
+  if (!getOption('ayxhelper.xdf', FALSE) && length(grep("XDF", f) > 0)){
+    message("Ignoring XDF related tests.")
+    f <- f[-grep("XDF", f)]
+  }
+  return(f)
 }
 
 parseResult <- function(result){
