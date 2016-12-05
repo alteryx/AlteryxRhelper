@@ -151,11 +151,9 @@ installAllPackages <- function(dev = TRUE){
 #' 
 #' 
 #' @export
-installAllPackages2 <- function(
-    cranRepo = 'https://mran.revolutionanalytics.com/snapshot/2016-01-01/',
-    ayxRepo = 'https://alteryx.github.io/drat',
-    buildRepo = "\\\\DEN-IT-FILE-07\\BuildRepo",
-    branch = 'Predictive_Development'){
+installAllPackages2 <- function(branch = 'Predictive_Dev', buildDir = NULL){
+  ayxRepo <- 'https://alteryx.github.io/drat'
+  buildRepo <- "\\\\DEN-IT-FILE-07\\BuildRepo"
   runFromWindows()
   requiredPkgs <- unlist(listInstalledPackages(), use.names = F)
   requiredPkgs <- requiredPkgs[requiredPkgs != 'AlteryxRDataX']
@@ -175,12 +173,15 @@ installAllPackages2 <- function(
     full.names = TRUE)
   install.packages(RDataX, repos = NULL)
   if (length(needed_packages) > 0){
-    repos <- c(CRAN = cranRepo, Alteryx = ayxRepo)
+    options(repos = c(CRAN = getOption("repos"), Alteryx = ayxRepo))
     message("Installing missing packages from CRAN...")
     message(paste(needed_packages, collapse = "\n"))
-    install.packages(needed_packages, repos = repos)
-    message("Updating CRAN packages ...")
-    update.packages()
+    install.packages(needed_packages)
+  } else {
+    message("Updating R Packages")
+    ayxPkgs <- grep("^Alteryx", requiredPkgs, value = TRUE)
+    install.packages(ayxPkgs)
+    update.packages() 
   }
 }
 
