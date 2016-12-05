@@ -69,14 +69,16 @@ downloadInstallers <- function(
 #' @param installers list of paths to named installers.
 #' @export
 installAlteryx <- function(installers){
-  withr::with_dir(dirname(installers[[1]]), {
-    r <- plyr::llply(basename(installers), function(installer){
-      message("Installing ", basename(installer))
-      install_cmd <- paste(basename(installer), '/s')
-      message('Running ', install_cmd)
-      system(install_cmd)
+  for (inst in installers){
+    withr::with_dir(dirname(inst), {
+      r <- plyr::llply(basename(inst), function(installer){
+        message("Installing ", basename(installer))
+        install_cmd <- paste(basename(installer), '/s')
+        message('Running ', install_cmd)
+        system(install_cmd)
+      })
     })
-  })
+  }
 }
 
 # List all installed packages
