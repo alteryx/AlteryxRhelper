@@ -3,7 +3,6 @@
 #'
 #' @param pluginName path to yxmc file
 #' @param type whether to extract from input or output
-#' @export
 extractInputOutput <- function(pluginName, type = "input"){
   if (type == 'input'){
     y <- 'AlteryxBasePluginsGui.MacroInput.MacroInput'
@@ -23,7 +22,6 @@ extractInputOutput <- function(pluginName, type = "input"){
 #' 
 #' 
 #' @param pluginName path to yxmc file
-#' @export
 extractConfig <- function(pluginName){
   xml <- xmlInternalTreeParse(pluginName)
   r <- xmlRoot(xml)
