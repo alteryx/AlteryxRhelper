@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<AlteryxDocument yxmdVer="10.0">
+<AlteryxDocument yxmdVer="11.0">
   <Nodes>
     <Node ToolID="2">
       <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
@@ -24,9 +24,10 @@
           <Name>Input3</Name>
           <Abbrev />
           <ShowFieldMap value="False" />
+          <Optional value="False" />
           <TextInput>
             <Configuration>
-              <NumRows value="11" />
+              <NumRows value="10" />
               <Fields>
                 <Field name="x" />
               </Fields>
@@ -65,8 +66,9 @@
             </Configuration>
           </TextInput>
         </Configuration>
-        <Annotation DisplayMode="0">
+        <Annotation DisplayMode="2">
           <Name>Text Input (1)</Name>
+          <AnnotationText>__Input 1:__ This contains data</AnnotationText>
           <DefaultAnnotationText />
           <Left value="True" />
         </Annotation>
@@ -113,6 +115,16 @@ AlteryxGraph2({
           <DefaultAnnotationText />
           <Left value="False" />
         </Annotation>
+        <MetaInfo connection="Output1">
+          <RecordInfo>
+            <Field name="x" source="R-DATA:" type="Int32" />
+          </RecordInfo>
+        </MetaInfo>
+        <MetaInfo connection="Output3">
+          <RecordInfo>
+            <Field name="Graph" size="1073741823" source="Report:R-Graph:" type="V_WString" />
+          </RecordInfo>
+        </MetaInfo>
       </Properties>
       <EngineSettings EngineDll="AlteryxRPluginEngine.dll" EngineDllEntryPoint="AlteryxR" />
     </Node>
@@ -125,8 +137,9 @@ AlteryxGraph2({
           <Name>Data</Name>
           <Abbrev>D</Abbrev>
         </Configuration>
-        <Annotation DisplayMode="0">
+        <Annotation DisplayMode="2">
           <Name />
+          <AnnotationText>__Output D:__ This is data output</AnnotationText>
           <DefaultAnnotationText />
           <Left value="False" />
         </Annotation>
@@ -142,26 +155,14 @@ AlteryxGraph2({
           <Name>Graph</Name>
           <Abbrev>G</Abbrev>
         </Configuration>
-        <Annotation DisplayMode="0">
+        <Annotation DisplayMode="2">
           <Name />
+          <AnnotationText>__Output G:__ This is a graph output</AnnotationText>
           <DefaultAnnotationText />
           <Left value="False" />
         </Annotation>
       </Properties>
       <EngineSettings EngineDll="AlteryxBasePluginsEngine.dll" EngineDllEntryPoint="AlteryxMacroOutput" />
-    </Node>
-    <Node ToolID="11">
-      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
-        <Position x="354" y="78" width="59" height="59" />
-      </GuiSettings>
-      <Properties>
-        <Configuration />
-        <Annotation DisplayMode="0">
-          <Name>debug</Name>
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
     </Node>
     <Node ToolID="12">
       <GuiSettings Plugin="AlteryxGuiToolkit.Questions.Tab.Tab">
@@ -176,22 +177,9 @@ AlteryxGraph2({
         </Annotation>
       </Properties>
     </Node>
-    <Node ToolID="13">
-      <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
-        <Position x="474" y="78" width="59" height="59" />
-      </GuiSettings>
-      <Properties>
-        <Configuration />
-        <Annotation DisplayMode="0">
-          <Name>dropDown</Name>
-          <DefaultAnnotationText />
-          <Left value="False" />
-        </Annotation>
-      </Properties>
-    </Node>
     <Node ToolID="10">
       <GuiSettings Plugin="AlteryxGuiToolkit.ToolContainer.ToolContainer">
-        <Position x="54" y="54" width="277" height="103" />
+        <Position x="54.00001" y="49" width="640" height="108" />
       </GuiSettings>
       <Properties>
         <Configuration>
@@ -209,12 +197,13 @@ AlteryxGraph2({
       <ChildNodes>
         <Node ToolID="7">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.NumericUpDown.NumericUpDown">
-            <Position x="64" y="88" width="59" height="59" />
+            <Position x="63.99998" y="88.00002" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
             <Annotation DisplayMode="0">
               <Name>breaks</Name>
+              <AnnotationText>This is the number of breaks.</AnnotationText>
               <DefaultAnnotationText />
               <Left value="False" />
             </Annotation>
@@ -222,12 +211,41 @@ AlteryxGraph2({
         </Node>
         <Node ToolID="8">
           <GuiSettings Plugin="AlteryxGuiToolkit.Questions.TextBox.QuestionTextBox">
-            <Position x="234" y="83" width="59" height="59" />
+            <Position x="234" y="83.00002" width="59" height="59" />
           </GuiSettings>
           <Properties>
             <Configuration />
             <Annotation DisplayMode="0">
               <Name>color</Name>
+              <AnnotationText>This is the color</AnnotationText>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="11">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.CheckBoxGroup.CheckBoxGroup">
+            <Position x="366" y="78" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>debug</Name>
+              <AnnotationText>This is a debug flag.</AnnotationText>
+              <DefaultAnnotationText />
+              <Left value="False" />
+            </Annotation>
+          </Properties>
+        </Node>
+        <Node ToolID="13">
+          <GuiSettings Plugin="AlteryxGuiToolkit.Questions.DropDownListBox.DropDown">
+            <Position x="534" y="78" width="59" height="59" />
+          </GuiSettings>
+          <Properties>
+            <Configuration />
+            <Annotation DisplayMode="0">
+              <Name>dropDown</Name>
+              <AnnotationText>This is a dropdown.</AnnotationText>
               <DefaultAnnotationText />
               <Left value="False" />
             </Annotation>
@@ -323,6 +341,10 @@ AlteryxGraph2({
       <Company />
       <Copyright />
       <DescriptionLink actual="" displayed="" />
+      <Example>
+        <Description />
+        <File />
+      </Example>
     </MetaInfo>
     <Events>
       <Enabled value="True" />
@@ -338,8 +360,8 @@ AlteryxGraph2({
           <Questions>
             <Question>
               <Type>MacroInput</Type>
-              <Description>Macro Input (3)</Description>
-              <Name>Macro Input (3)</Name>
+              <Description>Text Input (1)</Description>
+              <Name>Text Input (1)</Name>
               <ToolId value="3" />
             </Question>
             <Question>
@@ -367,7 +389,7 @@ AlteryxGraph2({
             </Question>
             <Question>
               <Type>TextBox</Type>
-              <Description>Color</Description>
+              <Description>color</Description>
               <Name>color</Name>
               <ToolId value="8" />
               <Default>steelblue</Default>
@@ -398,7 +420,7 @@ C:Option C
           <Questions>
             <Question>
               <Type>BooleanGroup</Type>
-              <Description>Debug</Description>
+              <Description>debug</Description>
               <Name>debug</Name>
               <ToolId value="11" />
               <Questions />
