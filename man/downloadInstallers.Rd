@@ -6,7 +6,7 @@
 \usage{
 downloadInstallers(buildRepo = "\\\\\\\\DEN-IT-FILE-07\\\\BuildRepo",
   to = "C:/Users/ramnath/Downloads", buildDir = NULL,
-  branch = "Predictive_Dev", type = "Server", rIntaller = "RInstaller")
+  branch = "Predictive_Dev", type = "Server", rInstaller = "RInstaller")
 }
 \arguments{
 \item{buildRepo}{path to build repo.}

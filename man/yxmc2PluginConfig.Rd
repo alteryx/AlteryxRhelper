@@ -2,7 +2,7 @@
 % Please edit documentation in R/pluginconfig.R
 \name{yxmc2PluginConfig}
 \alias{yxmc2PluginConfig}
-\title{Macro to Plugin Config}
+\title{Make plugin configuration xml file from macro}
 \usage{
 yxmc2PluginConfig(yxmcFile, saveToFile = NULL)
 }
@@ -12,6 +12,6 @@ yxmc2PluginConfig(yxmcFile, saveToFile = NULL)
 \item{saveToFile}{file to save config.xml to}
 }
 \description{
-Macro to Plugin Config
+Make plugin configuration xml file from macro
 }
 

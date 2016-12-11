@@ -2,7 +2,7 @@
 % Please edit documentation in R/pluginconfig.R
 \name{makePluginConfig}
 \alias{makePluginConfig}
-\title{Make plugin configuration xml file}
+\title{Helper function to create plugin configuration xml file}
 \usage{
 makePluginConfig(inputs, outputs, pluginName, properties = NULL,
   helpLink = "")
@@ -19,7 +19,7 @@ makePluginConfig(inputs, outputs, pluginName, properties = NULL,
 \item{helpLink}{help link}
 }
 \description{
-Make plugin configuration xml file
+Helper function to create plugin configuration xml file
 }
 \examples{
 x = list(
@@ -34,4 +34,5 @@ x = list(
 )
 do.call(makePluginConfig, x)
 }
+\keyword{internal}
 

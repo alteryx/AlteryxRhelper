@@ -4,11 +4,7 @@
 \alias{installAllPackages2}
 \title{Install all packages}
 \usage{
-
-  installAllPackages2(cranRepo = "https://mran.revolutionanalytics.com/snapshot/2016-01-01/",
-  ayxRepo = "https://alteryx.github.io/drat",
-  buildRepo = "\\\\\\\\DEN-IT-FILE-07\\\\BuildRepo",
-  branch = "Predictive_Development")
+installAllPackages2(branch = "Predictive_Dev", buildDir = NULL)
 }
 \description{
 Install all packages
