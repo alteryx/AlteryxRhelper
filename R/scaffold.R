@@ -6,7 +6,8 @@
 #' @param outDir output directory
 #' @param template template
 #' @param edit open file for editing
-#' @param ... additional arguments
+#' @param ... additional arguments passed on to extractRcode
+#' @family scaffold
 scaffoldWorkflow <- function(name = 'mymacro', outDir  = ".", 
     template =  aTemplate('predictive_template.yxmc'), edit = TRUE, ...){
   if (!file.exists(outDir)){
@@ -31,6 +32,7 @@ scaffoldWorkflow <- function(name = 'mymacro', outDir  = ".",
 #' @export
 #' @param pluginName name of the plugin
 #' @param ... extra arguments to pass on to createPluginFromMacro
+#' @family scaffold
 scaffoldPlugin <- function(pluginName, ...){
   if (!dir.exists(pluginName)){
     #dir.create(pluginName)
@@ -80,6 +82,8 @@ scaffoldPlugin <- function(pluginName, ...){
 #'
 #' @export
 #' @param macro name of the predictive macro
+#' @param ... additional arguments to pass on to createPluginFromMacro
+#' @family scaffold
 scaffoldPluginFromMacro <- function(macro, ...){
   dirs <- dirNames()
   pluginDir <- basename(macro)
