@@ -22,6 +22,16 @@ insertRcode <- function(template, rfile, outFile = template,
   message('Inserted R code from ', rfile, ' into ', outFile)
 }
 
+#' Syntactic sugar for insertRcode to cover the most common usage pattern.
+#' @export
+insertRcode2 <- function(pluginDir = "."){
+  name = tools::file_path_sans_ext(dir(pattern = '.Rproj'))
+  insertRcode(
+    sprintf("Supporting_Macros/%s.yxmc", name),
+    sprintf("Supporting_Macros/%s1.R", name)
+  )
+}
+
 #' Save R code extracted from an Alteryx Macro
 #'
 #' @param template yxmc file to extract code from
@@ -50,63 +60,3 @@ extractRcode <- function(template, outFile = NULL, extractInput = NULL){
     cat(rcode_, file = saveTo[i])
   }))
 }
-
-# runWorkflow = function(yxmd){
-#   alteryx = getOption("alteryx.path")
-#   cwd = getwd()
-#   engine_dir = normalizePath(file.path(alteryx, "bin"))
-#   yxmd = normalizePath(yxmd, mustWork = TRUE)
-#   setwd(engine_dir)
-#   cmd = paste("AlteryxEngineCmd.exe", yxmd)
-#   out = system(cmd, intern = TRUE)
-#   tfiles = paste0(tools::file_path_sans_ext(basename(yxmd)), "_files")
-#   on.exit({
-#     message("Exiting function...")
-#     setwd(cwd)
-#     if (file.exists(tfiles)){
-#       message("Deleting temporary assets...")
-#       unlink(tfiles, recursive = TRUE)
-#     }
-#   })
-#   return(out)
-# }
-
-#' Function to update html from sample
-#'
-#'
-#' @export
-#' @param macro path to macro
-updateHtml = function(macro){
-  rfile = paste0(macro, '.R')
-  mcfile = paste0(macro, '.yxmc')
-  mdfile = paste0(macro, '_sample.yxmd')
-  htmlfile = paste0(macro, '_sample.html')
-  if (isOlder(htmlfile, rfile)){
-    if (isOlder(mcfile, rfile)){
-      message("Updating macro...")
-      insertRcode(mcfile, rfile, mcfile)
-    }
-    message('Running yxmd...')
-    runWorkflow(mdfile)
-  }
-}
-
-#' Run an Alteryx workflow
-#'
-#' @param file parameter to pass on to AlteryxEngineCmd
-#' @export
-runWorkflow = function(file){
-  alteryx = getOption("alteryx.path")
-  cwd = getwd()
-  engine_dir = normalizePath(file.path(alteryx, "bin"))
-  param = normalizePath(file, mustWork = TRUE)
-  setwd(engine_dir)
-  cmd = paste("AlteryxEngineCmd.exe", shQuote(param))
-  out = system(cmd, intern = TRUE)
-  on.exit({
-    message("Exiting function with status ", attr(out, 'status'))
-    setwd(cwd)
-  })
-  return(out)
-}
-

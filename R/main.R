@@ -160,15 +160,6 @@ createYXI <- function(pluginDir = ".", toDir = "."){
 }
 
 #' @export
-insertRcode2 <- function(){
-  name = tools::file_path_sans_ext(dir(pattern = '.Rproj'))
-  insertRcode(
-    sprintf("Supporting_Macros/%s.yxmc", name),
-    sprintf("Supporting_Macros/%s1.R", name)
-  )
-}
-
-#' @export
 updatePlugin <- function(pluginDir = ".", ...){
   with_dir_(pluginDir, {
     insertRcode2()
