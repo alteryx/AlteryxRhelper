@@ -28,40 +28,6 @@ runTests <- function(pluginDir = ".", build_doc = TRUE){
   })
 }
 
-getTests <- function(pluginDir = ".", testDir = 'Tests'){
-  dirs <- dirNames()
-  test_dir <- file.path(pluginDir, dirs$extras, testDir)
-  if (!dir.exists(test_dir)){
-    test_dir <- file.path(pluginDir, 'Supporting_Macros', 'tests')
-  }
-  f <- list.files(test_dir, pattern = '.yxmd', full = TRUE)
-  if (!getOption('ayxhelper.xdf', FALSE) && length(grep("XDF", f) > 0)){
-    message("Ignoring XDF related tests.")
-    f <- f[-grep("XDF", f)]
-  }
-  return(f)
-}
-
-parseResult <- function(result){
-  r2 <- stringr::str_split(tail(result, 1), '\\s+with\\s+')[[1]]
-  status <- ifelse(is.null(attr(result, 'status')), 0, attr(result, 'status'))
-  r3 <- list(
-    status = if(status <= 1) ":smile:" else ":rage:",
-    time = stringr::str_match(r2[1], "^Finished in (.*)")[,2],
-    message = ifelse(is.na(r2[2]), "", r2[2]),
-    log = paste(result, collapse = '\n')
-  )
-}
-
-#' @export
-runWorkflow2 <- function(file){
-  message("Running ", file)
-  r <- runWorkflow(file)
-  results <- parseResult(r)
-  name <- tools::file_path_sans_ext(basename(file))
-  modifyList(list(name = name), results)
-}
-
 #' @export
 runTests2 <- function(pluginDir = ".", build_doc = FALSE, testDir = 'Tests'){
   testFiles <- getTests(pluginDir, testDir)
@@ -78,20 +44,29 @@ runTests2 <- function(pluginDir = ".", build_doc = FALSE, testDir = 'Tests'){
   return(results)
 }
 
-#' Run Workflows in a directory
-#' 
-#' @param wdir directory containing the workflows to run.
-#' @export
-runWorkflows <- function(wdir){
-  f <- list.files(wdir, pattern = '.yxmd', full.names = TRUE)
-  lapply(f, function(x){
-    message("Running workflow ", x)
-    runWorkflow2(x)
-  })
+# Get all test workflows in a plugin folder.
+getTests <- function(pluginDir = ".", testDir = 'Tests'){
+  dirs <- dirNames()
+  test_dir <- file.path(pluginDir, dirs$extras, testDir)
+  if (!dir.exists(test_dir)){
+    test_dir <- file.path(pluginDir, 'Supporting_Macros', 'tests')
+  }
+  f <- list.files(test_dir, pattern = '.yxmd', full = TRUE)
+  if (!getOption('ayxhelper.xdf', FALSE) && length(grep("XDF", f) > 0)){
+    message("Ignoring XDF related tests.")
+    f <- f[-grep("XDF", f)]
+  }
+  return(f)
 }
 
-with_dir_ <- function (new, code) {
-  old <- setwd(dir = new)
-  on.exit(setwd(old))
-  force(code)
+# Parse results obtained from running a test workflow.
+parseResult <- function(result){
+  r2 <- stringr::str_split(tail(result, 1), '\\s+with\\s+')[[1]]
+  status <- ifelse(is.null(attr(result, 'status')), 0, attr(result, 'status'))
+  r3 <- list(
+    status = if(status <= 1) ":smile:" else ":rage:",
+    time = stringr::str_match(r2[1], "^Finished in (.*)")[,2],
+    message = ifelse(is.na(r2[2]), "", r2[2]),
+    log = paste(result, collapse = '\n')
+  )
 }
