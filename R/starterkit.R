@@ -155,10 +155,7 @@ createScreenshotWorkflow <- function(yxmd, output){
   cat(d2, file = output)
 }
 
-#' Make Tutorial
-#' 
-#' 
-#' @export
+# Make Tutorial
 makeTutorial <- function(docx, title = "Tutorial", preview = FALSE, standalone = FALSE){
   require(rvest)
   tf <- tempfile(fileext = '.html')
