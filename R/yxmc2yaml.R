@@ -1,3 +1,23 @@
+#' Extract question constants and their configuration from macro
+#' 
+#' 
+#' @param yxmc path to yxmc file to extract configuration from.
+#' @param asYAML boolean indicating whether output should be converted to yaml.
+#' @export
+#' @examples
+#' yxmc <- system.file("templates", "sample1.yxmc", package = 'AlteryxRhelper')
+#' d <- yxmc2yaml(yxmc)
+yxmc2yaml <- function(yxmc, asYaml = F){
+  xml <- xmlInternalTreeParse(yxmc)
+  r <- xmlRoot(xml)
+  g <- getNodeSet(r, '//Question')
+  l <- lapply(g, xmlToList)
+  m <- Filter(Negate(is.null), lapply(g, renderToYaml))
+  names(m) <- sapply(m, '[[', 'dataName')
+  m <- lapply(m, function(x){x$dataName = NULL; x})
+  if (asYaml) as.yaml(m) else m
+}
+
 toYaml = function(type, g){
   UseMethod('toYaml')
 }
@@ -9,10 +29,6 @@ toYaml.FileBrowse = function(type, g){
     dataName = x$Name,
     type = 'FileBrowse'
   )
-}
-
-bool_map <- function(x){
-  c(True = TRUE, False = FALSE)[[x]]
 }
 
 toYaml.TextBox = function(type, g){
@@ -96,16 +112,6 @@ toYaml.Date <- function(type, g){
   )
 }
 
-toKeyValuePairs <- function(x){
-  y <- strsplit(x, "\n")[[1]]
-  if (grepl(":", y[1])){
-    y <- strsplit(y, ":\\s*")
-    as.list(setNames(sapply(y, '[[', 1), sapply(y, '[[', 2)))
-  } else {
-    as.list(setNames(y, y))
-  }
-}
-
 toYaml.LabelGroup <- function(type, g2){
   x <- xmlToList(g2)
   x1 <- x$Questions
@@ -148,22 +154,6 @@ toYaml.LabelGroup = function(type, g){
 toYaml.ToggleBar = toYaml.LabelGroup
 
 
-renderToggleBar <- function(d){
-  div(class = 'clearfix togglebar', id = paste0('id-', d$group),
-    div(class = 'label', style='float:left;', d$label),
-    div(style = 'float:right;', div(class = 'toggletabs',
-      lapply(names(d$values), function(k){
-        cl = if (d$default == k) {
-          'toggletab is-tab-selected' 
-        } else {
-          'toggletab'
-        }
-        div(class = cl, `data-page` = k, id = paste0('id-', k), d$values[[k]])
-      })                                
-    ))
-  )
-}
-
 renderToYaml <- function(g){
   x = xmlToList(g)
   types = c("FileBrowse", "TextBox", "BooleanGroup", "ListBox", "NumericUpDown", "Date", "LabelGroup", "ToggleBar")
@@ -172,17 +162,4 @@ renderToYaml <- function(g){
   } else {
     NULL
   }
-}
-
-# template <- system.file("templates", "sample1.yxmc", package = 'AlteryxRhelper')
-# d <- yxmc2yaml(template)
-yxmc2yaml <- function(template, asYaml = F){
-  xml <- xmlInternalTreeParse(template)
-  r <- xmlRoot(xml)
-  g <- getNodeSet(r, '//Question')
-  l <- lapply(g, xmlToList)
-  m <- Filter(Negate(is.null), lapply(g, renderToYaml))
-  names(m) <- sapply(m, '[[', 'dataName')
-  m <- lapply(m, function(x){x$dataName = NULL; x})
-  if (asYaml) as.yaml(m) else m
 }
