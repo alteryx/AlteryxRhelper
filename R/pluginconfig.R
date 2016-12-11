@@ -1,48 +1,24 @@
-# Get input/output configuration information from a macro
-getIO <- function(template){
-  xml <- XML::xmlInternalTreeParse(template)
-  r <- XML::xmlRoot(xml)
-  g <- getNodeSet(r, '//Question')
-  l <- lapply(g, XML::xmlToList)
-  getMacroIO <- function(type = 'MacroInput'){
-    toolIds = unlist(Filter(Negate(is.null), sapply(l, function(d){
-      if (d$Type == type) d$ToolId[['value']]
-    })))
-    inputs <- lapply(toolIds, function(i){
-      query = sprintf('//Node[@ToolID="%s"]//Properties//Configuration', i)
-      node = getNodeSet(r, query)
-      XML::xmlToList(node[[1]])[c('Name', 'Abbrev', 'Optional')]
-    })
-    lapply(inputs, function(x){
-      if (is.null(x$Abbrev)){
-        x$Abbrev = ""
-      } else {
-        x$Abbrev = gsub("\n|\\s+", "", x$Abbrev)
-      }
-      return(x)
-    })
-  }
-  help <- getNodeSet(r, '//MacroCustomHelpLink')
-  helpLink = if (length(help) > 0){
-    xmlValue(help[[1]])
+#' Make plugin configuration xml file from macro
+#' 
+#' 
+#' @export
+#' @param yxmcFile path to macro
+#' @param saveToFile file to save config.xml to
+yxmc2PluginConfig <- function(yxmcFile, saveToFile = NULL){
+  x <- getIO(yxmcFile)
+  y <- do.call(makePluginConfig, x)
+  if (!is.null(saveToFile)){
+    saveXML(y, file = saveToFile)
+    return(saveToFile)
   } else {
-    ""
+    return(y)
   }
-  list(
-    inputs = getMacroIO('MacroInput'),
-    outputs = getMacroIO('MacroOutput'),
-    pluginName = tools::file_path_sans_ext(basename(template)),
-    properties = getProperties(r),
-    helpLink = paste0(sub("AlteryxHelp:", "", helpLink), ".htm")
-  )
 }
 
-
-#' Make plugin configuration xml file
+#' Helper function to create plugin configuration xml file
 #' 
 #' 
 #' @import XML
-#' @export
 #' @param inputs inputs
 #' @param outputs outputs
 #' @param pluginName pluginName
@@ -110,23 +86,6 @@ makePluginConfig <- function(inputs, outputs, pluginName, properties = NULL,
   d$value() 
 }
 
-#' Macro to Plugin Config
-#' 
-#' 
-#' @export
-#' @param yxmcFile path to macro
-#' @param saveToFile file to save config.xml to
-yxmc2PluginConfig <- function(yxmcFile, saveToFile = NULL){
-  x <- getIO(yxmcFile)
-  y <- do.call(makePluginConfig, x)
-  if (!is.null(saveToFile)){
-    saveXML(y, file = saveToFile)
-    return(saveToFile)
-  } else {
-    return(y)
-  }
-}
-
 getProperties <- function(r){
   props <- getNodeSet(r, "//Properties//MetaInfo[not(@*)]")[[1]]
   nms <- xmlSApply(props, xmlName)
@@ -134,8 +93,46 @@ getProperties <- function(r){
   setNames(as.list(vals), nms)
 }
 
+# Get input/output configuration information from a macro
+getIO <- function(template){
+  xml <- XML::xmlInternalTreeParse(template)
+  r <- XML::xmlRoot(xml)
+  g <- getNodeSet(r, '//Question')
+  l <- lapply(g, XML::xmlToList)
+  getMacroIO <- function(type = 'MacroInput'){
+    toolIds = unlist(Filter(Negate(is.null), sapply(l, function(d){
+      if (d$Type == type) d$ToolId[['value']]
+    })))
+    inputs <- lapply(toolIds, function(i){
+      query = sprintf('//Node[@ToolID="%s"]//Properties//Configuration', i)
+      node = getNodeSet(r, query)
+      XML::xmlToList(node[[1]])[c('Name', 'Abbrev', 'Optional')]
+    })
+    lapply(inputs, function(x){
+      if (is.null(x$Abbrev)){
+        x$Abbrev = ""
+      } else {
+        x$Abbrev = gsub("\n|\\s+", "", x$Abbrev)
+      }
+      return(x)
+    })
+  }
+  help <- getNodeSet(r, '//MacroCustomHelpLink')
+  helpLink = if (length(help) > 0){
+    xmlValue(help[[1]])
+  } else {
+    ""
+  }
+  list(
+    inputs = getMacroIO('MacroInput'),
+    outputs = getMacroIO('MacroOutput'),
+    pluginName = tools::file_path_sans_ext(basename(template)),
+    properties = getProperties(r),
+    helpLink = paste0(sub("AlteryxHelp:", "", helpLink), ".htm")
+  )
+}
 
-#' @export
+# Make plugin configuration xml file from macro
 makeConfigFile <- function(yxmc){
   doc <- xmlTreeParse(yxmc)
   root <- xmlRoot(doc)
