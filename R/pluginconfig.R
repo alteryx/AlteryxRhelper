@@ -36,6 +36,7 @@ yxmc2PluginConfig <- function(yxmcFile, saveToFile = NULL){
 #'   pluginName = 'Foo'
 #' )
 #' do.call(makePluginConfig, x)
+#' @keywords internal
 makePluginConfig <- function(inputs, outputs, pluginName, properties = NULL, 
     helpLink = ""){
   dirs <- dirNames()
