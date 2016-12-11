@@ -1,3 +1,22 @@
+#' Update plugin
+#' 
+#' This function does three things
+#' \enumerate{
+#'   \item Copies R code to the macro
+#'   \item Runs \code{\link{createPluginFromMacro}} to update config.XML and gui.html
+#'   \item Installs plugin to the htmlplugins folder in Alteryx.
+#' }
+#' @param pluginDir plugin directory
+#' @param ... additional arguments to pass to createPluginFromMacro
+#' @export
+updatePlugin <- function(pluginDir = ".", ...){
+  with_dir_(pluginDir, {
+    insertRcode2()
+    createPluginFromMacro(pluginDir = ".", ...)
+    copyHtmlPlugin()
+  })
+}
+
 #' Create Plugin from Macro
 #' 
 #' 
@@ -157,13 +176,4 @@ createYXI <- function(pluginDir = ".", toDir = "."){
   tf <- file.path(tempdir(), 'config.xml')
   saveXML(makeConfigFile(file.path(pluginName, pluginFiles$macro)), file = tf)
   zip(yxi, tf, flags = '-j')
-}
-
-#' @export
-updatePlugin <- function(pluginDir = ".", ...){
-  with_dir_(pluginDir, {
-    insertRcode2()
-    createPluginFromMacro(pluginDir = ".", ...)
-    copyHtmlPlugin()
-  })
 }
