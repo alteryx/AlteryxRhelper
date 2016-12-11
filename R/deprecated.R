@@ -185,3 +185,70 @@ updateSvnFolder <- function(pluginDir = ".", alteryxDir = "C://Desktop",
     )
   }
 }
+
+# Function to update html from sample
+#
+#
+# @export
+# @param macro path to macro
+updateHtml = function(macro){
+  rfile = paste0(macro, '.R')
+  mcfile = paste0(macro, '.yxmc')
+  mdfile = paste0(macro, '_sample.yxmd')
+  htmlfile = paste0(macro, '_sample.html')
+  if (isOlder(htmlfile, rfile)){
+    if (isOlder(mcfile, rfile)){
+      message("Updating macro...")
+      insertRcode(mcfile, rfile, mcfile)
+    }
+    message('Running yxmd...')
+    runWorkflow(mdfile)
+  }
+}
+
+# Build Plugin
+# 
+# 
+# @export
+# @param pluginDir directory containing the plugin
+# @param build whether or not to run npm build
+buildPlugin2 <- function(pluginDir = ".", build = FALSE){
+  yxmc <- list.files(
+    file.path(pluginDir, "Supporting_Macros"), pattern = ".yxmc$", 
+    full.names = T
+  )
+  pluginName = tools::file_path_sans_ext(basename(yxmc))
+  guiFile <- file.path(pluginDir, sprintf("%sGui.html", pluginName))
+  configFile <- file.path(pluginDir, sprintf("%sConfig.xml", pluginName))
+  rFile <- list.files(
+    file.path(pluginDir, "Supporting_Macros"), pattern = ".R$", full.names = T
+  )
+  updated <- FALSE
+  if (dir.exists('Gui')){
+    to_update <- isOlder2(guiFile, 'Gui/layout.html', 'Gui/overrides.yaml', yxmc)
+  } else {
+    to_update <-  isOlder2(guiFile, yxmc)
+  }
+  if (to_update){
+    updated <- TRUE
+    message("Updating Gui.html and Config.xml")
+    createPluginFromMacro(pluginDir)
+  }
+  if (isOlder2(yxmc, rFile)){
+    updated <- TRUE
+    insertRcode(yxmc, rFile)
+  }
+  if (build){
+    l <- as.list(append('app.min.js', list.files("App/src", recursive = TRUE)))
+    if (do.call('isOlder2', l)){
+      withr::with_dir("App", system('npm run build-umd'))
+      file.copy('App/dist/src.js', 'app.min.js', overwrite = TRUE)
+      updated = TRUE
+    }
+  }
+  if (updated == FALSE){
+    message("Nothing to update...")
+  } else {
+    copyHtmlPlugin(pluginDir)
+  }
+}
