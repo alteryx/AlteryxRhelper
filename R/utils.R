@@ -221,3 +221,33 @@ toKeyValuePairs <- function(x){
   }
 }
 
+getPluginFiles <- function(pluginDir = "."){
+  dirs <- dirNames()
+  pluginName = basename(normalizePath(pluginDir, mustWork = TRUE))
+  files <- list.files(include.dirs = FALSE)
+  files <- files[!grepl("^(Extras|Supporting_Macros|App|Gui)", files)]
+  files = files[!grepl("^.*\\.Rproj", files)]
+  supporting_macro <- file.path(
+    dirs$macros, 
+    paste0(pluginName, ".yxmc")
+  )
+  helper_macros <- list.files(
+    file.path(dirs$macros, 'Supporting_Macros'), 
+    pattern = "yxmc",
+    full.names = TRUE
+  )
+  list(htmlplugin = files, macro = supporting_macro, helpers = helper_macros)
+}
+
+getAyxDirs <- function(alteryxDir = getOption('alteryx.path')){
+  if (!dir.exists(alteryxDir)){
+    stop("The directory to copy the plugin to ", alteryxDir, " does not exist")
+  }
+  ayxPluginDir <- file.path(alteryxDir, 'bin', 'HtmlPlugins')
+  ayxMacroDir <- file.path(alteryxDir, 'bin', 
+    'RuntimeData', 'Macros', 'Supporting_Macros'
+  )
+  list(htmlplugin = ayxPluginDir, macro = ayxMacroDir)
+}
+
+
