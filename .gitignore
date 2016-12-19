@@ -4,20 +4,23 @@
 
 # Example code in package build process
 *-Ex.R
-
 # RStudio files
 .Rproj.user/
-
 # produced vignettes
 vignettes/*.html
 vignettes/*.pdf
 .Rproj.user
-
 test/
-
 # ignore rmarkdown templates
 inst/rmarkdown
-
 # ignore backup files
 *.bak
 .DS_Store
+inst/doc
+inst/examples
+inst/rstudio
+inst/starterkit
+inst/configTemplate.R
+vignettes
+docs
+_pkgdown.yaml
