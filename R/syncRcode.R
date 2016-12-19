@@ -26,10 +26,13 @@ insertRcode <- function(template, rfile, outFile = template,
 #' @export
 insertRcode2 <- function(pluginDir = "."){
   name = tools::file_path_sans_ext(dir(pattern = '.Rproj'))
-  insertRcode(
-    sprintf("Supporting_Macros/%s.yxmc", name),
-    sprintf("Supporting_Macros/%s1.R", name)
-  )
+  rFiles = list.files('Supporting_Macros', pattern = '\\.R$')
+  for (rFile in rFiles){
+    insertRcode(
+      sprintf("Supporting_Macros/%s.yxmc", name),
+      sprintf("Supporting_Macros/%s", rFile)
+    )
+  }
 }
 
 #' Save R code extracted from an Alteryx Macro
