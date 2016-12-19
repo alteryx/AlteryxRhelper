@@ -66,8 +66,23 @@ extractQuestionConstants <- function(macro, input = 'config'){
   g <- getNodeSet(r, '//Question')
   l <- lapply(g, xmlToList)
   l <- l[sort(sapply(l, function(x){x$Name}), index.return = TRUE)$ix]
-  x = paste(Filter(Negate(is.null), lapply(l, makeCall)), collapse = ',\n')
+  mc <- extractMacroConstants(r)
+  x = paste(Filter(Negate(is.null), lapply(l, makeCall, mc = mc)), collapse = ',\n')
   paste0('## DO NOT MODIFY: Auto Inserted by AlteryxRhelper ----\nlibrary(AlteryxPredictive)\n', input, ' <- list(\n', x, "\n)", "\noptions(alteryx.wd = '%Engine.WorkflowDirectory%')\noptions(alteryx.debug = ", input, "$debug)\n##----")
+}
+
+#' Extract macro constants. 
+#' 
+#' These values if present should override the defaults set in the macro.
+#' @param yxmc path to yxmc file
+extractMacroConstants <- function(root, yxmc = NULL){
+  if (!is.null(yxmc)){
+    doc <- xmlParse(yxmc)
+    root <- xmlRoot(doc)
+  }
+  constants <- getNodeSet(root, '//Properties//Constants//Constant')
+  k <- lapply(constants, xmlToList)
+  setNames(lapply(k, '[[', 'Value'), sapply(k, '[', 'Name'))
 }
 
 # Make a question constant
@@ -76,7 +91,7 @@ makeQ <- function(nm){
 }
 
 # Make a string
-makeCall <- function(x){
+makeCall <- function(x, mc){
   f = c(
     NumericUpDown = "numericInput",
     RadioGroup = "radioInput",
@@ -92,10 +107,11 @@ makeCall <- function(x){
     }
   }
   x1 = makeQ(x$Name)
-  default = x$Default
-  if (f1 != 'listInput' && !is.null(default <- x$Default)){
+  default <- if (!is.null(mc[[x$Name]])) mc[[x$Name]] else unname(x$Default)
+  if (f1 != 'listInput' && !is.null(default)){
     f2 <- getFromNamespace(f1, 'AlteryxRhelper')
-    default <- f2(unname(x$Default))
+    # print(paste(x$Name, ':', mc[[x$Name]]))
+    default <- f2(default)
     if (f1 %in% c('textInput', 'dropdownInput')) default = paste0("'", default, "'")
     call_ = paste0(f1, '(', x1, " , ", default, ')')
   } else {
