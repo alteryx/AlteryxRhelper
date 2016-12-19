@@ -1,9 +1,8 @@
-#' Check if the execution environment is Alteryx.
-#' 
-#' Determine if code is being executed inside an Alteryx R Tool. It utilizes the
-#' presence of certain global variables like \code{AlteryxDataOutput} to detect
-#' if the execution environment is Alteryx or not.
-#' @export
+# Check if the execution environment is Alteryx.
+# 
+# Determine if code is being executed inside an Alteryx R Tool. It utilizes the
+# presence of certain global variables like \code{AlteryxDataOutput} to detect
+# if the execution environment is Alteryx or not.
 inAlteryx <- function(){
   exists("AlteryxDataOutput", .GlobalEnv)
 }
@@ -16,7 +15,7 @@ inAlteryx <- function(){
 #' @export
 #' @param ... additional arguments to pass on to dir
 listPredictiveMacros <- function(...){
-  dir(getPathToPredictiveMacros(), ...)
+  dir(getPathToPredictiveMacros(), pattern = '\\.yxmc$', ...)
 }
 
 getPathToPredictiveMacros <- function(){
