@@ -4,7 +4,7 @@
 \alias{writeGuiHtmlFromLayout}
 \title{Write Gui HTML for plugin based on a layout}
 \usage{
-writeGuiHtmlFromLayout(pluginDir, htmlFile = NULL, overrides = NULL)
+writeGuiHtmlFromLayout(pluginDir = ".", htmlFile = NULL, overrides = NULL)
 }
 \description{
 Write Gui HTML for plugin based on a layout

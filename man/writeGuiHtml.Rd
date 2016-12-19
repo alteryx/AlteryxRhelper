@@ -4,7 +4,7 @@
 \alias{writeGuiHtml}
 \title{Write Gui HTML for plugin}
 \usage{
-writeGuiHtml(pluginDir, htmlFile = NULL, overrides = NULL)
+writeGuiHtml(pluginDir = ".", htmlFile = NULL, overrides = NULL)
 }
 \description{
 @param pluginDir directory containing the plugin.
