@@ -1,9 +1,11 @@
 Package: AlteryxRhelper
 Type: Package
 Title: Helper functions for Alteryx
-Version: 0.5.2
+Version: 0.5.3
 Date: 2015-09-09
-Author: Ramnath Vaidyanathan
+Authors@R: c(
+    person("Ramnath", "Vaidyanathan", role = c("aut", "cre"), email = "ramnath@alteryx.com")
+  )
 Maintainer: Ramnath Vaidyanathan <ramnath@alteryx.com>
 Description: Helper functions for Alteryx.
 License: MIT + file LICENSE
@@ -22,5 +24,7 @@ Suggests:
   rmarkdown,
   whisker,
   withr,
-  devtools
+  devtools,
+    knitr
 RoxygenNote: 5.0.1
+VignetteBuilder: knitr
