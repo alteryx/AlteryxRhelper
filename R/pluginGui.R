@@ -4,7 +4,7 @@
 #'  @param htmlFile html file to write the Gui to
 #'  @param overrides a list of overrides for widgets 
 #' @export
-writeGuiHtml <- function(pluginDir, htmlFile = NULL, overrides = NULL){
+writeGuiHtml <- function(pluginDir = '.', htmlFile = NULL, overrides = NULL){
   dirs <- dirNames()
   pluginDir <- normalizePath(pluginDir)
   pluginName <- basename(pluginDir)
@@ -46,7 +46,7 @@ writeGuiHtml <- function(pluginDir, htmlFile = NULL, overrides = NULL){
 #' 
 #' @inheritParams writeGuiHtml
 #' @export
-writeGuiHtmlFromLayout <- function(pluginDir, htmlFile = NULL, overrides = NULL){
+writeGuiHtmlFromLayout <- function(pluginDir = '.', htmlFile = NULL, overrides = NULL){
   dirs <- dirNames()
   pluginDir <- normalizePath(pluginDir)
   pluginName <- basename(pluginDir)
