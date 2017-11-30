@@ -1,3 +1,6 @@
+This package is no longer actively maintained. Please see https://github.com/alteryx/jeeves for an enhanced version.
+
+
 # AlteryxRhelper
 
 This package provides functions that allows Alteryx users to write, test and manage R code in their workflows, outside of Alteryx, in an IDE like RStudio. 
