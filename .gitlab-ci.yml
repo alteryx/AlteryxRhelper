@@ -1,0 +1,18 @@
+image: r-base:latest
+
+test:
+    script:
+      - apt-get update -qq
+      - apt-get install -y --no-install-recommends libcurl4-openssl-dev libssh2-1-dev libssl-dev git
+      - apt-get install -y --no-install-recommends qpdf pandoc pandoc-citeproc
+      - export _R_CHECK_CRAN_INCOMING_=FALSE
+      - export _R_CHECK_FORCE_SUGGESTS_=TRUE
+      - apt-get install -y libssl-dev
+      - apt-get install -y --no-install-recommends libxml2-dev
+      - apt-get update
+      - apt-get upgrade -y
+      - R -e 'install.packages(c("devtools", "roxygen2"), dependencies = TRUE)'
+      - R -e 'library(devtools)'
+      - R -e 'library(roxygen2)'
+      - R -e 'devtools::test()'
+      - R -e 'devtools::check()'
